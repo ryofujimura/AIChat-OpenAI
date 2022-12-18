@@ -48,6 +48,8 @@ struct ContentView: View {
     @State var text = ""
     @State var image: UIImage?
     
+    @State private var bgColor = Color.white
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -57,7 +59,7 @@ struct ContentView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .scaledToFit()
-                        .frame(width: 1284, height: 2778)
+                    //                        .frame(width: 1284, height: 1284)
                 }
                 else {
                     Text("Here you go.")
@@ -65,6 +67,8 @@ struct ContentView: View {
                 Spacer()
                 TextField("Type prompt here...", text: $text)
                     .padding()
+                ColorPicker("Set the background color", selection: $bgColor)
+                
                 Button("Go"){
                     if !text.trimmingCharacters(in: .whitespaces).isEmpty {
                         Task {
@@ -77,11 +81,13 @@ struct ContentView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(bgColor)
 //            .navigationTitle("Dare no image")
             .onAppear{
                 viewModel.setup()
             }
-            .padding()
+//            .padding()
         }
     }
 }
