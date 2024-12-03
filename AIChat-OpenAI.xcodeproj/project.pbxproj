@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F94C8D44294C2414002143C7 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = F94C8D43294C2414002143C7 /* OpenAIKit */; };
+		AF2815DA2C13774A00B96105 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF2815D92C13774A00B96105 /* OpenAIKit */; };
+		AF9819252CFFD02300AED9B9 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9819242CFFD02300AED9B9 /* config.swift */; };
 		F9F2B0FA294C22D800B7097C /* AIChat_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F2B0F9294C22D800B7097C /* AIChat_OpenAIApp.swift */; };
 		F9F2B0FC294C22D800B7097C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F2B0FB294C22D800B7097C /* ContentView.swift */; };
 		F9F2B0FE294C22D900B7097C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9F2B0FD294C22D900B7097C /* Assets.xcassets */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF2815D82C13772400B96105 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AF9819242CFFD02300AED9B9 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 		F9F2B0F6294C22D800B7097C /* AIChat-OpenAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIChat-OpenAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F2B0F9294C22D800B7097C /* AIChat_OpenAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChat_OpenAIApp.swift; sourceTree = "<group>"; };
 		F9F2B0FB294C22D800B7097C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F94C8D44294C2414002143C7 /* OpenAIKit in Frameworks */,
+				AF2815DA2C13774A00B96105 /* OpenAIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +57,8 @@
 		F9F2B0F8294C22D800B7097C /* AIChat-OpenAI */ = {
 			isa = PBXGroup;
 			children = (
+				AF9819242CFFD02300AED9B9 /* config.swift */,
+				AF2815D82C13772400B96105 /* Info.plist */,
 				F9F2B0F9294C22D800B7097C /* AIChat_OpenAIApp.swift */,
 				F9F2B0FB294C22D800B7097C /* ContentView.swift */,
 				F9F2B0FD294C22D900B7097C /* Assets.xcassets */,
@@ -88,7 +93,7 @@
 			);
 			name = "AIChat-OpenAI";
 			packageProductDependencies = (
-				F94C8D43294C2414002143C7 /* OpenAIKit */,
+				AF2815D92C13774A00B96105 /* OpenAIKit */,
 			);
 			productName = "AIChat-OpenAI";
 			productReference = F9F2B0F6294C22D800B7097C /* AIChat-OpenAI.app */;
@@ -147,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF9819252CFFD02300AED9B9 /* config.swift in Sources */,
 				F9F2B0FC294C22D800B7097C /* ContentView.swift in Sources */,
 				F9F2B0FA294C22D800B7097C /* AIChat_OpenAIApp.swift in Sources */,
 			);
@@ -276,6 +282,7 @@
 				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AIChat-OpenAI/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -313,6 +320,7 @@
 				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AIChat-OpenAI/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -373,9 +381,8 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F94C8D43294C2414002143C7 /* OpenAIKit */ = {
+		AF2815D92C13774A00B96105 /* OpenAIKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F94C8D42294C2414002143C7 /* XCRemoteSwiftPackageReference "OpenAIKit" */;
 			productName = OpenAIKit;
 		};
 /* End XCSwiftPackageProductDependency section */
