@@ -59,9 +59,8 @@
 		AF8058092CFFDADC00FF6FFE /* With-OpenAI */ = {
 			isa = PBXGroup;
 			children = (
-				AFE1E7392CFFDBCE0081B66E /* Model */,
 				AFE1E7382CFFDBC90081B66E /* View */,
-				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
+				AFE1E7392CFFDBCE0081B66E /* Model */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
 			path = "With-OpenAI";
@@ -70,6 +69,7 @@
 		AF8058102CFFDADD00FF6FFE /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
