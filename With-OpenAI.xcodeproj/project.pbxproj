@@ -11,6 +11,10 @@
 		AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580C2CFFDADC00FF6FFE /* ContentView.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
+		AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73A2CFFDBE90081B66E /* ImageView.swift */; };
+		AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73C2CFFDC190081B66E /* ImageModel.swift */; };
+		AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFE1E73F2CFFDC730081B66E /* OpenAIKit */; };
+		AFE1E7422CFFDC920081B66E /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7412CFFDC920081B66E /* config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,9 @@
 		AF80580C2CFFDADC00FF6FFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AFE1E73A2CFFDBE90081B66E /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		AFE1E73C2CFFDC190081B66E /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		AFE1E7412CFFDC920081B66E /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +59,8 @@
 		AF8058092CFFDADC00FF6FFE /* With-OpenAI */ = {
 			isa = PBXGroup;
 			children = (
-				AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */,
-				AF80580C2CFFDADC00FF6FFE /* ContentView.swift */,
+				AFE1E7392CFFDBCE0081B66E /* Model */,
+				AFE1E7382CFFDBC90081B66E /* View */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
@@ -65,6 +73,25 @@
 				AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AFE1E7382CFFDBC90081B66E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */,
+				AF80580C2CFFDADC00FF6FFE /* ContentView.swift */,
+				AFE1E73A2CFFDBE90081B66E /* ImageView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		AFE1E7392CFFDBCE0081B66E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AFE1E73C2CFFDC190081B66E /* ImageModel.swift */,
+				AFE1E7412CFFDC920081B66E /* config.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +110,9 @@
 			dependencies = (
 			);
 			name = "With-OpenAI";
+			packageProductDependencies = (
+				AFE1E73F2CFFDC730081B66E /* OpenAIKit */,
+			);
 			productName = "With-OpenAI";
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +141,9 @@
 				Base,
 			);
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
+			packageReferences = (
+				AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */,
+			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +170,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
 				AF80580B2CFFDADC00FF6FFE /* With_OpenAIApp.swift in Sources */,
+				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
+				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +380,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OpenDive/OpenAIKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AFE1E73F2CFFDC730081B66E /* OpenAIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */;
+			productName = OpenAIKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF8057FF2CFFDADC00FF6FFE /* Project object */;
 }
