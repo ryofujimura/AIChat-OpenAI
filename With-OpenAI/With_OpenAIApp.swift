@@ -1,14 +1,14 @@
 //
-//  AIChat_OpenAIApp.swift
-//  AIChat-OpenAI
+//  With_OpenAIApp.swift
+//  With-OpenAI
 //
-//  Created by ryofuji on 12/15/22.
+//  Created by ryo fujimura on 2024/12/3.
 //
 
 import SwiftUI
 
 @main
-struct AIChat_OpenAIApp: App {
+struct With_OpenAIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
