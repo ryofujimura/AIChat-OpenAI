@@ -21,30 +21,25 @@ struct HeartWarmingChatView: View {
 //            }
 //            .padding(20)
 
-            if viewModel.isCompleting {
-                VStack {
-                    if let responseText = viewModel.responseText {
-                        Text("Assistant: \(responseText)")
-                    } else {
-                        Text("Assistant: ...")
-                    }
+            VStack {
+                if let responseText = viewModel.responseText {
+                    Text("\(responseText)")
+                } else {
+                    Text("...")
                 }
-                .padding()
-            } else {
-                VStack {
-                    Button {
-                        viewModel.generateCompletion()
-                    } label: {
-                        Text("Generate Completion")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(width: 270, height: 50)
-                            .background(Color.blue)
-                            .clipShape(Capsule())
-                            .padding(.top, 8)
-                    }
+                Button {
+                    viewModel.generateCompletion()
+                } label: {
+                    Text("Generate Completion")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(width: 270, height: 50)
+                        .background(Color.blue)
+                        .clipShape(Capsule())
+                        .padding(.top, 8)
                 }
             }
+            .padding()
 
             Spacer()
         }
