@@ -15,6 +15,10 @@
 		AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73C2CFFDC190081B66E /* ImageModel.swift */; };
 		AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFE1E73F2CFFDC730081B66E /* OpenAIKit */; };
 		AFE1E7422CFFDC920081B66E /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7412CFFDC920081B66E /* config.swift */; };
+		AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */; };
+		AFE1E7462CFFE2C20081B66E /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7452CFFE2C20081B66E /* NotificationModel.swift */; };
+		AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */; };
+		AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		AFE1E73A2CFFDBE90081B66E /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AFE1E73C2CFFDC190081B66E /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		AFE1E7412CFFDC920081B66E /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		AFE1E7452CFFE2C20081B66E /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleChatModel.swift; sourceTree = "<group>"; };
+		AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarmingChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,8 @@
 				AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */,
 				AF80580C2CFFDADC00FF6FFE /* ContentView.swift */,
 				AFE1E73A2CFFDBE90081B66E /* ImageView.swift */,
+				AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */,
+				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -88,8 +98,10 @@
 		AFE1E7392CFFDBCE0081B66E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AFE1E73C2CFFDC190081B66E /* ImageModel.swift */,
 				AFE1E7412CFFDC920081B66E /* config.swift */,
+				AFE1E73C2CFFDC190081B66E /* ImageModel.swift */,
+				AFE1E7452CFFE2C20081B66E /* NotificationModel.swift */,
+				AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -170,11 +182,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFE1E7462CFFE2C20081B66E /* NotificationModel.swift in Sources */,
+				AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */,
 				AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
 				AF80580B2CFFDADC00FF6FFE /* With_OpenAIApp.swift in Sources */,
 				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
 				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
+				AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */,
+				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
