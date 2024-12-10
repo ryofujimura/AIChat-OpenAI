@@ -2,5 +2,5 @@
 AIChat-OpenAI/config.swift
 With-OpenAI/config.swift
 .DS_Store
-xcuserdata
-xcshareddata
+.xcuserdata
+.xcshareddata
