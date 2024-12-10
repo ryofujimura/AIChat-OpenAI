@@ -1,4 +1,3 @@
-//
 //  ImageView.swift
 //  With-OpenAI
 //

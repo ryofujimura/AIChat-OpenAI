@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF80580B2CFFDADC00FF6FFE /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */; };
+		AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */; };
 		AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580C2CFFDADC00FF6FFE /* ContentView.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
@@ -79,16 +79,8 @@
 				AFE1E74D2D002C120081B66E /* With-OpenAI.entitlements */,
 				AFE1E7382CFFDBC90081B66E /* View */,
 				AFE1E7392CFFDBCE0081B66E /* Model */,
-				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
 			path = "With-OpenAI";
-			sourceTree = "<group>";
-		};
-		AF8058102CFFDADD00FF6FFE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		AFE1E7382CFFDBC90081B66E /* View */ = {
@@ -195,10 +187,10 @@
 				AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */,
 				AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
-				AF80580B2CFFDADC00FF6FFE /* With_OpenAIApp.swift in Sources */,
 				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
 				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
 				AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */,
+				AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */,
 				AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */,
 				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
 			);
@@ -336,7 +328,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"With-OpenAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -353,7 +345,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -377,7 +369,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"With-OpenAI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -394,7 +386,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
