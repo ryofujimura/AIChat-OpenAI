@@ -13,6 +13,15 @@
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
 		AFD8C9B72D08F51900D1EB5E /* HeartWarningGroqModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */; };
 		AFD8C9B92D08F54800D1EB5E /* HeartWarningGroqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */; };
+		AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */ = {isa = PBXBuildFile; productRef = AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */; };
+		AFD8C9BE2D08FC6300D1EB5E /* ollamaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */; };
+		AFD8C9C02D08FD0900D1EB5E /* ollamaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */; };
+		AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */; };
+		AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */; };
+		AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */; };
+		AFD8C9CE2D09059A00D1EB5E /* InputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */; };
+		AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */; };
+		AFD8C9D62D09074300D1EB5E /* LibLlama.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D52D09074300D1EB5E /* LibLlama.swift */; };
 		AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73A2CFFDBE90081B66E /* ImageView.swift */; };
 		AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73C2CFFDC190081B66E /* ImageModel.swift */; };
 		AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFE1E73F2CFFDC730081B66E /* OpenAIKit */; };
@@ -34,6 +43,14 @@
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarningGroqModel.swift; sourceTree = "<group>"; };
 		AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarningGroqView.swift; sourceTree = "<group>"; };
+		AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollamaModel.swift; sourceTree = "<group>"; };
+		AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollamaView.swift; sourceTree = "<group>"; };
+		AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
+		AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStateView.swift; sourceTree = "<group>"; };
+		AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
+		AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputButton.swift; sourceTree = "<group>"; };
+		AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCustomButton.swift; sourceTree = "<group>"; };
+		AFD8C9D52D09074300D1EB5E /* LibLlama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibLlama.swift; sourceTree = "<group>"; };
 		AFE1E73A2CFFDBE90081B66E /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AFE1E73C2CFFDC190081B66E /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		AFE1E7412CFFDC920081B66E /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
@@ -51,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */,
+				AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +114,11 @@
 				AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */,
 				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
 				AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */,
+				AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */,
+				AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */,
+				AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */,
+				AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */,
+				AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -109,6 +132,9 @@
 				AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */,
 				AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */,
 				AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */,
+				AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */,
+				AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */,
+				AFD8C9D52D09074300D1EB5E /* LibLlama.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -131,6 +157,7 @@
 			name = "With-OpenAI";
 			packageProductDependencies = (
 				AFE1E73F2CFFDC730081B66E /* OpenAIKit */,
+				AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */,
 			);
 			productName = "With-OpenAI";
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
@@ -162,6 +189,7 @@
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
 			packageReferences = (
 				AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */,
+				AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */,
 			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
@@ -195,12 +223,20 @@
 				AFD8C9B92D08F54800D1EB5E /* HeartWarningGroqView.swift in Sources */,
 				AFD8C9B72D08F51900D1EB5E /* HeartWarningGroqModel.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
+				AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */,
+				AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */,
+				AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */,
+				AFD8C9C02D08FD0900D1EB5E /* ollamaView.swift in Sources */,
 				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
+				AFD8C9BE2D08FC6300D1EB5E /* ollamaModel.swift in Sources */,
+				AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */,
 				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
 				AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */,
 				AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */,
 				AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */,
+				AFD8C9CE2D09059A00D1EB5E /* InputButton.swift in Sources */,
 				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
+				AFD8C9D62D09074300D1EB5E /* LibLlama.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +389,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -394,7 +430,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -432,6 +468,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lzell/AIProxySwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.42.1;
+			};
+		};
 		AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OpenDive/OpenAIKit.git";
@@ -443,6 +487,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */;
+			productName = AIProxy;
+		};
 		AFE1E73F2CFFDC730081B66E /* OpenAIKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */;
