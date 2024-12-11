@@ -11,17 +11,14 @@
 		AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580C2CFFDADC00FF6FFE /* ContentView.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
-		AFD8C9B72D08F51900D1EB5E /* HeartWarningGroqModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */; };
-		AFD8C9B92D08F54800D1EB5E /* HeartWarningGroqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */; };
 		AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */ = {isa = PBXBuildFile; productRef = AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */; };
-		AFD8C9BE2D08FC6300D1EB5E /* ollamaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */; };
-		AFD8C9C02D08FD0900D1EB5E /* ollamaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */; };
 		AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */; };
 		AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */; };
 		AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */; };
 		AFD8C9CE2D09059A00D1EB5E /* InputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */; };
 		AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */; };
 		AFD8C9D62D09074300D1EB5E /* LibLlama.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D52D09074300D1EB5E /* LibLlama.swift */; };
+		AFD8C9D92D090AC200D1EB5E /* llama in Frameworks */ = {isa = PBXBuildFile; productRef = AFD8C9D82D090AC200D1EB5E /* llama */; };
 		AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73A2CFFDBE90081B66E /* ImageView.swift */; };
 		AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73C2CFFDC190081B66E /* ImageModel.swift */; };
 		AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFE1E73F2CFFDC730081B66E /* OpenAIKit */; };
@@ -41,10 +38,6 @@
 		AF80580C2CFFDADC00FF6FFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarningGroqModel.swift; sourceTree = "<group>"; };
-		AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarningGroqView.swift; sourceTree = "<group>"; };
-		AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollamaModel.swift; sourceTree = "<group>"; };
-		AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollamaView.swift; sourceTree = "<group>"; };
 		AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
 		AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStateView.swift; sourceTree = "<group>"; };
 		AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
@@ -67,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFD8C9D92D090AC200D1EB5E /* llama in Frameworks */,
 				AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */,
 				AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */,
 			);
@@ -113,8 +107,6 @@
 				AFE1E73A2CFFDBE90081B66E /* ImageView.swift */,
 				AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */,
 				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
-				AFD8C9B82D08F54800D1EB5E /* HeartWarningGroqView.swift */,
-				AFD8C9BF2D08FD0900D1EB5E /* ollamaView.swift */,
 				AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */,
 				AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */,
 				AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */,
@@ -131,8 +123,6 @@
 				AFE1E7452CFFE2C20081B66E /* NotificationModel.swift */,
 				AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */,
 				AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */,
-				AFD8C9B62D08F51900D1EB5E /* HeartWarningGroqModel.swift */,
-				AFD8C9BD2D08FC6300D1EB5E /* ollamaModel.swift */,
 				AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */,
 				AFD8C9D52D09074300D1EB5E /* LibLlama.swift */,
 			);
@@ -158,6 +148,7 @@
 			packageProductDependencies = (
 				AFE1E73F2CFFDC730081B66E /* OpenAIKit */,
 				AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */,
+				AFD8C9D82D090AC200D1EB5E /* llama */,
 			);
 			productName = "With-OpenAI";
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
@@ -190,6 +181,7 @@
 			packageReferences = (
 				AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */,
 				AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */,
+				AFD8C9D72D090AC200D1EB5E /* XCRemoteSwiftPackageReference "llama" */,
 			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
@@ -220,15 +212,11 @@
 				AFE1E7462CFFE2C20081B66E /* NotificationModel.swift in Sources */,
 				AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */,
 				AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */,
-				AFD8C9B92D08F54800D1EB5E /* HeartWarningGroqView.swift in Sources */,
-				AFD8C9B72D08F51900D1EB5E /* HeartWarningGroqModel.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
 				AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */,
 				AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */,
 				AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */,
-				AFD8C9C02D08FD0900D1EB5E /* ollamaView.swift in Sources */,
 				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
-				AFD8C9BE2D08FC6300D1EB5E /* ollamaModel.swift in Sources */,
 				AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */,
 				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
 				AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */,
@@ -398,6 +386,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -439,6 +428,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -476,6 +466,14 @@
 				minimumVersion = 0.42.1;
 			};
 		};
+		AFD8C9D72D090AC200D1EB5E /* XCRemoteSwiftPackageReference "llama" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordBDHG/llama.cpp";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.3;
+			};
+		};
 		AFE1E73E2CFFDC730081B66E /* XCRemoteSwiftPackageReference "OpenAIKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OpenDive/OpenAIKit.git";
@@ -491,6 +489,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */;
 			productName = AIProxy;
+		};
+		AFD8C9D82D090AC200D1EB5E /* llama */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFD8C9D72D090AC200D1EB5E /* XCRemoteSwiftPackageReference "llama" */;
+			productName = llama;
 		};
 		AFE1E73F2CFFDC730081B66E /* OpenAIKit */ = {
 			isa = XCSwiftPackageProductDependency;

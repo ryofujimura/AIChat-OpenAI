@@ -1,5 +1,5 @@
 {
-  "originHash" : "587b6676e25f9a2761d67f1dca37806140b8905920a1fb32d18b44622615a05a",
+  "originHash" : "e605cbe1e405e4a195bbc3d333f552a08f0aab0392023a5e4507a9f140bb6286",
   "pins" : [
     {
       "identity" : "aiproxyswift",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "f27b9ca2ddab55158b003e992dd4d6b7ab323291",
         "version" : "0.45.0"
+      }
+    },
+    {
+      "identity" : "llama.cpp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/StanfordBDHG/llama.cpp",
+      "state" : {
+        "revision" : "6839853a321778906e210a33ee2c6aec52f34c97",
+        "version" : "0.3.3"
       }
     },
     {
