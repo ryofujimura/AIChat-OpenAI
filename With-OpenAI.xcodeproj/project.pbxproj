@@ -7,18 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF2374192D19CE9A008CB633 /* AIProxy in Frameworks */ = {isa = PBXBuildFile; productRef = AF2374182D19CE9A008CB633 /* AIProxy */; };
+		AF23741B2D19CE9D008CB633 /* llama in Frameworks */ = {isa = PBXBuildFile; productRef = AF23741A2D19CE9D008CB633 /* llama */; };
 		AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580A2CFFDADC00FF6FFE /* With_OpenAIApp.swift */; };
 		AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580C2CFFDADC00FF6FFE /* ContentView.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
-		AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */ = {isa = PBXBuildFile; productRef = AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */; };
-		AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */; };
-		AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */; };
-		AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */; };
-		AFD8C9CE2D09059A00D1EB5E /* InputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */; };
-		AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */; };
-		AFD8C9D62D09074300D1EB5E /* LibLlama.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD8C9D52D09074300D1EB5E /* LibLlama.swift */; };
-		AFD8C9D92D090AC200D1EB5E /* llama in Frameworks */ = {isa = PBXBuildFile; productRef = AFD8C9D82D090AC200D1EB5E /* llama */; };
 		AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73A2CFFDBE90081B66E /* ImageView.swift */; };
 		AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E73C2CFFDC190081B66E /* ImageModel.swift */; };
 		AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFE1E73F2CFFDC730081B66E /* OpenAIKit */; };
@@ -38,12 +32,6 @@
 		AF80580C2CFFDADC00FF6FFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaState.swift; sourceTree = "<group>"; };
-		AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStateView.swift; sourceTree = "<group>"; };
-		AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
-		AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputButton.swift; sourceTree = "<group>"; };
-		AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadCustomButton.swift; sourceTree = "<group>"; };
-		AFD8C9D52D09074300D1EB5E /* LibLlama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibLlama.swift; sourceTree = "<group>"; };
 		AFE1E73A2CFFDBE90081B66E /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		AFE1E73C2CFFDC190081B66E /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		AFE1E7412CFFDC920081B66E /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
@@ -60,20 +48,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFD8C9D92D090AC200D1EB5E /* llama in Frameworks */,
+				AF23741B2D19CE9D008CB633 /* llama in Frameworks */,
 				AFE1E7402CFFDC730081B66E /* OpenAIKit in Frameworks */,
-				AFD8C9BC2D08F8EF00D1EB5E /* AIProxy in Frameworks */,
+				AF2374192D19CE9A008CB633 /* AIProxy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF2374172D19CE9A008CB633 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF8057FE2CFFDADC00FF6FFE = {
 			isa = PBXGroup;
 			children = (
 				AF8058092CFFDADC00FF6FFE /* With-OpenAI */,
 				AF8058082CFFDADC00FF6FFE /* Products */,
+				AF2374172D19CE9A008CB633 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,10 +103,6 @@
 				AFE1E73A2CFFDBE90081B66E /* ImageView.swift */,
 				AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */,
 				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
-				AFD8C9C92D09054A00D1EB5E /* LocalStateView.swift */,
-				AFD8C9CD2D09059A00D1EB5E /* InputButton.swift */,
-				AFD8C9CB2D09056300D1EB5E /* DownloadButton.swift */,
-				AFD8C9D32D0905D500D1EB5E /* LoadCustomButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -123,8 +115,6 @@
 				AFE1E7452CFFE2C20081B66E /* NotificationModel.swift */,
 				AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */,
 				AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */,
-				AFD8C9C52D09050E00D1EB5E /* LlamaState.swift */,
-				AFD8C9D52D09074300D1EB5E /* LibLlama.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -147,8 +137,8 @@
 			name = "With-OpenAI";
 			packageProductDependencies = (
 				AFE1E73F2CFFDC730081B66E /* OpenAIKit */,
-				AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */,
-				AFD8C9D82D090AC200D1EB5E /* llama */,
+				AF2374182D19CE9A008CB633 /* AIProxy */,
+				AF23741A2D19CE9D008CB633 /* llama */,
 			);
 			productName = "With-OpenAI";
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
@@ -213,18 +203,12 @@
 				AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */,
 				AFE1E73B2CFFDBE90081B66E /* ImageView.swift in Sources */,
 				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
-				AFD8C9CC2D09056300D1EB5E /* DownloadButton.swift in Sources */,
-				AFD8C9CA2D09054A00D1EB5E /* LocalStateView.swift in Sources */,
-				AFD8C9C62D09050E00D1EB5E /* LlamaState.swift in Sources */,
 				AFE1E7422CFFDC920081B66E /* config.swift in Sources */,
-				AFD8C9D42D0905D500D1EB5E /* LoadCustomButton.swift in Sources */,
 				AFE1E73D2CFFDC190081B66E /* ImageModel.swift in Sources */,
 				AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */,
 				AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */,
 				AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */,
-				AFD8C9CE2D09059A00D1EB5E /* InputButton.swift in Sources */,
 				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
-				AFD8C9D62D09074300D1EB5E /* LibLlama.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,12 +469,12 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AFD8C9BB2D08F8EF00D1EB5E /* AIProxy */ = {
+		AF2374182D19CE9A008CB633 /* AIProxy */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AFD8C9BA2D08F8EF00D1EB5E /* XCRemoteSwiftPackageReference "AIProxySwift" */;
 			productName = AIProxy;
 		};
-		AFD8C9D82D090AC200D1EB5E /* llama */ = {
+		AF23741A2D19CE9D008CB633 /* llama */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AFD8C9D72D090AC200D1EB5E /* XCRemoteSwiftPackageReference "llama" */;
 			productName = llama;
