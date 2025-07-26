@@ -180,7 +180,7 @@ struct ContentView: View {
                         }
                         
                         // Generate AI response
-                        aiService.generateResponse(to: "You are a cheerful assistant. Give ONLY a short motivational message under 40 letters with 3 emojis. No greetings or explanations. User asks: How am I doing?") { response in
+                        aiService.generateResponse(to: "Give ONLY a short motivational message under 30 letters with 3 emojis. No greetings or explanations. Just cheer me with 30 letters with 3 emojis") { response in
                             DispatchQueue.main.async {
                                 aiResponse = response
                                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -220,7 +220,7 @@ struct ContentView: View {
                             }
                             
                             // Generate AI response
-                            aiService.generateResponse(to: "You are a cheerful assistant. Give ONLY a short motivational message under 40 letters with 3 emojis. No greetings or explanations. User asks: \(input)") { response in
+                            aiService.generateResponse(to: "Give ONLY a short motivational message under 40 letters with 3 emojis. No greetings or explanations. User asks: \(input)") { response in
                                 DispatchQueue.main.async {
                                     aiResponse = response
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -295,7 +295,7 @@ struct ContentView: View {
                             userInput = ""
                             
                             // Generate AI response
-                            aiService.generateResponse(to: "You are a cheerful assistant. Give ONLY a short motivational message under 40 letters with 3 emojis. No greetings or explanations. User asks: \(currentInput)") { response in
+                            aiService.generateResponse(to: "Give ONLY a short motivational message under 40 letters with 3 emojis. No greetings or explanations. User asks: \(currentInput)") { response in
                                 DispatchQueue.main.async {
                                     aiResponse = response
                                     withAnimation(.easeInOut(duration: 0.3)) {

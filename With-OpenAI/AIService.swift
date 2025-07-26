@@ -90,8 +90,14 @@ class AIService: ObservableObject {
             return
         }
         
+        // Create a system prompt that instructs the AI to only provide the final response
+        let systemPrompt = "You are a helpful assistant. IMPORTANT: Provide ONLY the final answer or response. Do NOT include any reasoning, thought process, explanations, or intermediate steps. Give direct, concise responses."
+        
+        // Combine system prompt with user prompt
+        let fullPrompt = "\(systemPrompt)\n\nUser: \(prompt)\n\nAssistant:"
+        
         DispatchQueue.global(qos: .userInitiated).async {
-            ai.conversation(prompt, { [weak self] token, time in
+            ai.conversation(fullPrompt, { [weak self] token, time in
                 // Token callback - update UI with streaming response
                 DispatchQueue.main.async {
                     self?.currentResponse += token
