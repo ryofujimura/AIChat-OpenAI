@@ -8,22 +8,69 @@
 import SwiftUI
 
 struct EmojiBackgroundView: View {
+    @State private var animationOffset: CGFloat = 0
     let backgroundEmojis = ["✨", "⭐", "💫", "🌟", "💎", "🌸", "🌺", "🌼", "🌻", "🍀", "🌈", "🎈", "🎉", "🎊", "💖", "💕", "💗", "💓", "💝", "💘", "💞", "💟", "💌", "💋", "💍", "💎", "🎀", "🎁", "🎂", "🎄", "🎃", "🎆", "🎇", "🎈", "🎉", "🎊", "🎋", "🎍", "🎎", "🎏", "🎐", "🎑", "🎒", "🎓", "🎔", "🎕", "🎖", "🎗", "🎘", "🎙", "🎚", "🎛", "🎜", "🎝", "🎞", "🎟"]
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(0..<20, id: \.self) { row in
-                HStack(spacing: 0) {
-                    ForEach(0..<15, id: \.self) { column in
-                        Text(backgroundEmojis[(row * 15 + column) % backgroundEmojis.count])
-                            .font(.system(size: 20))
-                            .foregroundColor(.gray.opacity(0.1))
-                            .frame(width: 30, height: 30)
-                    }
+        ZStack {
+            // Vertical lines background
+            HStack(spacing: 40) {
+                ForEach(0..<15, id: \.self) { index in
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.03))
+                        .frame(width: 1)
+                        .frame(maxHeight: .infinity)
                 }
             }
+            .ignoresSafeArea()
+            
+            // Weaving emojis - upward moving
+            ForEach(0..<8, id: \.self) { index in
+                WeavingEmoji(
+                    emoji: backgroundEmojis[index % backgroundEmojis.count],
+                    startX: CGFloat(index) * 60,
+                    direction: .up,
+                    animationOffset: animationOffset
+                )
+            }
+            
+            // Weaving emojis - downward moving
+            ForEach(0..<8, id: \.self) { index in
+                WeavingEmoji(
+                    emoji: backgroundEmojis[(index + 8) % backgroundEmojis.count],
+                    startX: CGFloat(index) * 60 + 30,
+                    direction: .down,
+                    animationOffset: animationOffset
+                )
+            }
         }
-        .ignoresSafeArea()
+        .onAppear {
+            withAnimation(.linear(duration: 20).repeatForever(autoreverses: false)) {
+                animationOffset = 1000
+            }
+        }
+    }
+}
+
+struct WeavingEmoji: View {
+    let emoji: String
+    let startX: CGFloat
+    let direction: WeaveDirection
+    let animationOffset: CGFloat
+    
+    enum WeaveDirection {
+        case up, down
+    }
+    
+    var body: some View {
+        Text(emoji)
+            .font(.system(size: 16))
+            .foregroundColor(.gray.opacity(0.08))
+            .offset(
+                x: startX + sin(animationOffset * 0.01) * 20,
+                y: direction == .up ? -animationOffset : animationOffset
+            )
+            .opacity(0.6)
     }
 }
 
