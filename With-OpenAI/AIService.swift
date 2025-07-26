@@ -90,8 +90,8 @@ class AIService: ObservableObject {
             return
         }
         
-        // Create a system prompt that instructs the AI to only provide the final response
-        let systemPrompt = "You are a helpful assistant. IMPORTANT: Provide ONLY the final answer or response. Do NOT include any reasoning, thought process, explanations, or intermediate steps. Give direct, concise responses."
+        // Create a very restrictive system prompt that forces concise responses
+        let systemPrompt = "You are a concise assistant. CRITICAL RULES: 1) Respond with ONLY the final answer - no explanations, no reasoning, no greetings. 2) Keep responses under 50 characters. 3) Do not use phrases like 'Here's' or 'I think'. 4) Start directly with your answer. 5) If asked for a motivational message, give ONLY the message with emojis."
         
         // Combine system prompt with user prompt
         let fullPrompt = "\(systemPrompt)\n\nUser: \(prompt)\n\nAssistant:"
@@ -103,13 +103,78 @@ class AIService: ObservableObject {
                     self?.currentResponse += token
                 }
             }, { [weak self] fullResponse in
-                // Completion callback
+                // Completion callback - clean up the response
                 DispatchQueue.main.async {
                     self?.currentResponse = ""
-                    completion(fullResponse)
+                    
+                    // Clean up the response to remove any remaining reasoning
+                    let cleanedResponse = self?.cleanResponse(fullResponse) ?? fullResponse
+                    completion(cleanedResponse)
                 }
             })
         }
+    }
+    
+    private func cleanResponse(_ response: String) -> String {
+        // Remove common prefixes that indicate reasoning
+        var cleaned = response.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Remove common reasoning prefixes
+        let prefixesToRemove = [
+            "Here's",
+            "I think",
+            "Let me",
+            "Well,",
+            "So,",
+            "Based on",
+            "According to",
+            "I would say",
+            "I believe",
+            "In my opinion",
+            "The answer is",
+            "Here is",
+            "I'll give you",
+            "I can provide"
+        ]
+        
+        for prefix in prefixesToRemove {
+            if cleaned.lowercased().hasPrefix(prefix.lowercased()) {
+                cleaned = String(cleaned.dropFirst(prefix.count))
+                cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
+        
+        // Remove any text after common reasoning indicators
+        let reasoningIndicators = [
+            " because ",
+            " since ",
+            " as ",
+            " therefore ",
+            " thus ",
+            " so ",
+            " however ",
+            " but ",
+            " although ",
+            " while "
+        ]
+        
+        for indicator in reasoningIndicators {
+            if let range = cleaned.lowercased().range(of: indicator) {
+                cleaned = String(cleaned[..<range.lowerBound])
+                cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
+        
+        // Limit to first sentence or 50 characters, whichever is shorter
+        if let firstSentenceEnd = cleaned.firstIndex(of: ".") {
+            cleaned = String(cleaned[..<firstSentenceEnd])
+        }
+        
+        if cleaned.count > 50 {
+            cleaned = String(cleaned.prefix(50))
+        }
+        
+        return cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func resetResponse() {
