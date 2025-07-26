@@ -55,9 +55,9 @@ class AIService: ObservableObject {
         var params = ModelAndContextParams.default
         params.context = 2048
         params.use_metal = true
-        params.promptFormat = .TinyLlama
+        // Use default prompt format since TinyLlama format doesn't exist
         
-        print("Using TinyLlama prompt format")
+        print("Using default prompt format")
         
         // Load the model
         do {
