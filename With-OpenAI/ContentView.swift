@@ -98,29 +98,32 @@ struct ContentView: View {
             
             // Input box overlay - centered on screen
             if showInputBox {
-                Color.black.opacity(0.3)
+                Color.black.opacity(0.4)
                     .ignoresSafeArea()
                     .transition(.opacity)
                 
-                VStack(spacing: 15) {
-                    Text("Please provide input:")
-                        .font(.headline)
+                VStack(spacing: 12) {
+                    Text("💬 Tell me something!")
+                        .font(.title2)
+                        .fontWeight(.semibold)
                         .foregroundColor(.primary)
                     
-                    TextField("Enter your message...", text: $userInput)
+                    TextField("Type your message here...", text: $userInput)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
+                        .font(.body)
+                        .padding(.horizontal, 8)
                     
-                    HStack(spacing: 15) {
-                        Button("Cancel") {
+                    HStack(spacing: 12) {
+                        Button("❌ Cancel") {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showInputBox = false
                                 userInput = "" // Reset text field
                             }
                         }
                         .foregroundColor(.secondary)
+                        .font(.body)
                         
-                        Button("Submit") {
+                        Button("✨ Submit") {
                             // Trigger the same animation as button click
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showInputBox = false
@@ -140,15 +143,17 @@ struct ContentView: View {
                             }
                         }
                         .foregroundColor(.blue)
+                        .font(.body)
                         .disabled(userInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     }
                 }
-                .padding(20)
+                .padding(24)
                 .background(
-                    RoundedRectangle(cornerRadius: 15)
+                    RoundedRectangle(cornerRadius: 20)
                         .fill(Color(.systemBackground))
-                        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+                        .shadow(color: .black.opacity(0.15), radius: 15, x: 0, y: 8)
                 )
+                .padding(.horizontal, 40)
                 .transition(.scale.combined(with: .opacity))
             }
         }
