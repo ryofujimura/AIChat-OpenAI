@@ -10,6 +10,7 @@ import SwiftUI
 struct NeomorphicButton: View {
     let title: String
     let action: () -> Void
+    let onInputSubmit: (String) -> Void
     
     @State private var isPressed = false
     @State private var isDisabled = false
@@ -25,9 +26,8 @@ struct NeomorphicButton: View {
                 
                 // Show input box after 10 clicks
                 if clickCount >= 10 && !showInputBox {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showInputBox = true
-                    }
+                    // Call the submit callback to trigger input box in parent view
+                    onInputSubmit("")
                 }
                 return
             }
@@ -106,52 +106,6 @@ struct NeomorphicButton: View {
                 )
         }
         .buttonStyle(PlainButtonStyle())
-        .overlay(
-            // Input box overlay
-            Group {
-                if showInputBox {
-                    VStack(spacing: 15) {
-                        Text("Please provide input:")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        TextField("Enter your message...", text: $userInput)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal)
-                        
-                        HStack(spacing: 15) {
-                            Button("Cancel") {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showInputBox = false
-                                    userInput = ""
-                                    clickCount = 0
-                                }
-                            }
-                            .foregroundColor(.secondary)
-                            
-                            Button("Submit") {
-                                // Re-enable button and reset states
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    isDisabled = false
-                                    showInputBox = false
-                                    clickCount = 0
-                                    userInput = ""
-                                }
-                            }
-                            .foregroundColor(.blue)
-                            .disabled(userInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                        }
-                    }
-                    .padding(20)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color(.systemBackground))
-                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
-                    )
-                    .transition(.scale.combined(with: .opacity))
-                }
-            }
-        )
     }
 }
 
