@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showThinking = false
+    @State private var showPlaceholder = false
+    
     var body: some View {
         ZStack {
             // Background
@@ -25,10 +28,33 @@ struct ContentView: View {
                 
                 Spacer()
                 
+                // Thinking emoji or placeholder text
+                if showThinking {
+                    Text("🤔")
+                        .font(.system(size: 80))
+                        .transition(.scale.combined(with: .opacity))
+                } else if showPlaceholder {
+                    NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
+                        .transition(.scale.combined(with: .opacity))
+                }
+                
+                Spacer()
+                
                 // Neomorphic button
-                NeomorphicButton(title: "Start Chat") {
-                    // TODO: Implement chat functionality
-                    print("Start Chat button tapped!")
+                NeomorphicButton(title: "How am I doing?") {
+                    // Show thinking emoji
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        showThinking = true
+                        showPlaceholder = false
+                    }
+                    
+                    // After 2 seconds, show placeholder text
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            showThinking = false
+                            showPlaceholder = true
+                        }
+                    }
                 }
                 .padding(.horizontal, 40)
                 
