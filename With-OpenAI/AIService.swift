@@ -55,10 +55,9 @@ class AIService: ObservableObject {
         var params = ModelAndContextParams.default
         params.context = 2048
         params.use_metal = true
-        params.promptFormat = .Custom
-        params.custom_prompt_format = "<|system|>You are a cheerful assistant. Respond directly with ONLY a short motivational message (under 40 letters) followed by 3 fitting emojis. No greetings, no formalities, just the answer. Be unique and heartwarming.</s><|user|>{{prompt}}</s><|assistant|>"
+        params.promptFormat = .TinyLlama
         
-        print("Using custom prompt format: \(params.custom_prompt_format)")
+        print("Using TinyLlama prompt format")
         
         // Load the model
         do {
