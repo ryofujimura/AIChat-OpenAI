@@ -48,7 +48,7 @@ struct EmojiParticle: View {
     
     var body: some View {
         Text(emoji)
-            .font(.system(size: 24))
+            .font(.system(size: 40))
             .offset(
                 x: isAnimating ? cos(angle * .pi / 180) * 600 : 0,
                 y: isAnimating ? sin(angle * .pi / 180) * 600 : 0
@@ -56,7 +56,7 @@ struct EmojiParticle: View {
             .opacity(isAnimating ? 0 : 1)
             .scaleEffect(isAnimating ? 0.3 : 1.0)
             .animation(
-                .easeOut(duration: 1.5)
+                .easeOut(duration: 2.5)
                 .delay(Double.random(in: 0...0.3)),
                 value: isAnimating
             )
@@ -70,7 +70,7 @@ struct LightShapeParticle: View {
     
     var body: some View {
         Text(shape)
-            .font(.system(size: 16))
+            .font(.system(size: 20))
             .foregroundColor(.white.opacity(0.7))
             .offset(
                 x: isAnimating ? cos(angle * .pi / 180) * 450 : 0,
@@ -79,7 +79,7 @@ struct LightShapeParticle: View {
             .opacity(isAnimating ? 0 : 0.8)
             .scaleEffect(isAnimating ? 0.1 : 0.8)
             .animation(
-                .easeOut(duration: 2.0)
+                .easeOut(duration: 3.0)
                 .delay(Double.random(in: 0.5...0.8)),
                 value: isAnimating
             )
