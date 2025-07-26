@@ -20,6 +20,7 @@
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
 		AFF770D02E356F66003A9D76 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = AFF770CF2E356F66003A9D76 /* llmfarm_core */; };
 		AFF770D42E357059003A9D76 /* Phi-4-mini-instruct.Q3_K_S.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AFF770D32E357059003A9D76 /* Phi-4-mini-instruct.Q3_K_S.gguf */; };
+		AFF770D82E3572DF003A9D76 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF770D72E3572DF003A9D76 /* AIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AFF770D32E357059003A9D76 /* Phi-4-mini-instruct.Q3_K_S.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Phi-4-mini-instruct.Q3_K_S.gguf"; sourceTree = "<group>"; };
+		AFF770D72E3572DF003A9D76 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				AF3845EC2E3559CF001F3314 /* ContentView.swift */,
 				AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */,
 				AF2D3D5C2E35637F00E81139 /* SettingsView.swift */,
+				AFF770D72E3572DF003A9D76 /* AIService.swift */,
 				AF2D3D542E355A9100E81139 /* NeomorphicText.swift */,
 				AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */,
 				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */,
+				AFF770D82E3572DF003A9D76 /* AIService.swift in Sources */,
 				AF2D3D5D2E35637F00E81139 /* SettingsView.swift in Sources */,
 				AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */,
 				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,

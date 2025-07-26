@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var aiService = AIService()
     @State private var showThinking = false
     @State private var showPlaceholder = false
     @State private var showInputBox = false
     @State private var userInput = ""
     @State private var showSettings = false
     @State private var aiResponse = ""
-    
-    @StateObject private var llmService = LLMService()
     
     var body: some View {
         ZStack {
@@ -63,19 +62,29 @@ struct ContentView: View {
                 
                 // Thinking emoji or AI response
                 if showThinking {
-                    Text("🤔")
-                        .font(.system(size: 80))
-                        .transition(.scale.combined(with: .opacity))
-                } else if showPlaceholder {
-                    VStack(spacing: 10) {
-                        if !aiResponse.isEmpty {
-                            NeomorphicText(aiResponse, fontSize: .title3, fontWeight: .medium)
-                                .transition(.scale.combined(with: .opacity))
+                    VStack(spacing: 15) {
+                        Text("🤔")
+                            .font(.system(size: 60))
+                            .transition(.scale.combined(with: .opacity))
+                        
+                        if !aiService.currentResponse.isEmpty {
+                            Text(aiService.currentResponse)
+                                .font(.body)
+                                .foregroundColor(.primary)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal, 20)
-                        } else {
-                            NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
-                                .transition(.scale.combined(with: .opacity))
+                                .transition(.opacity)
+                        }
+                    }
+                } else if showPlaceholder {
+                    VStack(spacing: 15) {
+                        NeomorphicText(aiResponse.isEmpty ? "AI Response" : aiResponse, fontSize: .title2, fontWeight: .medium)
+                            .transition(.scale.combined(with: .opacity))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                        
+                        if !aiResponse.isEmpty {
+                            EmojiBurstView()
                         }
                     }
                 }
@@ -86,7 +95,26 @@ struct ContentView: View {
                 NeomorphicButton(
                     title: "How am I doing?",
                     action: {
-                        generateAIResponse(for: "How am I doing?")
+                        // Reset response
+                        aiService.resetResponse()
+                        aiResponse = ""
+                        
+                        // Show thinking emoji
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            showThinking = true
+                            showPlaceholder = false
+                        }
+                        
+                        // Generate AI response
+                        aiService.generateResponse(to: "How am I doing? Please give me a brief, encouraging response.") { response in
+                            DispatchQueue.main.async {
+                                aiResponse = response
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showThinking = false
+                                    showPlaceholder = true
+                                }
+                            }
+                        }
                     },
                     onInputSubmit: { input in
                         if input.isEmpty {
@@ -96,8 +124,26 @@ struct ContentView: View {
                                 showInputBox = true
                             }
                         } else {
-                            // Generate AI response for custom input
-                            generateAIResponse(for: input)
+                            // Reset response
+                            aiService.resetResponse()
+                            aiResponse = ""
+                            
+                            // Show thinking emoji when input is submitted
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showThinking = true
+                                showPlaceholder = false
+                            }
+                            
+                            // Generate AI response
+                            aiService.generateResponse(to: input) { response in
+                                DispatchQueue.main.async {
+                                    aiResponse = response
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showThinking = false
+                                        showPlaceholder = true
+                                    }
+                                }
+                            }
                         }
                     }
                 )
@@ -134,11 +180,33 @@ struct ContentView: View {
                         .font(.body)
                         
                         Button("✨ Submit") {
-                            // Generate AI response for user input
-                            generateAIResponse(for: userInput)
+                            // Reset response
+                            aiService.resetResponse()
+                            aiResponse = ""
+                            
+                            // Trigger the same animation as button click
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showInputBox = false
+                                showThinking = true
+                                showPlaceholder = false
+                            }
+                            
+                            // Generate AI response with current input
+                            let currentInput = userInput
                             
                             // Reset text field after submission
                             userInput = ""
+                            
+                            // Generate AI response
+                            aiService.generateResponse(to: currentInput) { response in
+                                DispatchQueue.main.async {
+                                    aiResponse = response
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showThinking = false
+                                        showPlaceholder = true
+                                    }
+                                }
+                            }
                         }
                         .foregroundColor(.blue)
                         .font(.body)
@@ -156,33 +224,7 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView(llmService: llmService)
-        }
-    }
-    
-    private func generateAIResponse(for input: String) {
-        // Show thinking emoji
-        withAnimation(.easeInOut(duration: 0.3)) {
-            showThinking = true
-            showPlaceholder = false
-            showInputBox = false
-        }
-        
-        // Generate AI response
-        llmService.generateResponse(for: input) { response in
-            DispatchQueue.main.async {
-                if let response = response {
-                    self.aiResponse = response
-                } else {
-                    self.aiResponse = "Sorry, I couldn't generate a response right now."
-                }
-                
-                // Show response with animation
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.showThinking = false
-                    self.showPlaceholder = true
-                }
-            }
+            SettingsView()
         }
     }
 }
