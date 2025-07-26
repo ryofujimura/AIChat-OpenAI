@@ -17,7 +17,10 @@ class AIService: ObservableObject {
     @Published var currentResponse = ""
     
     init() {
-        loadModel()
+        // Load model immediately when service is initialized
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.loadModel()
+        }
     }
     
     private func loadModel() {

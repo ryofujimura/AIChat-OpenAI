@@ -58,6 +58,18 @@ struct ContentView: View {
                 // Subtitle
                 NeomorphicText("your cheering assistant", fontSize: .title3, fontWeight: .medium)
                 
+                // Loading indicator
+                if aiService.isLoading {
+                    VStack(spacing: 10) {
+                        ProgressView()
+                            .scaleEffect(1.2)
+                        Text("Loading AI model...")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .transition(.opacity)
+                }
+                
                 Spacer()
                 
                 // Thinking emoji or AI response
@@ -93,8 +105,19 @@ struct ContentView: View {
                 
                 // Neomorphic button
                 NeomorphicButton(
-                    title: "How am I doing?",
+                    title: aiService.isLoading ? "Loading AI..." : "How am I doing?",
                     action: {
+                        // Check if model is ready
+                        guard aiService.isModelLoaded else {
+                            // Show loading message if model isn't ready
+                            aiResponse = "AI model is still loading... Please wait a moment and try again."
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showThinking = false
+                                showPlaceholder = true
+                            }
+                            return
+                        }
+                        
                         // Reset response
                         aiService.resetResponse()
                         aiResponse = ""
@@ -124,6 +147,17 @@ struct ContentView: View {
                                 showInputBox = true
                             }
                         } else {
+                            // Check if model is ready
+                            guard aiService.isModelLoaded else {
+                                // Show loading message if model isn't ready
+                                aiResponse = "AI model is still loading... Please wait a moment and try again."
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showThinking = false
+                                    showPlaceholder = true
+                                }
+                                return
+                            }
+                            
                             // Reset response
                             aiService.resetResponse()
                             aiResponse = ""
@@ -180,6 +214,18 @@ struct ContentView: View {
                         .font(.body)
                         
                         Button("✨ Submit") {
+                            // Check if model is ready
+                            guard aiService.isModelLoaded else {
+                                // Show loading message if model isn't ready
+                                aiResponse = "AI model is still loading... Please wait a moment and try again."
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showInputBox = false
+                                    showThinking = false
+                                    showPlaceholder = true
+                                }
+                                return
+                            }
+                            
                             // Reset response
                             aiService.resetResponse()
                             aiResponse = ""
