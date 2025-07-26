@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D542E355A9100E81139 /* NeomorphicText.swift */; };
 		AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */; };
 		AF3503472E3558F500762FB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503422E3558F500762FB7 /* ContentView.swift */; };
 		AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503432E3558F500762FB7 /* LaunchScreenView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF2D3D542E355A9100E81139 /* NeomorphicText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicText.swift; sourceTree = "<group>"; };
 		AF3503422E3558F500762FB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF3503432E3558F500762FB7 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		AF3503442E3558F500762FB7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				AF3503442E3558F500762FB7 /* MainView.swift */,
 				AF3845EC2E3559CF001F3314 /* ContentView.swift */,
 				AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */,
+				AF2D3D542E355A9100E81139 /* NeomorphicText.swift */,
 				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */,
+				AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */,
 				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,
 				AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */,
 				AF3503472E3558F500762FB7 /* ContentView.swift in Sources */,

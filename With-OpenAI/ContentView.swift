@@ -18,15 +18,10 @@ struct ContentView: View {
                 Spacer()
                 
                 // App title
-                Text("AI Chat")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
+                NeomorphicText("With")
                 
                 // Subtitle
-                Text("Your AI Assistant")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
+                NeomorphicText("your cheering assistant", fontSize: .title3, fontWeight: .medium)
                 
                 Spacer()
                 
