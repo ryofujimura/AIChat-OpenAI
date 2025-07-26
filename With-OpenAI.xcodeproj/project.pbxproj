@@ -11,7 +11,8 @@
 		AF3503472E3558F500762FB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503422E3558F500762FB7 /* ContentView.swift */; };
 		AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503432E3558F500762FB7 /* LaunchScreenView.swift */; };
 		AF3503492E3558F500762FB7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503442E3558F500762FB7 /* MainView.swift */; };
-		AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF80580C2CFFDADC00FF6FFE /* ContentView.swift */; };
+		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
+		AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -21,8 +22,9 @@
 		AF3503432E3558F500762FB7 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		AF3503442E3558F500762FB7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With_OpenAIApp.swift; sourceTree = "<group>"; };
+		AF3845EC2E3559CF001F3314 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicButton.swift; sourceTree = "<group>"; };
 		AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "With-OpenAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF80580C2CFFDADC00FF6FFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,8 +62,9 @@
 				AF3503422E3558F500762FB7 /* ContentView.swift */,
 				AF3503432E3558F500762FB7 /* LaunchScreenView.swift */,
 				AF3503442E3558F500762FB7 /* MainView.swift */,
+				AF3845EC2E3559CF001F3314 /* ContentView.swift */,
+				AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */,
 				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
-				AF80580C2CFFDADC00FF6FFE /* ContentView.swift */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
@@ -147,10 +150,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */,
+				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,
+				AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */,
 				AF3503472E3558F500762FB7 /* ContentView.swift in Sources */,
 				AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */,
 				AF3503492E3558F500762FB7 /* MainView.swift in Sources */,
-				AF80580D2CFFDADC00FF6FFE /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

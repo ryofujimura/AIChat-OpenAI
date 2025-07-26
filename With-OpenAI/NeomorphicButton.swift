@@ -48,31 +48,13 @@ struct NeomorphicButton: View {
                         
                         // Top shadow (light)
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color.white.opacity(0.8),
-                                        Color.clear
-                                    ]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
+                            .fill(Color.white.opacity(0.8))
                             .blur(radius: 1)
                             .offset(x: -2, y: -2)
                         
                         // Bottom shadow (dark)
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color.clear,
-                                        Color.black.opacity(0.1)
-                                    ]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
+                            .fill(Color.black.opacity(0.1))
                             .blur(radius: 1)
                             .offset(x: 2, y: 2)
                     }
@@ -80,16 +62,7 @@ struct NeomorphicButton: View {
                 .overlay(
                     // Pressed state overlay
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.black.opacity(0.05),
-                                    Color.clear
-                                ]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
+                        .fill(Color.black.opacity(0.05))
                         .opacity(isPressed ? 1 : 0)
                 )
                 .scaleEffect(isPressed ? 0.95 : 1.0)
