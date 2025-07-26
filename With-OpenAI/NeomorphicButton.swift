@@ -13,9 +13,25 @@ struct NeomorphicButton: View {
     
     @State private var isPressed = false
     @State private var isDisabled = false
+    @State private var clickCount = 0
+    @State private var showInputBox = false
+    @State private var userInput = ""
     
     var body: some View {
         Button(action: {
+            // Handle clicks during disabled state
+            if isDisabled {
+                clickCount += 1
+                
+                // Show input box after 10 clicks
+                if clickCount >= 10 && !showInputBox {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        showInputBox = true
+                    }
+                }
+                return
+            }
+            
             // Prevent action if disabled
             guard !isDisabled else { return }
             
@@ -25,6 +41,7 @@ struct NeomorphicButton: View {
             
             // Disable button for 10 seconds
             isDisabled = true
+            clickCount = 0 // Reset click count
             
             // Button press animation
             withAnimation(.easeInOut(duration: 0.1)) {
@@ -45,6 +62,7 @@ struct NeomorphicButton: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     isDisabled = false
+                    clickCount = 0 // Reset click count
                 }
             }
         }) {
@@ -88,6 +106,52 @@ struct NeomorphicButton: View {
                 )
         }
         .buttonStyle(PlainButtonStyle())
+        .overlay(
+            // Input box overlay
+            Group {
+                if showInputBox {
+                    VStack(spacing: 15) {
+                        Text("Please provide input:")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        TextField("Enter your message...", text: $userInput)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.horizontal)
+                        
+                        HStack(spacing: 15) {
+                            Button("Cancel") {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showInputBox = false
+                                    userInput = ""
+                                    clickCount = 0
+                                }
+                            }
+                            .foregroundColor(.secondary)
+                            
+                            Button("Submit") {
+                                // Re-enable button and reset states
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    isDisabled = false
+                                    showInputBox = false
+                                    clickCount = 0
+                                    userInput = ""
+                                }
+                            }
+                            .foregroundColor(.blue)
+                            .disabled(userInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        }
+                    }
+                    .padding(20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color(.systemBackground))
+                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+                    )
+                    .transition(.scale.combined(with: .opacity))
+                }
+            }
+        )
     }
 }
 
