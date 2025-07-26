@@ -10,7 +10,6 @@
 		AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D542E355A9100E81139 /* NeomorphicText.swift */; };
 		AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */; };
 		AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */; };
-		AF3503472E3558F500762FB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503422E3558F500762FB7 /* ContentView.swift */; };
 		AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503432E3558F500762FB7 /* LaunchScreenView.swift */; };
 		AF3503492E3558F500762FB7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503442E3558F500762FB7 /* MainView.swift */; };
 		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
@@ -113,7 +112,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					AF8058062CFFDADC00FF6FFE = {
 						CreatedOnToolsVersion = 15.4;
@@ -159,7 +158,6 @@
 				AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */,
 				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,
 				AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */,
-				AF3503472E3558F500762FB7 /* ContentView.swift in Sources */,
 				AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */,
 				AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */,
 				AF3503492E3558F500762FB7 /* MainView.swift in Sources */,
@@ -204,6 +202,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -267,6 +266,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -296,7 +296,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"With-OpenAI/Preview Content\"";
-				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -326,7 +325,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"With-OpenAI/Preview Content\"";
-				DEVELOPMENT_TEAM = LD578K3BS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
