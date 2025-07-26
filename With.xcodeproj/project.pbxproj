@@ -27,7 +27,7 @@
 		AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With_OpenAIApp.swift; sourceTree = "<group>"; };
 		AF3845EC2E3559CF001F3314 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicButton.swift; sourceTree = "<group>"; };
-		AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "With-OpenAI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF8058072CFFDADC00FF6FFE /* With.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = With.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,7 +54,7 @@
 		AF8058082CFFDADC00FF6FFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */,
+				AF8058072CFFDADC00FF6FFE /* With.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AF8058062CFFDADC00FF6FFE /* With-OpenAI */ = {
+		AF8058062CFFDADC00FF6FFE /* With */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF8058152CFFDADD00FF6FFE /* Build configuration list for PBXNativeTarget "With-OpenAI" */;
+			buildConfigurationList = AF8058152CFFDADD00FF6FFE /* Build configuration list for PBXNativeTarget "With" */;
 			buildPhases = (
 				AF8058032CFFDADC00FF6FFE /* Sources */,
 				AF8058042CFFDADC00FF6FFE /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = "With-OpenAI";
+			name = With;
 			productName = "With-OpenAI";
-			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
+			productReference = AF8058072CFFDADC00FF6FFE /* With.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AF8058022CFFDADC00FF6FFE /* Build configuration list for PBXProject "With-OpenAI" */;
+			buildConfigurationList = AF8058022CFFDADC00FF6FFE /* Build configuration list for PBXProject "With" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AF8058062CFFDADC00FF6FFE /* With-OpenAI */,
+				AF8058062CFFDADC00FF6FFE /* With */,
 			);
 		};
 /* End PBXProject section */
@@ -349,7 +349,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF8058022CFFDADC00FF6FFE /* Build configuration list for PBXProject "With-OpenAI" */ = {
+		AF8058022CFFDADC00FF6FFE /* Build configuration list for PBXProject "With" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF8058132CFFDADD00FF6FFE /* Debug */,
@@ -358,7 +358,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF8058152CFFDADD00FF6FFE /* Build configuration list for PBXNativeTarget "With-OpenAI" */ = {
+		AF8058152CFFDADD00FF6FFE /* Build configuration list for PBXNativeTarget "With" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF8058162CFFDADD00FF6FFE /* Debug */,
