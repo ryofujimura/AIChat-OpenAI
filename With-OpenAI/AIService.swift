@@ -48,7 +48,7 @@ class AIService: ObservableObject {
             return
         }
         
-        // Initialize AI with the Phi model
+        // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
         // Configure model parameters for TinyLlama
@@ -56,7 +56,9 @@ class AIService: ObservableObject {
         params.context = 2048
         params.use_metal = true
         params.promptFormat = .Custom
-                        params.custom_prompt_format = "<|system|>You are a cheerful assistant. Respond directly with ONLY a short motivational message (under 40 letters) followed by 3 fitting emojis. No greetings, no formalities, just the answer. Be unique and heartwarming.</s><|user|>{{prompt}}</s><|assistant|>"
+        params.custom_prompt_format = "<|system|>You are a cheerful assistant. Respond directly with ONLY a short motivational message (under 40 letters) followed by 3 fitting emojis. No greetings, no formalities, just the answer. Be unique and heartwarming.</s><|user|>{{prompt}}</s><|assistant|>"
+        
+        print("Using custom prompt format: \(params.custom_prompt_format)")
         
         // Load the model
         do {
@@ -64,6 +66,9 @@ class AIService: ObservableObject {
             DispatchQueue.main.async {
                 self.isModelLoaded = success ?? false
                 self.isLoading = false
+                if success == true {
+                    print("Model loaded successfully with new prompt format")
+                }
             }
         } catch {
             print("Error loading model: \(error)")
@@ -72,6 +77,12 @@ class AIService: ObservableObject {
                 self.isLoading = false
             }
         }
+    }
+    
+    func reloadModel() {
+        print("Reloading model with updated prompt...")
+        isModelLoaded = false
+        loadModel()
     }
     
     func generateResponse(to prompt: String, completion: @escaping (String) -> Void) {

@@ -57,9 +57,9 @@ struct SettingsView: View {
                         Button(action: {
                             isReloading = true
                             
-                            // Reload the model
+                            // Reload the model with updated prompt
                             DispatchQueue.global(qos: .userInitiated).async {
-                                aiService.loadModel()
+                                aiService.reloadModel()
                                 DispatchQueue.main.async {
                                     isReloading = false
                                 }
@@ -75,7 +75,7 @@ struct SettingsView: View {
                                         .font(.body)
                                 }
                                 
-                                Text(isReloading || aiService.isLoading ? "Loading Model..." : "Load Model")
+                                Text(isReloading || aiService.isLoading ? "Loading Model..." : "Reload Model")
                                     .font(.body)
                                     .fontWeight(.medium)
                             }
