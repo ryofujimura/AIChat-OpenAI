@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var llmService = LLMService()
     @State private var showThinking = false
     @State private var showPlaceholder = false
     @State private var showInputBox = false
     @State private var userInput = ""
     @State private var showSettings = false
-    @State private var llmResponse = ""
+    @State private var aiResponse = ""
+    
+    @StateObject private var llmService = LLMService()
     
     var body: some View {
         ZStack {
@@ -60,21 +61,21 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Thinking emoji or LLM response
+                // Thinking emoji or AI response
                 if showThinking {
                     Text("🤔")
                         .font(.system(size: 80))
                         .transition(.scale.combined(with: .opacity))
                 } else if showPlaceholder {
-                    VStack(spacing: 15) {
-                        NeomorphicText(llmResponse.isEmpty ? "placeholder" : llmResponse, fontSize: .title2, fontWeight: .medium)
-                            .transition(.scale.combined(with: .opacity))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 20)
-                        
-                        if llmService.isLoading {
-                            ProgressView()
-                                .scaleEffect(0.8)
+                    VStack(spacing: 10) {
+                        if !aiResponse.isEmpty {
+                            NeomorphicText(aiResponse, fontSize: .title3, fontWeight: .medium)
+                                .transition(.scale.combined(with: .opacity))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 20)
+                        } else {
+                            NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
+                                .transition(.scale.combined(with: .opacity))
                         }
                     }
                 }
@@ -85,25 +86,7 @@ struct ContentView: View {
                 NeomorphicButton(
                     title: "How am I doing?",
                     action: {
-                        Task {
-                            // Show thinking emoji
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showThinking = true
-                                showPlaceholder = false
-                            }
-                            
-                            // Generate LLM response
-                            let response = await llmService.generateResponse(to: "How am I doing?")
-                            llmResponse = response
-                            
-                            // After 2 seconds, show LLM response
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showThinking = false
-                                    showPlaceholder = true
-                                }
-                            }
-                        }
+                        generateAIResponse(for: "How am I doing?")
                     },
                     onInputSubmit: { input in
                         if input.isEmpty {
@@ -113,25 +96,8 @@ struct ContentView: View {
                                 showInputBox = true
                             }
                         } else {
-                            // Show thinking emoji when input is submitted
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showThinking = true
-                                showPlaceholder = false
-                            }
-                            
-                            // Generate LLM response with custom input
-                            Task {
-                                let response = await llmService.generateResponse(to: input)
-                                llmResponse = response
-                                
-                                // After 2 seconds, show LLM response
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        showThinking = false
-                                        showPlaceholder = true
-                                    }
-                                }
-                            }
+                            // Generate AI response for custom input
+                            generateAIResponse(for: input)
                         }
                     }
                 )
@@ -168,23 +134,11 @@ struct ContentView: View {
                         .font(.body)
                         
                         Button("✨ Submit") {
-                            // Trigger the same animation as button click
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showInputBox = false
-                                showThinking = true
-                                showPlaceholder = false
-                            }
+                            // Generate AI response for user input
+                            generateAIResponse(for: userInput)
                             
                             // Reset text field after submission
                             userInput = ""
-                            
-                            // After 2 seconds, show placeholder text
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showThinking = false
-                                    showPlaceholder = true
-                                }
-                            }
                         }
                         .foregroundColor(.blue)
                         .font(.body)
@@ -202,11 +156,33 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView()
+            SettingsView(llmService: llmService)
         }
-        .task {
-            // Load the LLM model when the view appears
-            await llmService.loadModel()
+    }
+    
+    private func generateAIResponse(for input: String) {
+        // Show thinking emoji
+        withAnimation(.easeInOut(duration: 0.3)) {
+            showThinking = true
+            showPlaceholder = false
+            showInputBox = false
+        }
+        
+        // Generate AI response
+        llmService.generateResponse(for: input) { response in
+            DispatchQueue.main.async {
+                if let response = response {
+                    self.aiResponse = response
+                } else {
+                    self.aiResponse = "Sorry, I couldn't generate a response right now."
+                }
+                
+                // Show response with animation
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.showThinking = false
+                    self.showPlaceholder = true
+                }
+            }
         }
     }
 }

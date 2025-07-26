@@ -21,13 +21,23 @@ class LLMService: ObservableObject {
     }
     
     private func setupModel() {
-        // Set custom prompt format for cheering assistant
+        // Get the path to the GGUF file in the app bundle
+        guard let modelPath = Bundle.main.path(forResource: "Phi-4-mini-instruct.Q3_K_S", ofType: "gguf") else {
+            errorMessage = "Model file not found in bundle"
+            return
+        }
+        
+        // Initialize AI with model path and chat name
+        ai = AI(_modelPath: modelPath, _chatName: "WithAssistant")
+        
+        // Configure model parameters
         modelParams.promptFormat = .Custom
         modelParams.custom_prompt_format = """
-SYSTEM: You are a supportive and encouraging AI assistant. Your role is to provide positive, uplifting responses that cheer up the user. Keep responses concise, friendly, and motivational.
-USER: {prompt}
-ASSISTANT:
-"""
+        SYSTEM: You are a supportive and encouraging AI assistant. Your role is to provide helpful, positive, and motivating responses. Keep your responses concise, friendly, and uplifting.
+        
+        USER: {prompt}
+        ASSISTANT:
+        """
         
         // Enable Metal for better performance on supported devices
         modelParams.use_metal = true
@@ -38,83 +48,91 @@ ASSISTANT:
         modelParams.sampleParams.mirostat_tau = 5.0
         modelParams.sampleParams.temperature = 0.7
         modelParams.sampleParams.top_p = 0.9
-        modelParams.sampleParams.top_k = 40
+        
+        // Load the model
+        loadModel()
     }
     
-    func loadModel() async {
-        await MainActor.run {
-            isLoading = true
-            errorMessage = nil
-        }
+    private func loadModel() {
+        isLoading = true
+        errorMessage = nil
         
-        do {
-            // Get model URL from bundle
-            guard let modelURL = Bundle.main.url(forResource: "Phi-4-mini-instruct.Q3_K_S", withExtension: "gguf") else {
-                await MainActor.run {
-                    errorMessage = "Model file not found in bundle"
-                    isLoading = false
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self, let ai = self.ai else {
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                    self?.errorMessage = "Failed to initialize AI"
                 }
                 return
             }
             
-            // Initialize AI with model path
-            ai = AI(_modelPath: modelURL.path, _chatName: "cheering_assistant")
-            
-            // Initialize model
-            ai?.initModel(ModelInference.LLama_gguf, contextParams: modelParams)
-            
-            guard ai?.model != nil else {
-                await MainActor.run {
-                    errorMessage = "Failed to load model"
-                    isLoading = false
+            do {
+                // Initialize the model
+                ai.initModel(ModelInference.LLama_gguf, contextParams: self.modelParams)
+                
+                guard ai.model != nil else {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.errorMessage = "Model load error"
+                    }
+                    return
                 }
-                return
-            }
-            
-            // Load model synchronously
-            try ai?.loadModel_sync()
-            
-            await MainActor.run {
-                isModelLoaded = true
-                isLoading = false
-            }
-            
-        } catch {
-            await MainActor.run {
-                errorMessage = "Model loading error: \(error.localizedDescription)"
-                isLoading = false
+                
+                // Load model synchronously
+                try ai.loadModel_sync()
+                
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.isModelLoaded = true
+                }
+                
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.errorMessage = "Model loading failed: \(error.localizedDescription)"
+                }
             }
         }
     }
     
-    func generateResponse(to prompt: String) async -> String {
-        guard let ai = ai, isModelLoaded else {
-            return "I'm still loading up my cheering powers! 🚀"
+    func generateResponse(for input: String, completion: @escaping (String?) -> Void) {
+        guard isModelLoaded, let ai = ai, let model = ai.model else {
+            completion(nil)
+            return
         }
         
-        await MainActor.run {
-            isLoading = true
-        }
-        
-        var generatedText = ""
-        let maxOutputLength = 200
-        
-        let callback: (String, Double) -> Bool = { str, _ in
-            generatedText += str
-            return generatedText.count > maxOutputLength
-        }
-        
-        do {
-            let output = try ai.model?.predict(prompt, callback)
-            await MainActor.run {
-                isLoading = false
+        DispatchQueue.global(qos: .userInitiated).async {
+            var response = ""
+            var totalOutput = 0
+            let maxOutputLength = 200
+            
+            let callback: (String, Double) -> Bool = { str, _ in
+                response += str
+                totalOutput += str.count
+                return totalOutput > maxOutputLength
             }
-            return generatedText.isEmpty ? "I'm here to cheer you on! 💪" : generatedText
-        } catch {
-            await MainActor.run {
-                isLoading = false
+            
+            do {
+                let _ = try model.predict(input, callback)
+                DispatchQueue.main.async {
+                    completion(response.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
-            return "Oops! Something went wrong with my cheering engine. Let me try again! ��"
+        }
+    }
+    
+    func updateModelSettings(temperature: Float, topP: Float, mirostatTau: Float) {
+        modelParams.sampleParams.temperature = temperature
+        modelParams.sampleParams.top_p = topP
+        modelParams.sampleParams.mirostat_tau = mirostatTau
+        
+        // Reload model with new settings if already loaded
+        if isModelLoaded {
+            loadModel()
         }
     }
 } 
