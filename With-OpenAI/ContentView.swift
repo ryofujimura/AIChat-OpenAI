@@ -70,6 +70,7 @@ struct ContentView: View {
                     onInputSubmit: { input in
                         if input.isEmpty {
                             // Show input box when triggered from button (10 clicks)
+                            userInput = "" // Reset text field
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showInputBox = true
                             }
@@ -114,7 +115,7 @@ struct ContentView: View {
                         Button("Cancel") {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showInputBox = false
-                                userInput = ""
+                                userInput = "" // Reset text field
                             }
                         }
                         .foregroundColor(.secondary)
@@ -126,6 +127,9 @@ struct ContentView: View {
                                 showThinking = true
                                 showPlaceholder = false
                             }
+                            
+                            // Reset text field after submission
+                            userInput = ""
                             
                             // After 2 seconds, show placeholder text
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
