@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var showPlaceholder = false
     @State private var showInputBox = false
     @State private var userInput = ""
+    @State private var showSettings = false
     
     var body: some View {
         ZStack {
@@ -27,6 +28,26 @@ struct ContentView: View {
             
             // Main content layer
             VStack(spacing: 30) {
+                // Settings button in top right
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        showSettings = true
+                    }) {
+                        Text("⚙️")
+                            .font(.title2)
+                            .foregroundColor(.primary)
+                            .padding(12)
+                            .background(
+                                Circle()
+                                    .fill(Color(.systemGray6))
+                                    .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+                            )
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
+                
                 Spacer()
                 
                 // App title
@@ -156,6 +177,9 @@ struct ContentView: View {
                 .padding(.horizontal, 40)
                 .transition(.scale.combined(with: .opacity))
             }
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
         }
     }
 }
