@@ -12,12 +12,19 @@ struct NeomorphicButton: View {
     let action: () -> Void
     
     @State private var isPressed = false
+    @State private var isDisabled = false
     
     var body: some View {
         Button(action: {
+            // Prevent action if disabled
+            guard !isDisabled else { return }
+            
             // Haptic feedback
             let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
             impactFeedback.impactOccurred()
+            
+            // Disable button for 10 seconds
+            isDisabled = true
             
             // Button press animation
             withAnimation(.easeInOut(duration: 0.1)) {
@@ -33,28 +40,35 @@ struct NeomorphicButton: View {
                     isPressed = false
                 }
             }
+            
+            // Re-enable button after 10 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isDisabled = false
+                }
+            }
         }) {
             Text(title)
                 .font(.title2)
                 .fontWeight(.semibold)
-                .foregroundColor(.primary)
+                .foregroundColor(isDisabled ? .secondary : .primary)
                 .frame(maxWidth: .infinity)
                 .frame(height: 80)
                 .background(
                     ZStack {
                         // Base layer
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(.systemGray6))
+                            .fill(isDisabled ? Color(.systemGray5) : Color(.systemGray6))
                         
-                        // Top shadow (light)
+                        // Top shadow (light) - reduced when disabled
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white.opacity(0.8))
+                            .fill(Color.white.opacity(isDisabled ? 0.3 : 0.8))
                             .blur(radius: 1)
                             .offset(x: -2, y: -2)
                         
-                        // Bottom shadow (dark)
+                        // Bottom shadow (dark) - reduced when disabled
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.black.opacity(0.1))
+                            .fill(Color.black.opacity(isDisabled ? 0.05 : 0.1))
                             .blur(radius: 1)
                             .offset(x: 2, y: 2)
                     }
