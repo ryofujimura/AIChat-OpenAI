@@ -32,7 +32,7 @@ class AIService: ObservableObject {
         }
     }
     
-    private func loadModel() {
+    func loadModel() {
         isLoading = true
         
         // Log the model path for debugging
