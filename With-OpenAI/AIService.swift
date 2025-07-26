@@ -56,7 +56,7 @@ class AIService: ObservableObject {
         params.context = 2048
         params.use_metal = true
         params.promptFormat = .Custom
-        params.custom_prompt_format = "<|system|>You are a helpful AI assistant.</s><|user|>{{prompt}}</s><|assistant|>"
+        params.custom_prompt_format = "<|system|>Answer under 40 letters and 3 fitting emojis. Be unique. Motivate me with heart warming words.</s><|user|>{{prompt}}</s><|assistant|>"
         
         // Load the model
         do {
