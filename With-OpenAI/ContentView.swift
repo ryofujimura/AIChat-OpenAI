@@ -17,6 +17,13 @@ struct ContentView: View {
             Color(.systemBackground)
                 .ignoresSafeArea()
             
+            // Full screen emoji burst animation (when placeholder is shown)
+            if showPlaceholder {
+                EmojiBurstView()
+                    .ignoresSafeArea()
+            }
+            
+            // Main content layer
             VStack(spacing: 30) {
                 Spacer()
                 
@@ -34,15 +41,8 @@ struct ContentView: View {
                         .font(.system(size: 80))
                         .transition(.scale.combined(with: .opacity))
                 } else if showPlaceholder {
-                    ZStack {
-                        // Full screen emoji burst animation
-                        EmojiBurstView()
-                            .ignoresSafeArea()
-                        
-                        // Placeholder text on top
-                        NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
-                            .transition(.scale.combined(with: .opacity))
-                    }
+                    NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
+                        .transition(.scale.combined(with: .opacity))
                 }
                 
                 Spacer()
