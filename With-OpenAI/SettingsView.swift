@@ -98,7 +98,7 @@ struct SettingsView: View {
                                     .progressViewStyle(LinearProgressViewStyle())
                                     .frame(height: 4)
                                 
-                                Text("Loading Phi-4-mini-instruct model...")
+                                Text("Loading TinyLlama model...")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -107,11 +107,11 @@ struct SettingsView: View {
                         
                         // Model info
                         VStack(spacing: 8) {
-                            Text("Model: Phi-4-mini-instruct.Q3_K_S.gguf")
+                            Text("Model: TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
-                            Text("Size: ~1.8GB")
+                            Text("Size: ~0.7GB")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }

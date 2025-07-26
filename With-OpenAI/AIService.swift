@@ -12,13 +12,13 @@ class AIService: ObservableObject {
     private var ai: AI?
     private let modelPath: String = {
         // Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "Phi-4-mini-instruct.Q3_K_S", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "TinyLlama-1.1B-Chat-v1.0.Q4_K_M", ofType: "gguf") {
             return bundlePath
         }
         
         // Fallback to documents directory if not in bundle
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        return documentsPath?.appendingPathComponent("Phi-4-mini-instruct.Q3_K_S.gguf").path ?? ""
+        return documentsPath?.appendingPathComponent("TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf").path ?? ""
     }()
     
     @Published var isModelLoaded = false
@@ -51,12 +51,12 @@ class AIService: ObservableObject {
         // Initialize AI with the Phi model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
-        // Configure model parameters
+        // Configure model parameters for TinyLlama
         var params = ModelAndContextParams.default
         params.context = 2048
         params.use_metal = true
         params.promptFormat = .Custom
-        params.custom_prompt_format = "### Instruction: {{prompt}}\n\n### Response:"
+        params.custom_prompt_format = "<|system|>You are a helpful AI assistant.</s><|user|>{{prompt}}</s><|assistant|>"
         
         // Load the model
         do {
