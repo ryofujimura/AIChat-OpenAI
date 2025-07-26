@@ -17,6 +17,9 @@ struct ContentView: View {
             Color(.systemBackground)
                 .ignoresSafeArea()
             
+            // Shared emoji background
+            EmojiBackgroundView()
+            
             // Full screen emoji burst animation (when placeholder is shown)
             if showPlaceholder {
                 EmojiBurstView()
