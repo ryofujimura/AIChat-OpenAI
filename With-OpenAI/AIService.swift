@@ -10,7 +10,16 @@ import llmfarm_core
 
 class AIService: ObservableObject {
     private var ai: AI?
-    private let modelPath = "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/Phi-4-mini-instruct.Q3_K_S.gguf"
+    private let modelPath: String = {
+        // Try to get the model from the app bundle first
+        if let bundlePath = Bundle.main.path(forResource: "Phi-4-mini-instruct.Q3_K_S", ofType: "gguf") {
+            return bundlePath
+        }
+        
+        // Fallback to documents directory if not in bundle
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        return documentsPath?.appendingPathComponent("Phi-4-mini-instruct.Q3_K_S.gguf").path ?? ""
+    }()
     
     @Published var isModelLoaded = false
     @Published var isLoading = false
@@ -25,6 +34,19 @@ class AIService: ObservableObject {
     
     private func loadModel() {
         isLoading = true
+        
+        // Log the model path for debugging
+        print("Loading model from path: \(modelPath)")
+        
+        // Check if model file exists
+        guard FileManager.default.fileExists(atPath: modelPath) else {
+            print("Error: Model file not found at path: \(modelPath)")
+            DispatchQueue.main.async {
+                self.isModelLoaded = false
+                self.isLoading = false
+            }
+            return
+        }
         
         // Initialize AI with the Phi model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
