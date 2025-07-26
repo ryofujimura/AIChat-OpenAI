@@ -114,9 +114,15 @@ struct NeomorphicButton: View {
         Color(.systemBackground)
             .ignoresSafeArea()
         
-        NeomorphicButton(title: "Start Chat") {
-            print("Button tapped!")
-        }
+        NeomorphicButton(
+            title: "Start Chat",
+            action: {
+                print("Button tapped!")
+            },
+            onInputSubmit: { input in
+                print("Input submitted: \(input)")
+            }
+        )
         .padding(.horizontal, 40)
     }
 } 
