@@ -10,7 +10,7 @@ import SwiftUI
 struct AnimatedBackgroundView: View {
     @State private var animationOffset: CGFloat = 0
     
-    let emojis = ["💖", "✨", "💫", "🌟", "💎", "🌸", "🌺", "🌼", "🌻", "🍀", "🌈", "🎈", "🎉", "🎊", "💕", "💗"]
+    let emojis = ["💖", "✨", "💫", "🌟", "💎", "🌸", "🌺", "🌼", "🌻", "🍀", "🌈", "🎈", "🎉", "🎊", "💕", "💗", "💝", "💞", "💟", "💌", "💋", "💍", "💎", "💐", "🌹", "🌷", "🌱", "🌲", "🌳", "🌴", "🌵", "🌾", "🌿", "☘️", "🍀", "🍁", "🍂", "🍃", "🍄", "🌰", "🦀", "🦞", "🦐", "🦑", "🦪", "🐚", "🐌", "🐛", "🐜", "🐝", "🐞", "🦋", "🦗", "🕷️", "🕸️", "🦂", "🦟", "🦠", "💐", "🌸", "💮", "🏵️", "🌹", "🥀", "🌺", "🌻", "🌼", "🌷", "🌱", "🌲", "🌳", "🌴", "🌵", "🌾", "🌿", "☘️", "🍀", "🍁", "🍂", "🍃", "🍄", "🌰", "🦀", "🦞", "🦐", "🦑", "🦪", "🐚", "🐌", "🐛", "🐜", "🐝", "🐞", "🦋", "🦗", "🕷️", "🕸️", "🦂", "🦟", "🦠"]
     
     var body: some View {
         ZStack {
@@ -29,6 +29,15 @@ struct AnimatedBackgroundView: View {
                 }
             }
             
+            // Dense emoji background
+            ForEach(0..<100, id: \.self) { index in
+                BackgroundEmoji(
+                    emoji: emojis[index % emojis.count],
+                    index: index,
+                    animationOffset: animationOffset
+                )
+            }
+            
             // Weaving emojis
             ForEach(0..<emojis.count, id: \.self) { index in
                 WeavingEmoji(
@@ -37,12 +46,58 @@ struct AnimatedBackgroundView: View {
                     animationOffset: animationOffset
                 )
             }
+            
+            // White circle with fade for content visibility
+            Circle()
+                .fill(
+                    RadialGradient(
+                        gradient: Gradient(colors: [
+                            Color.white.opacity(0.8),
+                            Color.white.opacity(0.4),
+                            Color.white.opacity(0.1),
+                            Color.clear
+                        ]),
+                        center: .center,
+                        startRadius: 100,
+                        endRadius: 300
+                    )
+                )
+                .frame(width: 600, height: 600)
+                .blur(radius: 20)
         }
         .onAppear {
             withAnimation(.linear(duration: 8.0).repeatForever(autoreverses: false)) {
                 animationOffset = 1.0
             }
         }
+    }
+}
+
+struct BackgroundEmoji: View {
+    let emoji: String
+    let index: Int
+    let animationOffset: CGFloat
+    
+    var body: some View {
+        Text(emoji)
+            .font(.system(size: 16))
+            .offset(
+                x: getXOffset(),
+                y: getYOffset()
+            )
+            .opacity(0.3)
+    }
+    
+    private func getXOffset() -> CGFloat {
+        let baseX = CGFloat(index % 10) * 80 - 400
+        let driftX = sin(animationOffset * .pi + Double(index) * 0.1) * 20
+        return baseX + driftX
+    }
+    
+    private func getYOffset() -> CGFloat {
+        let baseY = CGFloat(index / 10) * 60 - 300
+        let driftY = cos(animationOffset * .pi + Double(index) * 0.1) * 15
+        return baseY + driftY
     }
 }
 
