@@ -35,10 +35,13 @@ struct ContentView: View {
                         .transition(.scale.combined(with: .opacity))
                 } else if showPlaceholder {
                     ZStack {
+                        // Full screen emoji burst animation
+                        EmojiBurstView()
+                            .ignoresSafeArea()
+                        
+                        // Placeholder text on top
                         NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
                             .transition(.scale.combined(with: .opacity))
-                        
-                        EmojiBurstView()
                     }
                 }
                 
