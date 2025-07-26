@@ -92,13 +92,37 @@ struct SettingsView: View {
                         
                         // Loading progress
                         if isReloading || aiService.isLoading {
-                            VStack(spacing: 8) {
-                                ProgressView()
-                                    .scaleEffect(1.2)
-                                    .progressViewStyle(LinearProgressViewStyle())
-                                    .frame(height: 4)
+                            VStack(spacing: 12) {
+                                // Cute loading animation
+                                ZStack {
+                                    // Outer ring
+                                    Circle()
+                                        .stroke(Color.blue.opacity(0.2), lineWidth: 3)
+                                        .frame(width: 40, height: 40)
+                                    
+                                    // Animated ring
+                                    Circle()
+                                        .trim(from: 0, to: 0.7)
+                                        .stroke(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [.blue, .purple, .pink]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            ),
+                                            style: StrokeStyle(lineWidth: 3, lineCap: .round)
+                                        )
+                                        .frame(width: 40, height: 40)
+                                        .rotationEffect(.degrees(isReloading || aiService.isLoading ? 360 : 0))
+                                        .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: isReloading || aiService.isLoading)
+                                    
+                                    // Center emoji
+                                    Text("🤖")
+                                        .font(.body)
+                                        .scaleEffect(isReloading || aiService.isLoading ? 1.1 : 1.0)
+                                        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isReloading || aiService.isLoading)
+                                }
                                 
-                                Text("Loading TinyLlama model...")
+                                Text("Loading TinyLlama model... ✨")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }

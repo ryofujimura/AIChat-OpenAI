@@ -60,14 +60,65 @@ struct ContentView: View {
                 
                 // Loading indicator
                 if aiService.isLoading {
-                    VStack(spacing: 10) {
-                        ProgressView()
-                            .scaleEffect(1.2)
-                        Text("Loading AI model...")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                    VStack(spacing: 15) {
+                        // Cute loading animation
+                        ZStack {
+                            // Outer ring
+                            Circle()
+                                .stroke(Color.blue.opacity(0.2), lineWidth: 4)
+                                .frame(width: 60, height: 60)
+                            
+                            // Animated ring
+                            Circle()
+                                .trim(from: 0, to: 0.7)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [.blue, .purple, .pink]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                                )
+                                .frame(width: 60, height: 60)
+                                .rotationEffect(.degrees(aiService.isLoading ? 360 : 0))
+                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: aiService.isLoading)
+                            
+                            // Center emoji
+                            Text("🤖")
+                                .font(.title2)
+                                .scaleEffect(aiService.isLoading ? 1.1 : 1.0)
+                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: aiService.isLoading)
+                        }
+                        
+                        // Loading text with emojis
+                        VStack(spacing: 5) {
+                            Text("Loading AI model...")
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+                            
+                            Text("✨ Preparing your cheering assistant ✨")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        // Bouncing dots
+                        HStack(spacing: 8) {
+                            ForEach(0..<3) { index in
+                                Circle()
+                                    .fill(Color.blue)
+                                    .frame(width: 8, height: 8)
+                                    .scaleEffect(aiService.isLoading ? 1.2 : 0.8)
+                                    .animation(
+                                        .easeInOut(duration: 0.6)
+                                        .repeatForever(autoreverses: true)
+                                        .delay(Double(index) * 0.2),
+                                        value: aiService.isLoading
+                                    )
+                            }
+                        }
                     }
-                    .transition(.opacity)
+                    .transition(.scale.combined(with: .opacity))
                 }
                 
                 Spacer()
