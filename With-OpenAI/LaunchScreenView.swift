@@ -10,11 +10,12 @@ import SwiftUI
 struct LaunchScreenView: View {
     var body: some View {
         ZStack {
-            // Animated background
-            AnimatedBackgroundView()
+            // Background color
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             // Centered heart emoji
-            Text("💖")
+            Text("❤️")
                 .font(.system(size: 120))
                 .scaleEffect(1.0)
         }

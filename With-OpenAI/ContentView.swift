@@ -13,8 +13,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Animated background
-            AnimatedBackgroundView()
+            // Background
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             // Full screen emoji burst animation (when placeholder is shown)
             if showPlaceholder {
