@@ -1,0 +1,15 @@
+{
+  "originHash" : "e38167351faaddc2952ea0ad0f3fbd4a1825ca5640ba8631a28ceb8584b68d6f",
+  "pins" : [
+    {
+      "identity" : "llmfarm_core.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/guinmoon/llmfarm_core.swift",
+      "state" : {
+        "revision" : "7226a84a69361c312c997453827c609e613585fd",
+        "version" : "0.8.1"
+      }
+    }
+  ],
+  "version" : 3
+}

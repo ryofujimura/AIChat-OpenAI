@@ -10,19 +10,24 @@
 		AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D542E355A9100E81139 /* NeomorphicText.swift */; };
 		AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */; };
 		AF2D3D5D2E35637F00E81139 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D5C2E35637F00E81139 /* SettingsView.swift */; };
+		AF2D3D602E356C8800E81139 /* Phi 4 Mini Instruct Q3 K S.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF2D3D5F2E356C8800E81139 /* Phi 4 Mini Instruct Q3 K S.gguf */; };
 		AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */; };
 		AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503432E3558F500762FB7 /* LaunchScreenView.swift */; };
 		AF3503492E3558F500762FB7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503442E3558F500762FB7 /* MainView.swift */; };
 		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
 		AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */; };
+		AF6E0B1F2E356F0D005148D8 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = AF6E0B1E2E356F0D005148D8 /* llmfarm_core */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
+		AFF770D02E356F66003A9D76 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = AFF770CF2E356F66003A9D76 /* llmfarm_core */; };
+		AFF770D22E356FCC003A9D76 /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF770D12E356FCC003A9D76 /* LLMService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF2D3D542E355A9100E81139 /* NeomorphicText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicText.swift; sourceTree = "<group>"; };
 		AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiBurstView.swift; sourceTree = "<group>"; };
 		AF2D3D5C2E35637F00E81139 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AF2D3D5F2E356C8800E81139 /* Phi 4 Mini Instruct Q3 K S.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Phi 4 Mini Instruct Q3 K S.gguf"; sourceTree = "<group>"; };
 		AF3503422E3558F500762FB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF3503432E3558F500762FB7 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		AF3503442E3558F500762FB7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -32,6 +37,7 @@
 		AF8058072CFFDADC00FF6FFE /* With.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = With.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AFF770D12E356FCC003A9D76 /* LLMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLMService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF6E0B1F2E356F0D005148D8 /* llmfarm_core in Frameworks */,
+				AFF770D02E356F66003A9D76 /* llmfarm_core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +80,9 @@
 				AF2D3D5C2E35637F00E81139 /* SettingsView.swift */,
 				AF2D3D542E355A9100E81139 /* NeomorphicText.swift */,
 				AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */,
+				AFF770D12E356FCC003A9D76 /* LLMService.swift */,
 				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
+				AF2D3D5F2E356C8800E81139 /* Phi 4 Mini Instruct Q3 K S.gguf */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
@@ -131,6 +141,9 @@
 				Base,
 			);
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
+			packageReferences = (
+				AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */,
+			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -146,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */,
+				AF2D3D602E356C8800E81139 /* Phi 4 Mini Instruct Q3 K S.gguf in Resources */,
 				AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +176,7 @@
 				AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */,
 				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,
 				AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */,
+				AFF770D22E356FCC003A9D76 /* LLMService.swift in Sources */,
 				AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */,
 				AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */,
 				AF3503492E3558F500762FB7 /* MainView.swift in Sources */,
@@ -372,6 +387,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/guinmoon/llmfarm_core.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AF6E0B1E2E356F0D005148D8 /* llmfarm_core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */;
+			productName = llmfarm_core;
+		};
+		AFF770CF2E356F66003A9D76 /* llmfarm_core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */;
+			productName = llmfarm_core;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF8057FF2CFFDADC00FF6FFE /* Project object */;
 }

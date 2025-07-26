@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var temperature: Double = 0.7
+    @State private var maxTokens: Double = 200
+    @State private var topP: Double = 0.9
+    @State private var topK: Double = 40
     
     var body: some View {
         NavigationView {
@@ -32,17 +36,43 @@ struct SettingsView: View {
                         .font(.title3)
                         .foregroundColor(.secondary)
                     
-                    // Placeholder for future settings
-                    VStack(spacing: 15) {
-                        Text("Settings will be added here")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
+                    // LLM Settings
+                    VStack(spacing: 20) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Temperature: \(temperature, specifier: "%.1f")")
+                                .font(.headline)
+                            
+                            Slider(value: $temperature, in: 0.1...1.5, step: 0.1)
+                                .accentColor(.blue)
+                        }
+                        .padding(.horizontal, 20)
                         
-                        Text("Coming soon...")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Max Tokens: \(Int(maxTokens))")
+                                .font(.headline)
+                            
+                            Slider(value: $maxTokens, in: 50...500, step: 10)
+                                .accentColor(.blue)
+                        }
+                        .padding(.horizontal, 20)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Top P: \(topP, specifier: "%.1f")")
+                                .font(.headline)
+                            
+                            Slider(value: $topP, in: 0.1...1.0, step: 0.1)
+                                .accentColor(.blue)
+                        }
+                        .padding(.horizontal, 20)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Top K: \(Int(topK))")
+                                .font(.headline)
+                            
+                            Slider(value: $topK, in: 1...100, step: 1)
+                                .accentColor(.blue)
+                        }
+                        .padding(.horizontal, 20)
                     }
                     
                     Spacer()

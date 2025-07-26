@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var llmService = LLMService()
     @State private var showThinking = false
     @State private var showPlaceholder = false
     @State private var showInputBox = false
     @State private var userInput = ""
     @State private var showSettings = false
+    @State private var llmResponse = ""
     
     var body: some View {
         ZStack {
@@ -58,14 +60,23 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                // Thinking emoji or placeholder text
+                // Thinking emoji or LLM response
                 if showThinking {
                     Text("🤔")
                         .font(.system(size: 80))
                         .transition(.scale.combined(with: .opacity))
                 } else if showPlaceholder {
-                    NeomorphicText("placeholder", fontSize: .title2, fontWeight: .medium)
-                        .transition(.scale.combined(with: .opacity))
+                    VStack(spacing: 15) {
+                        NeomorphicText(llmResponse.isEmpty ? "placeholder" : llmResponse, fontSize: .title2, fontWeight: .medium)
+                            .transition(.scale.combined(with: .opacity))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                        
+                        if llmService.isLoading {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                        }
+                    }
                 }
                 
                 Spacer()
@@ -74,17 +85,23 @@ struct ContentView: View {
                 NeomorphicButton(
                     title: "How am I doing?",
                     action: {
-                        // Show thinking emoji
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            showThinking = true
-                            showPlaceholder = false
-                        }
-                        
-                        // After 2 seconds, show placeholder text
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        Task {
+                            // Show thinking emoji
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                showThinking = false
-                                showPlaceholder = true
+                                showThinking = true
+                                showPlaceholder = false
+                            }
+                            
+                            // Generate LLM response
+                            let response = await llmService.generateResponse(to: "How am I doing?")
+                            llmResponse = response
+                            
+                            // After 2 seconds, show LLM response
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    showThinking = false
+                                    showPlaceholder = true
+                                }
                             }
                         }
                     },
@@ -102,11 +119,17 @@ struct ContentView: View {
                                 showPlaceholder = false
                             }
                             
-                            // After 2 seconds, show placeholder text
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showThinking = false
-                                    showPlaceholder = true
+                            // Generate LLM response with custom input
+                            Task {
+                                let response = await llmService.generateResponse(to: input)
+                                llmResponse = response
+                                
+                                // After 2 seconds, show LLM response
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        showThinking = false
+                                        showPlaceholder = true
+                                    }
                                 }
                             }
                         }
@@ -180,6 +203,10 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
+        }
+        .task {
+            // Load the LLM model when the view appears
+            await llmService.loadModel()
         }
     }
 }
