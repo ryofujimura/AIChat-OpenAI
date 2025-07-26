@@ -42,7 +42,7 @@ struct SettingsView: View {
                         
                         Text("Coming soon...")
                             .font(.caption)
-                            .foregroundColor(.tertiary)
+                            .foregroundColor(.secondary)
                     }
                     
                     Spacer()
