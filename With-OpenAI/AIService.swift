@@ -90,18 +90,47 @@ class AIService: ObservableObject {
             return
         }
         
-        // Create explicit, token-efficient system prompt for TinyLlama
-        let systemPrompt = """
-INSTRUCTION: Respond with ONLY the answer. No explanation, no reasoning, no intro. Max 50 characters. Start with the answer.
-"""
+        // Create rigid, template-based prompt based on input type
+        let fullPrompt: String
         
-        // Format prompt in instruction-tuned model style
-        let fullPrompt = """
-\(systemPrompt)
+        if prompt == "default" {
+            // Default motivational message
+            fullPrompt = """
+TASK: Write a short uplifting message.
 
-QUESTION: \(prompt)
-ANSWER:
+RULES:
+- Max 25 letters
+- Include these 3 emojis: 🌱 💛 😊
+- No explanation. Only message.
+
+MESSAGE:
 """
+        } else if prompt.hasPrefix("user: ") {
+            // User-specific message
+            let userInput = String(prompt.dropFirst(6)) // Remove "user: " prefix
+            fullPrompt = """
+TASK: Write a short uplifting message for: \(userInput)
+
+RULES:
+- Max 35 letters
+- Include these 3 emojis: 🌱 💛 😊
+- No explanation. Only message.
+
+MESSAGE:
+"""
+        } else {
+            // Fallback
+            fullPrompt = """
+TASK: Write a short uplifting message.
+
+RULES:
+- Max 25 letters
+- Include these 3 emojis: 🌱 💛 😊
+- No explanation. Only message.
+
+MESSAGE:
+"""
+        }
         
         DispatchQueue.global(qos: .userInitiated).async {
             ai.conversation(fullPrompt, { [weak self] token, time in

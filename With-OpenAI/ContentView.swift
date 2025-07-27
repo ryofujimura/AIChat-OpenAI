@@ -180,7 +180,7 @@ struct ContentView: View {
                         }
                         
                         // Generate AI response
-                        aiService.generateResponse(to: "Give a motivational message: 25 letters max + 3 emojis. No explanations. Just the message.") { response in
+                        aiService.generateResponse(to: "default") { response in
                             DispatchQueue.main.async {
                                 aiResponse = response
                                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -220,7 +220,7 @@ struct ContentView: View {
                             }
                             
                             // Generate AI response
-                            aiService.generateResponse(to: "Give a motivational message: 35 letters max + 3 emojis. No explanations. User: \(input)") { response in
+                            aiService.generateResponse(to: "user: \(input)") { response in
                                 DispatchQueue.main.async {
                                     aiResponse = response
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -295,7 +295,7 @@ struct ContentView: View {
                             userInput = ""
                             
                             // Generate AI response
-                            aiService.generateResponse(to: "Give a motivational message: 35 letters max + 3 emojis. No explanations. User: \(currentInput)") { response in
+                            aiService.generateResponse(to: "user: \(currentInput)") { response in
                                 DispatchQueue.main.async {
                                     aiResponse = response
                                     withAnimation(.easeInOut(duration: 0.3)) {
