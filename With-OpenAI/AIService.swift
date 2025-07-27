@@ -63,6 +63,15 @@ class AIService: ObservableObject {
             return
         }
         
+        // Get file size for debugging
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: modelPath)
+            let fileSize = attributes[.size] as? Int64 ?? 0
+            print("Model file size: \(fileSize) bytes (\(fileSize / 1024 / 1024) MB)")
+        } catch {
+            print("Error getting file attributes: \(error)")
+        }
+        
         // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
@@ -73,19 +82,25 @@ class AIService: ObservableObject {
         // Use default prompt format for Llama 3.2 1B
         
         print("Using Llama 3.2 1B Instruct model with default prompt format")
+        print("Context size: \(params.context)")
+        print("Using Metal: \(params.use_metal)")
         
         // Load the model
         do {
             let success = try ai?.loadModel(ModelInference.LLama_gguf, contextParams: params)
+            print("Model loading result: \(success ?? false)")
             DispatchQueue.main.async {
                 self.isModelLoaded = success ?? false
                 self.isLoading = false
                 if success == true {
                     print("Model loaded successfully with new prompt format")
+                } else {
+                    print("Model loading failed")
                 }
             }
         } catch {
             print("Error loading model: \(error)")
+            print("Error details: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 self.isModelLoaded = false
                 self.isLoading = false
@@ -115,7 +130,7 @@ class AIService: ObservableObject {
             fullPrompt = """
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 25 characters. No explanations.
+You are a kind and supportive friend. Motivate me with heart warming words. Answer under 40 letters and 3 fitting emojis. Be unique.
 
 <|eot_id|><|start_header_id|>user<|end_header_id|>
 
@@ -130,7 +145,7 @@ Give me a short supportive message.
             fullPrompt = """
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 35 characters. No explanations.
+You are a kind and supportive friend. Respond to the user's needs with gentle, warm positivity and under 60 letters and 3 emojis. User's needs: \(userInput). Please offer kind, encouraging words!
 
 <|eot_id|><|start_header_id|>user<|end_header_id|>
 
@@ -144,7 +159,7 @@ Give me a short supportive message for: \(userInput)
             fullPrompt = """
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 25 characters. No explanations.
+You are a kind and supportive friend. Respond to the user's needs with gentle, warm positivity and under 60 letters and 3 emojis. Please offer kind, encouraging words!
 
 <|eot_id|><|start_header_id|>user<|end_header_id|>
 
