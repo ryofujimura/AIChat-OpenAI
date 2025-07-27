@@ -11,22 +11,44 @@ import llmfarm_core
 class AIService: ObservableObject {
     private var ai: AI?
     private let modelPath: String = {
-        // Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "llama-3.2-1b-instruct-q4_k_m", ofType: "gguf") {
+        // Try multiple approaches to find the model file
+        let modelFileName = "TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf" // Temporarily use TinyLlama for testing
+        
+        // 1. Try to get the model from the app bundle first
+        if let bundlePath = Bundle.main.path(forResource: "TinyLlama-1.1B-Chat-v1.0.Q4_K_M", ofType: "gguf") {
             print("Found model in app bundle: \(bundlePath)")
             return bundlePath
         }
         
-        // Fallback to documents directory if not in bundle
+        // 2. Try with just the filename in bundle
+        if let bundlePath = Bundle.main.path(forResource: modelFileName, ofType: nil) {
+            print("Found model in app bundle with full filename: \(bundlePath)")
+            return bundlePath
+        }
+        
+        // 3. Fallback to documents directory
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let documentsModelPath = documentsPath?.appendingPathComponent("llama-3.2-1b-instruct-q4_k_m.gguf").path ?? ""
+        let documentsModelPath = documentsPath?.appendingPathComponent(modelFileName).path ?? ""
         
         print("Checking documents directory: \(documentsModelPath)")
         
-        // Also check if the file exists in the documents directory
+        // 4. Check if the file exists in the documents directory
         if FileManager.default.fileExists(atPath: documentsModelPath) {
             print("Found model in documents directory: \(documentsModelPath)")
             return documentsModelPath
+        }
+        
+        // 5. Try to list files in documents directory for debugging
+        if let documentsPath = documentsPath {
+            do {
+                let files = try FileManager.default.contentsOfDirectory(at: documentsPath, includingPropertiesForKeys: nil)
+                print("Files in documents directory:")
+                for file in files {
+                    print("  - \(file.lastPathComponent)")
+                }
+            } catch {
+                print("Error listing documents directory: \(error)")
+            }
         }
         
         // If not found, return the documents path anyway for debugging
@@ -75,13 +97,10 @@ class AIService: ObservableObject {
         // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
-        // Configure model parameters for Llama 3.2 1B
-        var params = ModelAndContextParams.default
-        params.context = 4096  // 1B model uses smaller context
-        params.use_metal = true
-        // Use default prompt format for Llama 3.2 1B
+        // Use default parameters for better compatibility
+        let params = ModelAndContextParams.default
         
-        print("Using Llama 3.2 1B Instruct model with default prompt format")
+        print("Using default model parameters")
         print("Context size: \(params.context)")
         print("Using Metal: \(params.use_metal)")
         
@@ -93,7 +112,7 @@ class AIService: ObservableObject {
                 self.isModelLoaded = success ?? false
                 self.isLoading = false
                 if success == true {
-                    print("Model loaded successfully with new prompt format")
+                    print("Model loaded successfully")
                 } else {
                     print("Model loading failed")
                 }
