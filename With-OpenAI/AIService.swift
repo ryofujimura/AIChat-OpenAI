@@ -96,42 +96,42 @@ class AIService: ObservableObject {
         if prompt == "default" {
             // Default motivational message
             fullPrompt = """
-You are a cheerful assistant. Write a short uplifting message.
-
-Requirements:
-- Maximum 25 characters (not counting emojis)
-- Include exactly these 3 emojis: 🌱 💛 😊
-- No explanations or reasoning
-- Just the message
-
-Message:
+<|im_start|>system
+You respond with ONLY a short uplifting message. 
+Rules: Max 25 letters. Include 🌱 💛 😊. 
+No explanation. No hashtags. No extra text.
+<|im_end|>
+<|im_start|>user
+Give me a short supportive message.
+<|im_end|>
+<|im_start|>assistant
 """
         } else if prompt.hasPrefix("user: ") {
             // User-specific message
             let userInput = String(prompt.dropFirst(6)) // Remove "user: " prefix
             fullPrompt = """
-You are a cheerful assistant. Write a short uplifting message for: \(userInput)
-
-Requirements:
-- Maximum 35 characters (not counting emojis)
-- Include exactly these 3 emojis: 🌱 💛 😊
-- No explanations or reasoning
-- Just the message
-
-Message:
+<|im_start|>system
+You respond with ONLY a short uplifting message. 
+Rules: Max 35 letters. Include 🌱 💛 😊. 
+No explanation. No hashtags. No extra text.
+<|im_end|>
+<|im_start|>user
+Give me a short supportive message for: \(userInput)
+<|im_end|>
+<|im_start|>assistant
 """
         } else {
             // Fallback
             fullPrompt = """
-You are a cheerful assistant. Write a short uplifting message.
-
-Requirements:
-- Maximum 25 characters (not counting emojis)
-- Include exactly these 3 emojis: 🌱 💛 😊
-- No explanations or reasoning
-- Just the message
-
-Message:
+<|im_start|>system
+You respond with ONLY a short uplifting message. 
+Rules: Max 25 letters. Include 🌱 💛 😊. 
+No explanation. No hashtags. No extra text.
+<|im_end|>
+<|im_start|>user
+Give me a short supportive message.
+<|im_end|>
+<|im_start|>assistant
 """
         }
         
@@ -155,8 +155,11 @@ Message:
     }
     
     private func cleanResponse(_ response: String) -> String {
-        // Remove common prefixes that indicate reasoning
+        // Basic cleanup for Dolphin responses
         var cleaned = response.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Remove any remaining <|im_end|> tags that might appear
+        cleaned = cleaned.replacingOccurrences(of: "<|im_end|>", with: "")
         
         // Remove common reasoning prefixes
         let prefixesToRemove = [
@@ -173,10 +176,7 @@ Message:
             "The answer is",
             "Here is",
             "I'll give you",
-            "I can provide",
-            "The",
-            "A",
-            "An"
+            "I can provide"
         ]
         
         for prefix in prefixesToRemove {
@@ -186,40 +186,12 @@ Message:
             }
         }
         
-        // Remove any text after common reasoning indicators
-        let reasoningIndicators = [
-            " because ",
-            " since ",
-            " as ",
-            " therefore ",
-            " thus ",
-            " so ",
-            " however ",
-            " but ",
-            " although ",
-            " while ",
-            " which ",
-            " where ",
-            " when ",
-            " why ",
-            " how "
-        ]
-        
-        for indicator in reasoningIndicators {
-            if let range = cleaned.lowercased().range(of: indicator) {
-                cleaned = String(cleaned[..<range.lowerBound])
-                cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-        }
-        
         // Limit to first sentence or 50 characters, whichever is shorter
         if let firstSentenceEnd = cleaned.firstIndex(of: ".") {
             cleaned = String(cleaned[..<firstSentenceEnd])
         }
         
-        // Remove any remaining punctuation at the end
-        cleaned = cleaned.trimmingCharacters(in: .punctuationCharacters)
-        
+        // Post-trim: Keep only first 50 characters as suggested
         if cleaned.count > 50 {
             cleaned = String(cleaned.prefix(50))
         }
