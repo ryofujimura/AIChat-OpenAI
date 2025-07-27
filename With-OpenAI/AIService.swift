@@ -90,11 +90,18 @@ class AIService: ObservableObject {
             return
         }
         
-        // Create a very restrictive system prompt that forces concise responses
-        let systemPrompt = "You are a concise assistant. CRITICAL RULES: 1) Respond with ONLY the final answer - no explanations, no reasoning, no greetings. 2) Keep responses under 50 characters. 3) Do not use phrases like 'Here's' or 'I think'. 4) Start directly with your answer. 5) If asked for a motivational message, give ONLY the message with emojis."
+        // Create explicit, token-efficient system prompt for TinyLlama
+        let systemPrompt = """
+INSTRUCTION: Respond with ONLY the answer. No explanation, no reasoning, no intro. Max 50 characters. Start with the answer.
+"""
         
-        // Combine system prompt with user prompt
-        let fullPrompt = "\(systemPrompt)\n\nUser: \(prompt)\n\nAssistant:"
+        // Format prompt in instruction-tuned model style
+        let fullPrompt = """
+\(systemPrompt)
+
+QUESTION: \(prompt)
+ANSWER:
+"""
         
         DispatchQueue.global(qos: .userInitiated).async {
             ai.conversation(fullPrompt, { [weak self] token, time in
@@ -134,7 +141,10 @@ class AIService: ObservableObject {
             "The answer is",
             "Here is",
             "I'll give you",
-            "I can provide"
+            "I can provide",
+            "The",
+            "A",
+            "An"
         ]
         
         for prefix in prefixesToRemove {
@@ -155,7 +165,12 @@ class AIService: ObservableObject {
             " however ",
             " but ",
             " although ",
-            " while "
+            " while ",
+            " which ",
+            " where ",
+            " when ",
+            " why ",
+            " how "
         ]
         
         for indicator in reasoningIndicators {
@@ -169,6 +184,9 @@ class AIService: ObservableObject {
         if let firstSentenceEnd = cleaned.firstIndex(of: ".") {
             cleaned = String(cleaned[..<firstSentenceEnd])
         }
+        
+        // Remove any remaining punctuation at the end
+        cleaned = cleaned.trimmingCharacters(in: .punctuationCharacters)
         
         if cleaned.count > 50 {
             cleaned = String(cleaned.prefix(50))
