@@ -13,12 +13,25 @@ class AIService: ObservableObject {
     private let modelPath: String = {
         // Try to get the model from the app bundle first
         if let bundlePath = Bundle.main.path(forResource: "Llama_3.2_Instruct_Q4_K_M", ofType: "gguf") {
+            print("Found model in app bundle: \(bundlePath)")
             return bundlePath
         }
         
         // Fallback to documents directory if not in bundle
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        return documentsPath?.appendingPathComponent("Llama_3.2_Instruct_Q4_K_M.gguf").path ?? ""
+        let documentsModelPath = documentsPath?.appendingPathComponent("Llama_3.2_Instruct_Q4_K_M.gguf").path ?? ""
+        
+        print("Checking documents directory: \(documentsModelPath)")
+        
+        // Also check if the file exists in the documents directory
+        if FileManager.default.fileExists(atPath: documentsModelPath) {
+            print("Found model in documents directory: \(documentsModelPath)")
+            return documentsModelPath
+        }
+        
+        // If not found, return the documents path anyway for debugging
+        print("Model not found in bundle or documents directory")
+        return documentsModelPath
     }()
     
     @Published var isModelLoaded = false
@@ -33,7 +46,9 @@ class AIService: ObservableObject {
     }
     
     func loadModel() {
-        isLoading = true
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
         
         // Log the model path for debugging
         print("Loading model from path: \(modelPath)")
@@ -80,7 +95,9 @@ class AIService: ObservableObject {
     
     func reloadModel() {
         print("Reloading model with updated prompt...")
-        isModelLoaded = false
+        DispatchQueue.main.async {
+            self.isModelLoaded = false
+        }
         loadModel()
     }
     
@@ -206,6 +223,8 @@ Give me a short supportive message.
     }
     
     func resetResponse() {
-        currentResponse = ""
+        DispatchQueue.main.async {
+            self.currentResponse = ""
+        }
     }
 } 
