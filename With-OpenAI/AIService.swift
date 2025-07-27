@@ -12,13 +12,13 @@ class AIService: ObservableObject {
     private var ai: AI?
     private let modelPath: String = {
         // Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "TinyLlama-1.1B-Chat-v1.0.Q4_K_M", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "Dolphin_2.1_Mistral_7B", ofType: "gguf") {
             return bundlePath
         }
         
         // Fallback to documents directory if not in bundle
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        return documentsPath?.appendingPathComponent("TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf").path ?? ""
+        return documentsPath?.appendingPathComponent("Dolphin_2.1_Mistral_7B.gguf").path ?? ""
     }()
     
     @Published var isModelLoaded = false
@@ -51,13 +51,13 @@ class AIService: ObservableObject {
         // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
-        // Configure model parameters for TinyLlama
+        // Configure model parameters for Dolphin Mistral
         var params = ModelAndContextParams.default
-        params.context = 2048
+        params.context = 4096  // Mistral supports larger context
         params.use_metal = true
-        // Use default prompt format since TinyLlama format doesn't exist
+        // Use default prompt format for Mistral
         
-        print("Using default prompt format")
+        print("Using Dolphin Mistral model with default prompt format")
         
         // Load the model
         do {
@@ -96,39 +96,42 @@ class AIService: ObservableObject {
         if prompt == "default" {
             // Default motivational message
             fullPrompt = """
-TASK: Write a short uplifting message.
+You are a cheerful assistant. Write a short uplifting message.
 
-RULES:
-- Max 25 letters
-- Include these 3 emojis: 🌱 💛 😊
-- No explanation. Only message.
+Requirements:
+- Maximum 25 characters (not counting emojis)
+- Include exactly these 3 emojis: 🌱 💛 😊
+- No explanations or reasoning
+- Just the message
 
-MESSAGE:
+Message:
 """
         } else if prompt.hasPrefix("user: ") {
             // User-specific message
             let userInput = String(prompt.dropFirst(6)) // Remove "user: " prefix
             fullPrompt = """
-TASK: Write a short uplifting message for: \(userInput)
+You are a cheerful assistant. Write a short uplifting message for: \(userInput)
 
-RULES:
-- Max 35 letters
-- Include these 3 emojis: 🌱 💛 😊
-- No explanation. Only message.
+Requirements:
+- Maximum 35 characters (not counting emojis)
+- Include exactly these 3 emojis: 🌱 💛 😊
+- No explanations or reasoning
+- Just the message
 
-MESSAGE:
+Message:
 """
         } else {
             // Fallback
             fullPrompt = """
-TASK: Write a short uplifting message.
+You are a cheerful assistant. Write a short uplifting message.
 
-RULES:
-- Max 25 letters
-- Include these 3 emojis: 🌱 💛 😊
-- No explanation. Only message.
+Requirements:
+- Maximum 25 characters (not counting emojis)
+- Include exactly these 3 emojis: 🌱 💛 😊
+- No explanations or reasoning
+- Just the message
 
-MESSAGE:
+Message:
 """
         }
         

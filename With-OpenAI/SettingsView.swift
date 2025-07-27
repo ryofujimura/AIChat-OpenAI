@@ -122,7 +122,7 @@ struct SettingsView: View {
                                         .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isReloading || aiService.isLoading)
                                 }
                                 
-                                Text("Loading TinyLlama model... ✨")
+                                Text("Loading Dolphin Mistral model... ✨")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -131,11 +131,11 @@ struct SettingsView: View {
                         
                         // Model info
                         VStack(spacing: 8) {
-                            Text("Model: TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf")
+                            Text("Model: Dolphin_2.1_Mistral_7B.gguf")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
-                            Text("Size: ~0.7GB")
+                            Text("Size: ~4.1GB")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
