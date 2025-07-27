@@ -122,7 +122,7 @@ struct SettingsView: View {
                                         .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isReloading || aiService.isLoading)
                                 }
                                 
-                                Text("Loading Dolphin Mistral model... ✨")
+                                Text("Loading Llama 3.2 Instruct model... ✨")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -131,11 +131,11 @@ struct SettingsView: View {
                         
                         // Model info
                         VStack(spacing: 8) {
-                            Text("Model: Dolphin_2.1_Mistral_7B.gguf")
+                            Text("Model: Llama_3.2_Instruct_Q4_K_M.gguf")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
-                            Text("Size: ~4.1GB")
+                            Text("Size: ~770MB")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }

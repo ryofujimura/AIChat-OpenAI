@@ -12,13 +12,13 @@ class AIService: ObservableObject {
     private var ai: AI?
     private let modelPath: String = {
         // Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "Dolphin_2.1_Mistral_7B", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "Llama_3.2_Instruct_Q4_K_M", ofType: "gguf") {
             return bundlePath
         }
         
         // Fallback to documents directory if not in bundle
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        return documentsPath?.appendingPathComponent("Dolphin_2.1_Mistral_7B.gguf").path ?? ""
+        return documentsPath?.appendingPathComponent("Llama_3.2_Instruct_Q4_K_M.gguf").path ?? ""
     }()
     
     @Published var isModelLoaded = false
@@ -51,13 +51,13 @@ class AIService: ObservableObject {
         // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
-        // Configure model parameters for Dolphin Mistral
+        // Configure model parameters for Llama 3.2
         var params = ModelAndContextParams.default
-        params.context = 4096  // Mistral supports larger context
+        params.context = 8192  // Llama 3.2 supports larger context
         params.use_metal = true
-        // Use default prompt format for Mistral
+        // Use default prompt format for Llama 3.2
         
-        print("Using Dolphin Mistral model with default prompt format")
+        print("Using Llama 3.2 Instruct model with default prompt format")
         
         // Load the model
         do {
@@ -96,42 +96,45 @@ class AIService: ObservableObject {
         if prompt == "default" {
             // Default motivational message
             fullPrompt = """
-<|im_start|>system
-You respond with ONLY a short uplifting message. 
-Rules: Max 25 letters. Include 🌱 💛 😊. 
-No explanation. No hashtags. No extra text.
-<|im_end|>
-<|im_start|>user
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 25 characters. No explanations.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
 Give me a short supportive message.
-<|im_end|>
-<|im_start|>assistant
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
 """
         } else if prompt.hasPrefix("user: ") {
             // User-specific message
             let userInput = String(prompt.dropFirst(6)) // Remove "user: " prefix
             fullPrompt = """
-<|im_start|>system
-You respond with ONLY a short uplifting message. 
-Rules: Max 35 letters. Include 🌱 💛 😊. 
-No explanation. No hashtags. No extra text.
-<|im_end|>
-<|im_start|>user
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 35 characters. No explanations.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
 Give me a short supportive message for: \(userInput)
-<|im_end|>
-<|im_start|>assistant
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
 """
         } else {
             // Fallback
             fullPrompt = """
-<|im_start|>system
-You respond with ONLY a short uplifting message. 
-Rules: Max 25 letters. Include 🌱 💛 😊. 
-No explanation. No hashtags. No extra text.
-<|im_end|>
-<|im_start|>user
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+You are a cheerful assistant. Write a short uplifting message with exactly 3 emojis: 🌱 💛 😊. Keep it under 25 characters. No explanations.
+
+<|eot_id|><|start_header_id|>user<|end_header_id|>
+
 Give me a short supportive message.
-<|im_end|>
-<|im_start|>assistant
+
+<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
 """
         }
         
@@ -155,11 +158,14 @@ Give me a short supportive message.
     }
     
     private func cleanResponse(_ response: String) -> String {
-        // Basic cleanup for Dolphin responses
+        // Basic cleanup for Llama 3.2 responses
         var cleaned = response.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Remove any remaining <|im_end|> tags that might appear
-        cleaned = cleaned.replacingOccurrences(of: "<|im_end|>", with: "")
+        // Remove any Llama 3.2 specific tokens that might appear
+        cleaned = cleaned.replacingOccurrences(of: "<|eot_id|>", with: "")
+        cleaned = cleaned.replacingOccurrences(of: "<|end_of_text|>", with: "")
+        cleaned = cleaned.replacingOccurrences(of: "<|start_header_id|>", with: "")
+        cleaned = cleaned.replacingOccurrences(of: "<|end_header_id|>", with: "")
         
         // Remove common reasoning prefixes
         let prefixesToRemove = [
