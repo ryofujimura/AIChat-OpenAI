@@ -12,14 +12,14 @@ class AIService: ObservableObject {
     private var ai: AI?
     private let modelPath: String = {
         // Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "Llama_3.2_Instruct_Q4_K_M", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "llama-3.2-1b-instruct-q4_k_m", ofType: "gguf") {
             print("Found model in app bundle: \(bundlePath)")
             return bundlePath
         }
         
         // Fallback to documents directory if not in bundle
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let documentsModelPath = documentsPath?.appendingPathComponent("Llama_3.2_Instruct_Q4_K_M.gguf").path ?? ""
+        let documentsModelPath = documentsPath?.appendingPathComponent("llama-3.2-1b-instruct-q4_k_m.gguf").path ?? ""
         
         print("Checking documents directory: \(documentsModelPath)")
         
@@ -66,13 +66,13 @@ class AIService: ObservableObject {
         // Initialize AI with the model
         ai = AI(_modelPath: modelPath, _chatName: "with_chat")
         
-        // Configure model parameters for Llama 3.2
+        // Configure model parameters for Llama 3.2 1B
         var params = ModelAndContextParams.default
-        params.context = 8192  // Llama 3.2 supports larger context
+        params.context = 4096  // 1B model uses smaller context
         params.use_metal = true
-        // Use default prompt format for Llama 3.2
+        // Use default prompt format for Llama 3.2 1B
         
-        print("Using Llama 3.2 Instruct model with default prompt format")
+        print("Using Llama 3.2 1B Instruct model with default prompt format")
         
         // Load the model
         do {
