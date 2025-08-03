@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF0984D12E3578830085CD78 /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF0984D02E3578830085CD78 /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */; };
 		AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D542E355A9100E81139 /* NeomorphicText.swift */; };
 		AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */; };
 		AF2D3D5D2E35637F00E81139 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D5C2E35637F00E81139 /* SettingsView.swift */; };
@@ -16,6 +15,8 @@
 		AF3503492E3558F500762FB7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503442E3558F500762FB7 /* MainView.swift */; };
 		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
 		AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */; };
+		AF4DB9172E3FF2B80005856B /* Llama-3.2-3B-Instruct-Q4-KM.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF4DB9152E3FF2B80005856B /* Llama-3.2-3B-Instruct-Q4-KM.gguf */; };
+		AF4DB9182E3FF2B80005856B /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF4DB9162E3FF2B80005856B /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */; };
 		AF6E0B1F2E356F0D005148D8 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = AF6E0B1E2E356F0D005148D8 /* llmfarm_core */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
@@ -24,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF0984D02E3578830085CD78 /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf"; sourceTree = "<group>"; };
 		AF2D3D542E355A9100E81139 /* NeomorphicText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicText.swift; sourceTree = "<group>"; };
 		AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiBurstView.swift; sourceTree = "<group>"; };
 		AF2D3D5C2E35637F00E81139 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -34,6 +34,8 @@
 		AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With_OpenAIApp.swift; sourceTree = "<group>"; };
 		AF3845EC2E3559CF001F3314 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicButton.swift; sourceTree = "<group>"; };
+		AF4DB9152E3FF2B80005856B /* Llama-3.2-3B-Instruct-Q4-KM.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Llama-3.2-3B-Instruct-Q4-KM.gguf"; sourceTree = "<group>"; };
+		AF4DB9162E3FF2B80005856B /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf"; sourceTree = "<group>"; };
 		AF8058072CFFDADC00FF6FFE /* With.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = With.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -82,7 +84,8 @@
 				AF2D3D542E355A9100E81139 /* NeomorphicText.swift */,
 				AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */,
 				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
-				AF0984D02E3578830085CD78 /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */,
+				AF4DB9152E3FF2B80005856B /* Llama-3.2-3B-Instruct-Q4-KM.gguf */,
+				AF4DB9162E3FF2B80005856B /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
 			);
@@ -142,7 +145,7 @@
 			);
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
 			packageReferences = (
-				AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */,
+				AF2D3D5E2E35670000E81139 /* XCLocalSwiftPackageReference "LocalPackages/llmfarm_core_fixed" */,
 			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
@@ -159,8 +162,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */,
+				AF4DB9172E3FF2B80005856B /* Llama-3.2-3B-Instruct-Q4-KM.gguf in Resources */,
+				AF4DB9182E3FF2B80005856B /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf in Resources */,
 				AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */,
-				AF0984D12E3578830085CD78 /* TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,26 +392,22 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/guinmoon/llmfarm_core.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.1;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		AF2D3D5E2E35670000E81139 /* XCLocalSwiftPackageReference "LocalPackages/llmfarm_core_fixed" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = LocalPackages/llmfarm_core_fixed;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		AF6E0B1E2E356F0D005148D8 /* llmfarm_core */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */;
+			package = AF2D3D5E2E35670000E81139 /* XCLocalSwiftPackageReference "LocalPackages/llmfarm_core_fixed" */;
 			productName = llmfarm_core;
 		};
 		AFF770CF2E356F66003A9D76 /* llmfarm_core */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF2D3D5E2E35670000E81139 /* XCRemoteSwiftPackageReference "llmfarm_core" */;
+			package = AF2D3D5E2E35670000E81139 /* XCLocalSwiftPackageReference "LocalPackages/llmfarm_core_fixed" */;
 			productName = llmfarm_core;
 		};
 /* End XCSwiftPackageProductDependency section */

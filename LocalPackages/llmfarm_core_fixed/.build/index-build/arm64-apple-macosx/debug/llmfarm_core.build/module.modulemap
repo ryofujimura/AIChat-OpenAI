@@ -1,0 +1,4 @@
+module llmfarm_core {
+    header "/Users/ryofujimura/GitHub/AIChat-OpenAI/LocalPackages/llmfarm_core_fixed/.build/index-build/arm64-apple-macosx/debug/llmfarm_core.build/llmfarm_core-Swift.h"
+    requires objc
+}
