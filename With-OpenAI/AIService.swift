@@ -14,6 +14,7 @@ class AIService: ObservableObject {
     @Published var input = ""
     @Published var isModelLoaded = false
     
+    private var llamaProcess: Process?
     private let modelPath: String = {
         // Try multiple approaches to find the model file
         let modelFileName = "Llama-3.2-3B-Instruct.gguf" // Use the Llama-3.2-3B-Instruct model
@@ -57,15 +58,22 @@ class AIService: ObservableObject {
                 return
             }
             
-            let modelURL = URL(fileURLWithPath: modelPath)
             let fileSize = try FileManager.default.attributesOfItem(atPath: modelPath)[.size] as? Int64 ?? 0
             print("Model file size: \(fileSize) bytes (\(fileSize / 1024 / 1024) MB)")
             
-            // For now, we'll simulate model loading success
-            // TODO: Implement actual model loading with llama.cpp or other framework
-            await MainActor.run {
-                isModelLoaded = true
-                print("Model loaded successfully (simulated)")
+            // Check if llama.cpp binary exists
+            let llamaBinary = "/usr/local/bin/llama" // Common installation path
+            if FileManager.default.fileExists(atPath: llamaBinary) {
+                print("Found llama.cpp binary at: \(llamaBinary)")
+                await MainActor.run {
+                    isModelLoaded = true
+                    print("Model loaded successfully")
+                }
+            } else {
+                print("llama.cpp binary not found. Please install llama.cpp first.")
+                await MainActor.run {
+                    isModelLoaded = false
+                }
             }
             
         } catch {
@@ -86,15 +94,55 @@ class AIService: ObservableObject {
         isGenerating = true
         output = ""
         
-        // TODO: Implement actual LLM inference here
-        // For now, we'll show that the system is ready for real implementation
-        await MainActor.run {
-            output = "🤖 AI Model Ready!\n\nThis is a placeholder response. The actual Llama-3.2-3B-Instruct model is loaded and ready for real inference.\n\nYour prompt: \"\(prompt)\"\n\nTo implement real AI responses, you'll need to:\n1. Add llama.cpp framework\n2. Initialize the model with proper parameters\n3. Run inference on the prompt\n4. Stream the response back"
-            isGenerating = false
+        // Format prompt for Llama 3.2 Instruct
+        let formattedPrompt = "<|system|>\nYou are a helpful AI assistant.\n<|user|>\n\(prompt)\n<|assistant|>\n"
+        
+        do {
+            // Create a temporary file for the prompt
+            let tempDir = FileManager.default.temporaryDirectory
+            let promptFile = tempDir.appendingPathComponent("prompt.txt")
+            try formattedPrompt.write(to: promptFile, atomically: true, encoding: .utf8)
+            
+            // Run llama.cpp process
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/usr/local/bin/llama")
+            process.arguments = [
+                "-m", modelPath,
+                "-f", promptFile.path,
+                "-n", "512",  // max tokens
+                "--temp", "0.7",
+                "--top-p", "0.9",
+                "--repeat-penalty", "1.1"
+            ]
+            
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            process.standardError = pipe
+            
+            try process.run()
+            
+            // Read output asynchronously
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            let response = String(data: data, encoding: .utf8) ?? "No response generated"
+            
+            await MainActor.run {
+                output = response
+                isGenerating = false
+            }
+            
+            process.waitUntilExit()
+            
+        } catch {
+            print("Error running llama.cpp: \(error)")
+            await MainActor.run {
+                output = "Error: Failed to generate response. Please ensure llama.cpp is installed."
+                isGenerating = false
+            }
         }
     }
     
     func stopGeneration() {
+        llamaProcess?.terminate()
         isGenerating = false
     }
     
