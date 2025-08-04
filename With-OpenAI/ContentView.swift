@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var aiService = AIService()
+    @StateObject private var bot = Bot()
     @State private var showThinking = false
     @State private var showPlaceholder = false
     @State private var showInputBox = false
@@ -59,7 +59,7 @@ struct ContentView: View {
                 NeomorphicText("your cheering assistant", fontSize: .title3, fontWeight: .medium)
                 
                 // Loading indicator
-                if aiService.isGenerating {
+                if bot.isGenerating {
                     VStack(spacing: 15) {
                         // Cute loading animation
                         ZStack {
@@ -80,14 +80,14 @@ struct ContentView: View {
                                     style: StrokeStyle(lineWidth: 4, lineCap: .round)
                                 )
                                 .frame(width: 60, height: 60)
-                                .rotationEffect(.degrees(aiService.isGenerating ? 360 : 0))
-                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: aiService.isGenerating)
+                                .rotationEffect(.degrees(bot.isGenerating ? 360 : 0))
+                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: bot.isGenerating)
                             
                             // Center emoji
                             Text("🤖")
                                 .font(.title2)
-                                .scaleEffect(aiService.isGenerating ? 1.1 : 1.0)
-                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: aiService.isGenerating)
+                                .scaleEffect(bot.isGenerating ? 1.1 : 1.0)
+                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: bot.isGenerating)
                         }
                         
                         // Loading text with emojis
@@ -125,7 +125,7 @@ struct ContentView: View {
                         
                         // Stop button
                         Button(action: {
-                            aiService.stopGeneration()
+                            bot.stop()
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showThinking = false
                                 showPlaceholder = true
@@ -141,8 +141,8 @@ struct ContentView: View {
                                         .fill(Color.red.opacity(0.1))
                                 )
                         }
-                        .opacity(aiService.isGenerating ? 1 : 0)
-                        .animation(.easeInOut(duration: 0.3), value: aiService.isGenerating)
+                        .opacity(bot.isGenerating ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.3), value: bot.isGenerating)
                     }
                 }
                 
@@ -211,10 +211,10 @@ struct ContentView: View {
                             
                             // Generate AI response using async/await
                             Task {
-                                await aiService.generateResponse(to: currentInput)
+                                await bot.respond(to: currentInput)
                                 
                                 await MainActor.run {
-                                    aiResponse = aiService.output
+                                    aiResponse = bot.output
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         showThinking = false
                                         showPlaceholder = true
