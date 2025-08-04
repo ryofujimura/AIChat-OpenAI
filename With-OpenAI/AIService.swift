@@ -15,10 +15,10 @@ class AIService: ObservableObject {
     
     private let modelPath: String = {
         // Try multiple approaches to find the model file
-        let modelFileName = "llama-2-7b-chat.Q4_K_M.gguf" // Use the working Llama-2 model
+        let modelFileName = "Llama-3.2-3B-Instruct.gguf" // Use the Llama-3.2-3B-Instruct model
         
         // 1. Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "llama-2-7b-chat.Q4_K_M", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "Llama-3.2-3B-Instruct", ofType: "gguf") {
             print("Found model in app bundle: \(bundlePath)")
             return bundlePath
         }
