@@ -1,0 +1,4 @@
+module LLMMacros {
+header "LLMMacros-Swift.h"
+export *
+}

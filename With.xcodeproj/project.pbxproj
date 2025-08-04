@@ -137,8 +137,8 @@
 				Base,
 			);
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
-			packageReferences = (
-			);
+					packageReferences = (
+		);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -382,6 +382,8 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+
 	};
 	rootObject = AF8057FF2CFFDADC00FF6FFE /* Project object */;
 }

@@ -36,9 +36,17 @@
       },
       {
         "comment": "",
-        "key": "AI Service Ready",
+        "key": "Model Loaded",
         "location": {
-          "startingColumn": 38,
+          "startingColumn": 64,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Model Not Loaded",
+        "location": {
+          "startingColumn": 81,
           "startingLine": 50
         }
       },

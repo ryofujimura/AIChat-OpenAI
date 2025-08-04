@@ -8,6 +8,10 @@
 		<data>
 		6M1AokgwFc6XRqfWYouQd1CzlF0=
 		</data>
+		<key>Llama-3.2-3B-Instruct.gguf</key>
+		<data>
+		cDIL/UiXS0eydG6aWemEXkd7OzE=
+		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
@@ -16,25 +20,21 @@
 		<data>
 		FfuUqxS1wIVslTzMFW6Gt4eeOPU=
 		</data>
-		<key>llama-2-7b-chat.Q4_K_M.gguf</key>
-		<data>
-		Uim9ShA7+TfmLIESGECP+oqmK60=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Llama-3.2-3B-Instruct.gguf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xVqDv7Y5Z5kzeFPKaZGKC5u7KRdiEHjDRXC8F9IP16E=
+			</data>
+		</dict>
 		<key>embedded.mobileprovision</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			/v9IfCDAtQB6BMdCGGDMWiZ4BmGRACr/L+Fb282BLoI=
-			</data>
-		</dict>
-		<key>llama-2-7b-chat.Q4_K_M.gguf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CKVWbWHXy2tCDD5Dh6OeAHjh8v5fBV86A4hzhTBNS/o=
 			</data>
 		</dict>
 	</dict>

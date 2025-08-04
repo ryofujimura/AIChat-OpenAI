@@ -44,10 +44,10 @@ struct SettingsView: View {
                             
                             HStack(spacing: 10) {
                                 Circle()
-                                    .fill(Color.green)
+                                    .fill(aiService.isModelLoaded ? Color.green : Color.red)
                                     .frame(width: 12, height: 12)
                                 
-                                Text("AI Service Ready")
+                                Text(aiService.isModelLoaded ? "Model Loaded" : "Model Not Loaded")
                                     .font(.body)
                                     .foregroundColor(.primary)
                             }

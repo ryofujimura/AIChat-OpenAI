@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/LLMMacrosImplementation-master.dia",
+    "emit-module-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/LLMMacrosImplementation-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/LLMMacrosImplementation-master-emit-module.dia",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/LLMMacrosImplementation-master.swiftdeps"
+  },
+  "/Users/ryofujimura/GitHub/LLM.swift/Sources/LLMMacrosImplementation/GeneratableMacro.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.dia",
+    "index-unit-output-path" : "/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.bc",
+    "object" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/GeneratableMacro~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/LLM.swift/Sources/LLMMacrosImplementation/Plugin.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.dia",
+    "index-unit-output-path" : "/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.bc",
+    "object" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug/LLMMacrosImplementation.build/Objects-normal/arm64/Plugin~partial.swiftmodule"
+  }
+}
