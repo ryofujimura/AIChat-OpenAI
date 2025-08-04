@@ -1,4 +1,0 @@
-module llmfarm_core_cpp {
-    umbrella "/Users/ryofujimura/GitHub/AIChat-OpenAI/LocalPackages/llmfarm_core_fixed/Sources/llmfarm_core_cpp/spm-headers"
-    export *
-}

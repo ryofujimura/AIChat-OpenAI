@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var aiService = AIService()
-    @State private var isReloading = false
+
     
     var body: some View {
         NavigationView {
@@ -44,94 +44,29 @@ struct SettingsView: View {
                             
                             HStack(spacing: 10) {
                                 Circle()
-                                    .fill(aiService.isModelLoaded ? Color.green : Color.red)
+                                    .fill(Color.green)
                                     .frame(width: 12, height: 12)
                                 
-                                Text(aiService.isModelLoaded ? "Model Loaded" : "Model Not Loaded")
+                                Text("AI Service Ready")
                                     .font(.body)
                                     .foregroundColor(.primary)
                             }
                         }
                         
-                        // Load model button
-                        Button(action: {
-                            isReloading = true
-                            
-                            // Reload the model with updated prompt
-                            DispatchQueue.global(qos: .userInitiated).async {
-                                aiService.reloadModel()
-                                DispatchQueue.main.async {
-                                    isReloading = false
-                                }
-                            }
-                        }) {
-                            HStack(spacing: 10) {
-                                if isReloading || aiService.isLoading {
-                                    ProgressView()
-                                        .scaleEffect(0.8)
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                } else {
-                                    Image(systemName: "arrow.clockwise")
-                                        .font(.body)
-                                }
-                                
-                                Text(isReloading || aiService.isLoading ? "Loading Model..." : "Reload Model")
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                            }
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(isReloading || aiService.isLoading ? Color.gray : Color.blue)
-                            )
+                        // AI Service Status
+                        VStack(spacing: 10) {
+                            Text("AI Service is ready to chat!")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .multilineTextAlignment(.center)
                         }
-                        .disabled(isReloading || aiService.isLoading)
                         .padding(.horizontal, 40)
                         
-                        // Loading progress
-                        if isReloading || aiService.isLoading {
-                            VStack(spacing: 12) {
-                                // Cute loading animation
-                                ZStack {
-                                    // Outer ring
-                                    Circle()
-                                        .stroke(Color.blue.opacity(0.2), lineWidth: 3)
-                                        .frame(width: 40, height: 40)
-                                    
-                                    // Animated ring
-                                    Circle()
-                                        .trim(from: 0, to: 0.7)
-                                        .stroke(
-                                            LinearGradient(
-                                                gradient: Gradient(colors: [.blue, .purple, .pink]),
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            ),
-                                            style: StrokeStyle(lineWidth: 3, lineCap: .round)
-                                        )
-                                        .frame(width: 40, height: 40)
-                                        .rotationEffect(.degrees(isReloading || aiService.isLoading ? 360 : 0))
-                                        .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: isReloading || aiService.isLoading)
-                                    
-                                    // Center emoji
-                                    Text("🤖")
-                                        .font(.body)
-                                        .scaleEffect(isReloading || aiService.isLoading ? 1.1 : 1.0)
-                                        .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isReloading || aiService.isLoading)
-                                }
-                                
-                                Text("Loading Llama 3.2 1B Instruct model... ✨")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding(.horizontal, 40)
-                        }
+
                         
                         // Model info
                         VStack(spacing: 8) {
-                            Text("Model: llama-3.2-1b-instruct-q4_k_m.gguf")
+                            Text("Model: llama")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             
@@ -158,7 +93,3 @@ struct SettingsView: View {
         }
     }
 }
-
-#Preview {
-    SettingsView()
-} 

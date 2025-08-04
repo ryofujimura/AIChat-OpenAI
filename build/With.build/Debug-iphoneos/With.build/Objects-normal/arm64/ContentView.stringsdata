@@ -1,0 +1,80 @@
+{
+  "source": "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "⚙️",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "🤖",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 87
+        }
+      },
+      {
+        "comment": "",
+        "key": "AI is thinking...",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "✨ Generating your response ✨",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "🛑 Stop",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "💬 Tell me something!",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 175
+        }
+      },
+      {
+        "comment": "",
+        "key": "Type your message here...",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "❌ Cancel",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 186
+        }
+      },
+      {
+        "comment": "",
+        "key": "✨ Submit",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 195
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,108 @@
+{
+  "" : {
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With-master.dia",
+    "emit-module-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With-master-emit-module.dia",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With-master.swiftdeps"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/AIService.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/AIService~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/ContentView.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/EmojiBurstView.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/EmojiBurstView~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/LaunchScreenView.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/LaunchScreenView~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/MainView.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/MainView~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/NeomorphicButton.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicButton~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/NeomorphicText.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/NeomorphicText~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/SettingsView.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/With-OpenAI/With_OpenAIApp.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/With_OpenAIApp~partial.swiftmodule"
+  },
+  "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/AIChat-OpenAI/build/With.build/Debug-iphoneos/With.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

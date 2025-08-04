@@ -59,7 +59,7 @@ struct ContentView: View {
                 NeomorphicText("your cheering assistant", fontSize: .title3, fontWeight: .medium)
                 
                 // Loading indicator
-                if aiService.isLoading {
+                if aiService.isGenerating {
                     VStack(spacing: 15) {
                         // Cute loading animation
                         ZStack {
@@ -80,155 +80,83 @@ struct ContentView: View {
                                     style: StrokeStyle(lineWidth: 4, lineCap: .round)
                                 )
                                 .frame(width: 60, height: 60)
-                                .rotationEffect(.degrees(aiService.isLoading ? 360 : 0))
-                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: aiService.isLoading)
+                                .rotationEffect(.degrees(aiService.isGenerating ? 360 : 0))
+                                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: aiService.isGenerating)
                             
                             // Center emoji
                             Text("🤖")
                                 .font(.title2)
-                                .scaleEffect(aiService.isLoading ? 1.1 : 1.0)
-                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: aiService.isLoading)
+                                .scaleEffect(aiService.isGenerating ? 1.1 : 1.0)
+                                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: aiService.isGenerating)
                         }
                         
                         // Loading text with emojis
                         VStack(spacing: 5) {
-                            Text("Loading AI model...")
+                            Text("AI is thinking...")
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                             
-                            Text("✨ Preparing your cheering assistant ✨")
+                            Text("✨ Generating your response ✨")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        
-                        // Bouncing dots
-                        HStack(spacing: 8) {
-                            ForEach(0..<3) { index in
-                                Circle()
-                                    .fill(Color.blue)
-                                    .frame(width: 8, height: 8)
-                                    .scaleEffect(aiService.isLoading ? 1.2 : 0.8)
-                                    .animation(
-                                        .easeInOut(duration: 0.6)
-                                        .repeatForever(autoreverses: true)
-                                        .delay(Double(index) * 0.2),
-                                        value: aiService.isLoading
-                                    )
-                            }
-                        }
                     }
-                    .transition(.scale.combined(with: .opacity))
                 }
                 
                 Spacer()
                 
-                // Thinking emoji or AI response
-                if showThinking {
+                // Response display
+                if !aiResponse.isEmpty {
                     VStack(spacing: 15) {
-                        Text("🤔")
-                            .font(.system(size: 60))
-                            .transition(.scale.combined(with: .opacity))
-                        
-                        if !aiService.currentResponse.isEmpty {
-                            Text(aiService.currentResponse)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
-                                .transition(.opacity)
-                        }
-                    }
-                } else if showPlaceholder {
-                    VStack(spacing: 15) {
-                        NeomorphicText(aiResponse.isEmpty ? "AI Response" : aiResponse, fontSize: .title2, fontWeight: .medium)
-                            .transition(.scale.combined(with: .opacity))
+                        Text(aiResponse)
+                            .font(.title2)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 20)
+                            .padding(.vertical, 15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color(.systemGray6))
+                                    .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                            )
+                            .transition(.scale.combined(with: .opacity))
                         
-                        if !aiResponse.isEmpty {
-                            EmojiBurstView()
-                        }
-                    }
-                }
-                
-                Spacer()
-                
-                // Neomorphic button
-                NeomorphicButton(
-                    title: aiService.isLoading ? "Loading AI..." : "How am I doing?",
-                    action: {
-                        // Check if model is ready
-                        guard aiService.isModelLoaded else {
-                            // Show loading message if model isn't ready
-                            aiResponse = "AI model is still loading... Please wait a moment and try again."
+                        // Stop button
+                        Button(action: {
+                            aiService.stopGeneration()
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showThinking = false
                                 showPlaceholder = true
                             }
-                            return
+                        }) {
+                            Text("🛑 Stop")
+                                .font(.body)
+                                .foregroundColor(.red)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 8)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.red.opacity(0.1))
+                                )
                         }
-                        
-                        // Reset response
-                        aiService.resetResponse()
-                        aiResponse = ""
-                        
-                        // Show thinking emoji
+                        .opacity(aiService.isGenerating ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.3), value: aiService.isGenerating)
+                    }
+                }
+                
+                // Main action button
+                NeomorphicButton(
+                    title: "💬 Chat with me!",
+                    action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            showThinking = true
-                            showPlaceholder = false
-                        }
-                        
-                        // Generate AI response
-                        aiService.generateResponse(to: "default") { response in
-                            DispatchQueue.main.async {
-                                aiResponse = response
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showThinking = false
-                                    showPlaceholder = true
-                                }
-                            }
+                            showInputBox = true
                         }
                     },
                     onInputSubmit: { input in
-                        if input.isEmpty {
-                            // Show input box when triggered from button (10 clicks)
-                            userInput = "" // Reset text field
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showInputBox = true
-                            }
-                        } else {
-                            // Check if model is ready
-                            guard aiService.isModelLoaded else {
-                                // Show loading message if model isn't ready
-                                aiResponse = "AI model is still loading... Please wait a moment and try again."
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showThinking = false
-                                    showPlaceholder = true
-                                }
-                                return
-                            }
-                            
-                            // Reset response
-                            aiService.resetResponse()
-                            aiResponse = ""
-                            
-                            // Show thinking emoji when input is submitted
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showThinking = true
-                                showPlaceholder = false
-                            }
-                            
-                            // Generate AI response
-                            aiService.generateResponse(to: "user: \(input)") { response in
-                                DispatchQueue.main.async {
-                                    aiResponse = response
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        showThinking = false
-                                        showPlaceholder = true
-                                    }
-                                }
-                            }
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            showInputBox = true
                         }
                     }
                 )
@@ -265,20 +193,7 @@ struct ContentView: View {
                         .font(.body)
                         
                         Button("✨ Submit") {
-                            // Check if model is ready
-                            guard aiService.isModelLoaded else {
-                                // Show loading message if model isn't ready
-                                aiResponse = "AI model is still loading... Please wait a moment and try again."
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    showInputBox = false
-                                    showThinking = false
-                                    showPlaceholder = true
-                                }
-                                return
-                            }
-                            
                             // Reset response
-                            aiService.resetResponse()
                             aiResponse = ""
                             
                             // Trigger the same animation as button click
@@ -294,10 +209,12 @@ struct ContentView: View {
                             // Reset text field after submission
                             userInput = ""
                             
-                            // Generate AI response
-                            aiService.generateResponse(to: "user: \(currentInput)") { response in
-                                DispatchQueue.main.async {
-                                    aiResponse = response
+                            // Generate AI response using async/await
+                            Task {
+                                await aiService.generateResponse(to: currentInput)
+                                
+                                await MainActor.run {
+                                    aiResponse = aiService.output
                                     withAnimation(.easeInOut(duration: 0.3)) {
                                         showThinking = false
                                         showPlaceholder = true

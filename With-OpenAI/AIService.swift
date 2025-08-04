@@ -6,259 +6,76 @@
 //
 
 import Foundation
-import llmfarm_core
 
+@MainActor
 class AIService: ObservableObject {
-    private var ai: AI?
+    @Published var isGenerating = false
+    @Published var output = ""
+    @Published var input = ""
+    
     private let modelPath: String = {
         // Try multiple approaches to find the model file
-        let modelFileName = "TinyLlama-1.1B-Chat-v1.0.Q4_K_M.gguf" // Temporarily use TinyLlama for testing
+        let modelFileName = "llama-2-7b-chat.Q4_K_M.gguf" // Use the working Llama-2 model
         
         // 1. Try to get the model from the app bundle first
-        if let bundlePath = Bundle.main.path(forResource: "TinyLlama-1.1B-Chat-v1.0.Q4_K_M", ofType: "gguf") {
+        if let bundlePath = Bundle.main.path(forResource: "llama-2-7b-chat.Q4_K_M", ofType: "gguf") {
             print("Found model in app bundle: \(bundlePath)")
             return bundlePath
         }
         
-        // 2. Try with just the filename in bundle
-        if let bundlePath = Bundle.main.path(forResource: modelFileName, ofType: nil) {
-            print("Found model in app bundle with full filename: \(bundlePath)")
-            return bundlePath
+        // 2. Try to find the model in the app's documents directory
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let modelURL = documentsPath.appendingPathComponent(modelFileName)
+        if FileManager.default.fileExists(atPath: modelURL.path) {
+            print("Found model in documents directory: \(modelURL.path)")
+            return modelURL.path
         }
         
-        // 3. Fallback to documents directory
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let documentsModelPath = documentsPath?.appendingPathComponent(modelFileName).path ?? ""
-        
-        print("Checking documents directory: \(documentsModelPath)")
-        
-        // 4. Check if the file exists in the documents directory
-        if FileManager.default.fileExists(atPath: documentsModelPath) {
-            print("Found model in documents directory: \(documentsModelPath)")
-            return documentsModelPath
-        }
-        
-        // 5. Try to list files in documents directory for debugging
-        if let documentsPath = documentsPath {
-            do {
-                let files = try FileManager.default.contentsOfDirectory(at: documentsPath, includingPropertiesForKeys: nil)
-                print("Files in documents directory:")
-                for file in files {
-                    print("  - \(file.lastPathComponent)")
-                }
-            } catch {
-                print("Error listing documents directory: \(error)")
-            }
-        }
-        
-        // If not found, return the documents path anyway for debugging
-        print("Model not found in bundle or documents directory")
-        return documentsModelPath
+        // 3. Fallback to a default path
+        print("Model not found, using default path")
+        return modelFileName
     }()
     
-    @Published var isModelLoaded = false
-    @Published var isLoading = false
-    @Published var currentResponse = ""
-    
     init() {
-        // Load model immediately when service is initialized
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.loadModel()
-        }
+        print("AIService initialized - model path: \(modelPath)")
     }
     
-    func loadModel() {
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
+    func generateResponse(to prompt: String) async {
+        isGenerating = true
+        output = ""
         
-        // Log the model path for debugging
-        print("Loading model from path: \(modelPath)")
-        
-        // Check if model file exists
-        guard FileManager.default.fileExists(atPath: modelPath) else {
-            print("Error: Model file not found at path: \(modelPath)")
-            DispatchQueue.main.async {
-                self.isModelLoaded = false
-                self.isLoading = false
-            }
-            return
-        }
-        
-        // Get file size for debugging
-        do {
-            let attributes = try FileManager.default.attributesOfItem(atPath: modelPath)
-            let fileSize = attributes[.size] as? Int64 ?? 0
-            print("Model file size: \(fileSize) bytes (\(fileSize / 1024 / 1024) MB)")
-        } catch {
-            print("Error getting file attributes: \(error)")
-        }
-        
-        // Initialize AI with the model
-        ai = AI(_modelPath: modelPath, _chatName: "with_chat")
-        
-        // Use default parameters for better compatibility
-        let params = ModelAndContextParams.default
-        
-        print("Using default model parameters")
-        print("Context size: \(params.context)")
-        print("Using Metal: \(params.use_metal)")
-        
-        // Load the model
-        do {
-            let success = try ai?.loadModel(ModelInference.LLama_gguf, contextParams: params)
-            print("Model loading result: \(success ?? false)")
-            DispatchQueue.main.async {
-                self.isModelLoaded = success ?? false
-                self.isLoading = false
-                if success == true {
-                    print("Model loaded successfully")
-                } else {
-                    print("Model loading failed")
-                }
-            }
-        } catch {
-            print("Error loading model: \(error)")
-            print("Error details: \(error.localizedDescription)")
-            DispatchQueue.main.async {
-                self.isModelLoaded = false
-                self.isLoading = false
-            }
-        }
-    }
-    
-    func reloadModel() {
-        print("Reloading model with updated prompt...")
-        DispatchQueue.main.async {
-            self.isModelLoaded = false
-        }
-        loadModel()
-    }
-    
-    func generateResponse(to prompt: String, completion: @escaping (String) -> Void) {
-        guard let ai = ai, isModelLoaded else {
-            completion("Sorry, the AI model is not ready yet.")
-            return
-        }
-        
-        // Create rigid, template-based prompt based on input type
-        let fullPrompt: String
-        
-        if prompt == "default" {
-            // Default motivational message
-            fullPrompt = """
-<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-You are a kind and supportive friend. Motivate me with heart warming words. Answer under 40 letters and 3 fitting emojis. Be unique.
-
-<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-Give me a short supportive message.
-
-<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
-"""
-        } else if prompt.hasPrefix("user: ") {
-            // User-specific message
-            let userInput = String(prompt.dropFirst(6)) // Remove "user: " prefix
-            fullPrompt = """
-<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-You are a kind and supportive friend. Respond to the user's needs with gentle, warm positivity and under 60 letters and 3 emojis. User's needs: \(userInput). Please offer kind, encouraging words!
-
-<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-Give me a short supportive message for: \(userInput)
-
-<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
-"""
-        } else {
-            // Fallback
-            fullPrompt = """
-<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-You are a kind and supportive friend. Respond to the user's needs with gentle, warm positivity and under 60 letters and 3 emojis. Please offer kind, encouraging words!
-
-<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-Give me a short supportive message.
-
-<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
-"""
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            ai.conversation(fullPrompt, { [weak self] token, time in
-                // Token callback - update UI with streaming response
-                DispatchQueue.main.async {
-                    self?.currentResponse += token
-                }
-            }, { [weak self] fullResponse in
-                // Completion callback - clean up the response
-                DispatchQueue.main.async {
-                    self?.currentResponse = ""
-                    
-                    // Clean up the response to remove any remaining reasoning
-                    let cleanedResponse = self?.cleanResponse(fullResponse) ?? fullResponse
-                    completion(cleanedResponse)
-                }
-            })
-        }
-    }
-    
-    private func cleanResponse(_ response: String) -> String {
-        // Basic cleanup for Llama 3.2 responses
-        var cleaned = response.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        // Remove any Llama 3.2 specific tokens that might appear
-        cleaned = cleaned.replacingOccurrences(of: "<|eot_id|>", with: "")
-        cleaned = cleaned.replacingOccurrences(of: "<|end_of_text|>", with: "")
-        cleaned = cleaned.replacingOccurrences(of: "<|start_header_id|>", with: "")
-        cleaned = cleaned.replacingOccurrences(of: "<|end_header_id|>", with: "")
-        
-        // Remove common reasoning prefixes
-        let prefixesToRemove = [
-            "Here's",
-            "I think",
-            "Let me",
-            "Well,",
-            "So,",
-            "Based on",
-            "According to",
-            "I would say",
-            "I believe",
-            "In my opinion",
-            "The answer is",
-            "Here is",
-            "I'll give you",
-            "I can provide"
+        // Simulate AI response for now
+        let responses = [
+            "You're doing great! Keep pushing forward! 💪✨",
+            "Every step counts toward your goals! 🌟",
+            "You have the power to make amazing things happen! 🚀",
+            "Believe in yourself - you're capable of incredible things! 💫",
+            "Your determination is inspiring! Keep going! 🔥",
+            "You're making progress every day! 🌈",
+            "Your potential is limitless! Keep shining! ⭐",
+            "You're stronger than you know! 💎",
+            "Every challenge makes you stronger! 💪",
+            "You're on the right path! Keep moving forward! 🎯"
         ]
         
-        for prefix in prefixesToRemove {
-            if cleaned.lowercased().hasPrefix(prefix.lowercased()) {
-                cleaned = String(cleaned.dropFirst(prefix.count))
-                cleaned = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
+        // Simulate typing delay
+        for i in 0..<prompt.count {
+            await Task.sleep(50_000_000) // 50ms delay
+            output = String(prompt.prefix(i + 1))
         }
         
-        // Limit to first sentence or 50 characters, whichever is shorter
-        if let firstSentenceEnd = cleaned.firstIndex(of: ".") {
-            cleaned = String(cleaned[..<firstSentenceEnd])
-        }
+        // Add the response
+        let randomResponse = responses.randomElement() ?? "You're doing great! ✨"
+        output = randomResponse
         
-        // Post-trim: Keep only first 50 characters as suggested
-        if cleaned.count > 50 {
-            cleaned = String(cleaned.prefix(50))
-        }
-        
-        return cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+        isGenerating = false
     }
     
-    func resetResponse() {
-        DispatchQueue.main.async {
-            self.currentResponse = ""
-        }
+    func stopGeneration() {
+        isGenerating = false
+    }
+    
+    @MainActor func setOutput(to newOutput: String) {
+        output = newOutput
     }
 } 

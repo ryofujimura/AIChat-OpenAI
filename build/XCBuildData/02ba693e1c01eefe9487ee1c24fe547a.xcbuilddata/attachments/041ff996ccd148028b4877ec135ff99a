@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/LLMMacros-master.dia",
+    "emit-module-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/LLMMacros-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/LLMMacros-master-emit-module.dia",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/LLMMacros-master.swiftdeps"
+  },
+  "/Users/ryofujimura/GitHub/LLM.swift/Sources/LLMMacros/Generatable.swift" : {
+    "const-values" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.swiftconstvalues",
+    "dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.d",
+    "diagnostics" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.dia",
+    "index-unit-output-path" : "/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.o",
+    "llvm-bc" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.bc",
+    "object" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.o",
+    "swift-dependencies" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable.swiftdeps",
+    "swiftmodule" : "/Users/ryofujimura/GitHub/LLM.swift/build/LLM.build/Debug-iphoneos/LLMMacros.build/Objects-normal/arm64/Generatable~partial.swiftmodule"
+  }
+}
