@@ -16,6 +16,7 @@
 		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
 		AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */; };
 		AF4DB93E2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF4DB93D2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf */; };
+		AF2D3D5E2E35670000E81140 /* llama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF2D3D5E2E35670000E81141 /* llama.framework */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
 		AFF770D82E3572DF003A9D76 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF770D72E3572DF003A9D76 /* AIService.swift */; };
@@ -32,6 +33,7 @@
 		AF3845EC2E3559CF001F3314 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicButton.swift; sourceTree = "<group>"; };
 		AF4DB93D2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Llama-3.2-3B-Instruct.gguf"; sourceTree = "<group>"; };
+		AF2D3D5E2E35670000E81141 /* llama.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = llama.framework; path = /Users/ryofujimura/GitHub/LLM.swift/llama.cpp/llama.xcframework/ios-arm64/llama.framework; sourceTree = "<absolute>"; };
 		AF8058072CFFDADC00FF6FFE /* With.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = With.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF2D3D5E2E35670000E81140 /* llama.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +385,7 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
 
 
 	};
