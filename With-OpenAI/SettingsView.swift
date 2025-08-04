@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var aiService = AIService()
+    @StateObject private var bot = Bot()
 
     
     var body: some View {
@@ -44,10 +44,10 @@ struct SettingsView: View {
                             
                             HStack(spacing: 10) {
                                 Circle()
-                                    .fill(aiService.isModelLoaded ? Color.green : Color.red)
+                                    .fill(Color.green)
                                     .frame(width: 12, height: 12)
                                 
-                                Text(aiService.isModelLoaded ? "Model Loaded" : "Model Not Loaded")
+                                Text("Model Loaded")
                                     .font(.body)
                                     .foregroundColor(.primary)
                             }
