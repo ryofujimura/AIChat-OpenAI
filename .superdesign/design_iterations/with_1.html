@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>With – Emotional AI Motivation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.0.0/dist/flowbite.min.js"></script>
+  <link rel="stylesheet" href="with_theme_1.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: var(--background) !important;
+      font-family: var(--font-sans) !important;
+      color: var(--foreground) !important;
+      transition: background 2s linear;
+    }
+    .emoji-cluster {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .emoji {
+      font-size: 2.8rem;
+      filter: drop-shadow(0 2px 8px #ffd16688);
+      opacity: 0;
+      transform: translateY(30px) scale(0.7);
+      animation: emojiIn 0.6s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+    }
+    .emoji:nth-child(2) { animation-delay: 0.12s; }
+    .emoji:nth-child(3) { animation-delay: 0.24s; }
+    @keyframes emojiIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .emoji.pulse {
+      animation: emojiPulse 1.2s infinite alternate;
+    }
+    @keyframes emojiPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    .motivation {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s 0.3s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+      letter-spacing: 0.01em;
+      background: linear-gradient(90deg, #ffb09e 0%, #ffd166 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .generate-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-size: 1.2rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 1rem 2.5rem;
+      margin-bottom: 2.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.18s, background 0.2s;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .generate-btn:active {
+      animation: btnPulse 0.18s;
+    }
+    .generate-btn:focus {
+      box-shadow: 0 0 0 4px #ffd16655;
+    }
+    .generate-btn:hover {
+      box-shadow: var(--shadow-md);
+      background: #ff8a7a;
+      transform: scale(1.04);
+    }
+    @keyframes btnPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .history {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      margin-top: 1.5rem;
+      padding: 1.2rem 1rem 0.5rem 1rem;
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow-xs);
+      min-height: 60px;
+      backdrop-filter: blur(2px);
+    }
+    .history-title {
+      text-align: center;
+      font-size: 1rem;
+      color: #b97a7a;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: historyIn 0.3s forwards;
+    }
+    .history-item .emoji {
+      font-size: 1.3rem;
+      filter: drop-shadow(0 1px 4px #ffd16655);
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+    @keyframes historyIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      animation: floatHeart 3s linear forwards;
+    }
+    @keyframes floatHeart {
+      0% { opacity: 0.7; transform: translateY(0) scale(1); }
+      80% { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.2); }
+    }
+    @media (max-width: 600px) {
+      .emoji-cluster { gap: 0.7rem; }
+      .motivation { font-size: 1.1rem; }
+      .generate-btn { padding: 0.8rem 1.2rem; font-size: 1rem; }
+      .history { padding: 0.7rem 0.5rem 0.3rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="w-full flex items-center justify-center py-6 relative">
+    <span style="font-size:2rem; margin-right:0.5rem;">😊</span>
+    <h1 style="font-family:var(--font-sans); font-size:1.7rem; font-weight:700; letter-spacing:0.03em;">With</h1>
+  </header>
+  <main class="flex flex-col items-center w-full" style="position:relative; min-height:60vh;">
+    <div class="emoji-cluster" id="emojiCluster">
+      <span class="emoji pulse">😃</span>
+      <span class="emoji pulse">💪</span>
+      <span class="emoji pulse">🌈</span>
+    </div>
+    <div class="motivation" id="motivationText">You can do it! Every day is a new start.</div>
+    <button class="generate-btn" id="generateBtn">
+      <span style="font-size:1.3rem;">❤️</span>
+      Generate Motivation
+      <span style="font-size:1.3rem;">➡️</span>
+    </button>
+    <div class="history" id="history">
+      <div class="history-title">─────── History ───────</div>
+      <div class="history-item"><span class="emoji">😃</span> Keep going, you’re amazing!</div>
+      <div class="history-item"><span class="emoji">🌟</span> Shine bright today!</div>
+    </div>
+  </main>
+  <script>
+    // Floating hearts animation
+    function spawnHeart() {
+      const heart = document.createElement('span');
+      heart.className = 'floating-heart';
+      heart.textContent = ['💖','💛','💗','💓','💞'][Math.floor(Math.random()*5)];
+      heart.style.left = (Math.random()*80+10)+'%';
+      heart.style.bottom = '80px';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(), 3000);
+    }
+    setInterval(()=>{ if(Math.random()<0.5) spawnHeart(); }, 1800);
+
+    // Animate history items in
+    document.querySelectorAll('.history-item').forEach((el,i)=>{
+      el.style.animationDelay = (0.2 + i*0.08) + 's';
+    });
+
+    // Button animation and emoji cluster update
+    const btn = document.getElementById('generateBtn');
+    const emojiCluster = document.getElementById('emojiCluster');
+    const motivationText = document.getElementById('motivationText');
+    const history = document.getElementById('history');
+    const motivationalSamples = [
+      { emojis: ['🥇','🔥','😄'], text: 'You are unstoppable! Keep shining.' },
+      { emojis: ['🌟','💖','😊'], text: 'You light up the world. Believe in yourself!' },
+      { emojis: ['💪','🌈','😃'], text: 'Strength and joy are yours today.' },
+      { emojis: ['🌻','✨','🤗'], text: 'You bring warmth and magic to every day.' },
+      { emojis: ['🚀','🌞','💚'], text: 'Go for your dreams! The sky is not the limit.' },
+      { emojis: ['🎉','🥰','🦋'], text: 'Celebrate yourself. You are growing beautifully.' },
+      { emojis: ['🫶','🌸','😌'], text: 'You are loved, just as you are.' },
+      { emojis: ['🦁','🌺','😎'], text: 'Be bold, be bright, be you.' },
+    ];
+    btn.addEventListener('click', () => {
+      // Button heartbeat
+      btn.style.animation = 'btnPulse 0.18s';
+      setTimeout(()=>btn.style.animation='', 200);
+      // Pick a random motivational sample
+      const sample = motivationalSamples[Math.floor(Math.random()*motivationalSamples.length)];
+      // Animate out old emojis
+      Array.from(emojiCluster.children).forEach((el,i)=>{
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(30px) scale(0.7)';
+        el.classList.remove('pulse');
+      });
+      setTimeout(()=>{
+        // Replace emojis
+        emojiCluster.innerHTML = '';
+        sample.emojis.forEach((e,idx)=>{
+          const span = document.createElement('span');
+          span.className = 'emoji pulse';
+          span.textContent = e;
+          span.style.animationDelay = (0.12*idx)+'s';
+          emojiCluster.appendChild(span);
+        });
+      }, 180);
+      // Animate out old motivation
+      motivationText.style.opacity = 0;
+      motivationText.style.transform = 'translateY(20px)';
+      setTimeout(()=>{
+        motivationText.textContent = sample.text;
+        motivationText.style.animation = 'none';
+        void motivationText.offsetWidth;
+        motivationText.style.animation = 'fadeInUp 0.5s cubic-bezier(.68,-0.55,.27,1.55) forwards';
+      }, 220);
+      // Add to history
+      const histItem = document.createElement('div');
+      histItem.className = 'history-item';
+      histItem.innerHTML = `<span class="emoji">${sample.emojis[0]}</span> ${sample.text}`;
+      histItem.style.animationDelay = '0s';
+      history.insertBefore(histItem, history.children[1]);
+      // Limit history to 6
+      while(history.querySelectorAll('.history-item').length > 6) {
+        const last = history.querySelectorAll('.history-item')[history.querySelectorAll('.history-item').length-1];
+        last.style.opacity = 0;
+        setTimeout(()=>last.remove(), 300);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+:root {
+  --background: linear-gradient(135deg, #ffe0e9 0%, #fff7e0 100%);
+  --foreground: #3d2c2e;
+  --primary: #ff6f61;
+  --primary-foreground: #fff;
+  --accent: #ffd166;
+  --card: rgba(255,255,255,0.85);
+  --card-foreground: #3d2c2e;
+  --border: #ffd6d6;
+  --font-sans: 'Poppins', 'Plus Jakarta Sans', sans-serif;
+  --radius: 1.5rem;
+  --shadow-xs: 0 2px 8px 0 rgba(255,111,97,0.08);
+  --shadow-sm: 0 4px 16px 0 rgba(255,111,97,0.10);
+  --shadow-md: 0 8px 32px 0 rgba(255,111,97,0.12);
+  --shadow-lg: 0 16px 48px 0 rgba(255,111,97,0.14);
+  --spacing: 1.25rem;
+}
+body {
+  font-family: var(--font-sans) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}

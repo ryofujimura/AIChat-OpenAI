@@ -7,39 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D542E355A9100E81139 /* NeomorphicText.swift */; };
-		AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */; };
-		AF2D3D5D2E35637F00E81139 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D5C2E35637F00E81139 /* SettingsView.swift */; };
-		AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */; };
-		AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503432E3558F500762FB7 /* LaunchScreenView.swift */; };
-		AF3503492E3558F500762FB7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3503442E3558F500762FB7 /* MainView.swift */; };
-		AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EC2E3559CF001F3314 /* ContentView.swift */; };
-		AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */; };
 		AF4DB93E2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf in Resources */ = {isa = PBXBuildFile; fileRef = AF4DB93D2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf */; };
-
-
+		AF7FEBB22E413F7F0070776A /* LLM in Frameworks */ = {isa = PBXBuildFile; productRef = AF7FEBB12E413F7F0070776A /* LLM */; };
+		AF7FEBB42E4140360070776A /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7FEBB32E4140360070776A /* AIService.swift */; };
+		AF7FEBB62E41452B0070776A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7FEBB52E41452B0070776A /* ContentView.swift */; };
+		AF7FEBD22E41458B0070776A /* With.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7FEBD12E4145870070776A /* With.swift */; };
 		AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */; };
 		AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */; };
-		AFF770D82E3572DF003A9D76 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF770D72E3572DF003A9D76 /* AIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF2D3D542E355A9100E81139 /* NeomorphicText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicText.swift; sourceTree = "<group>"; };
-		AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiBurstView.swift; sourceTree = "<group>"; };
-		AF2D3D5C2E35637F00E81139 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		AF3503422E3558F500762FB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		AF3503432E3558F500762FB7 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
-		AF3503442E3558F500762FB7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With_OpenAIApp.swift; sourceTree = "<group>"; };
-		AF3845EC2E3559CF001F3314 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeomorphicButton.swift; sourceTree = "<group>"; };
 		AF4DB93D2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Llama-3.2-3B-Instruct.gguf"; sourceTree = "<group>"; };
-
-
+		AF7FEBB32E4140360070776A /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		AF7FEBB52E41452B0070776A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AF7FEBD12E4145870070776A /* With.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = With.swift; sourceTree = "<group>"; };
 		AF8058072CFFDADC00FF6FFE /* With.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = With.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AFF770D72E3572DF003A9D76 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF7FEBB22E413F7F0070776A /* LLM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,16 +57,9 @@
 		AF8058092CFFDADC00FF6FFE /* With-OpenAI */ = {
 			isa = PBXGroup;
 			children = (
-				AF3503422E3558F500762FB7 /* ContentView.swift */,
-				AF3503432E3558F500762FB7 /* LaunchScreenView.swift */,
-				AF3503442E3558F500762FB7 /* MainView.swift */,
-				AF3845EC2E3559CF001F3314 /* ContentView.swift */,
-				AF3845EF2E3559CF001F3314 /* NeomorphicButton.swift */,
-				AF2D3D5C2E35637F00E81139 /* SettingsView.swift */,
-				AFF770D72E3572DF003A9D76 /* AIService.swift */,
-				AF2D3D542E355A9100E81139 /* NeomorphicText.swift */,
-				AF2D3D562E355BF900E81139 /* EmojiBurstView.swift */,
-				AF3503452E3558F500762FB7 /* With_OpenAIApp.swift */,
+				AF7FEBB32E4140360070776A /* AIService.swift */,
+				AF7FEBB52E41452B0070776A /* ContentView.swift */,
+				AF7FEBD12E4145870070776A /* With.swift */,
 				AF4DB93D2E404ED90005856B /* Llama-3.2-3B-Instruct.gguf */,
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058102CFFDADD00FF6FFE /* Preview Content */,
@@ -141,8 +119,9 @@
 				Base,
 			);
 			mainGroup = AF8057FE2CFFDADC00FF6FFE;
-					packageReferences = (
-		);
+			packageReferences = (
+				AF7FEBB02E413F7F0070776A /* XCRemoteSwiftPackageReference "LLM" */,
+			);
 			productRefGroup = AF8058082CFFDADC00FF6FFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -170,15 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF3503462E3558F500762FB7 /* With_OpenAIApp.swift in Sources */,
-				AFF770D82E3572DF003A9D76 /* AIService.swift in Sources */,
-				AF2D3D5D2E35637F00E81139 /* SettingsView.swift in Sources */,
-				AF2D3D552E355A9100E81139 /* NeomorphicText.swift in Sources */,
-				AF3845F12E3559CF001F3314 /* ContentView.swift in Sources */,
-				AF3845F32E3559CF001F3314 /* NeomorphicButton.swift in Sources */,
-				AF3503482E3558F500762FB7 /* LaunchScreenView.swift in Sources */,
-				AF2D3D572E355BF900E81139 /* EmojiBurstView.swift in Sources */,
-				AF3503492E3558F500762FB7 /* MainView.swift in Sources */,
+				AF7FEBB42E4140360070776A /* AIService.swift in Sources */,
+				AF7FEBD22E41458B0070776A /* With.swift in Sources */,
+				AF7FEBB62E41452B0070776A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,8 +360,24 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		AF7FEBB02E413F7F0070776A /* XCRemoteSwiftPackageReference "LLM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eastriverlee/LLM.swift/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
-
+/* Begin XCSwiftPackageProductDependency section */
+		AF7FEBB12E413F7F0070776A /* LLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF7FEBB02E413F7F0070776A /* XCRemoteSwiftPackageReference "LLM" */;
+			productName = LLM;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF8057FF2CFFDADC00FF6FFE /* Project object */;
 }
