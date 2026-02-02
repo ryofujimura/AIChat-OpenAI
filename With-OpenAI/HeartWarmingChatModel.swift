@@ -62,6 +62,7 @@ class HeartWarmingChatModel: ObservableObject {
         Task {
             do {
                 let config = Configuration(
+                    organizationId: openAIOrganizationId,
                     apiKey: openAIAPIKey
                 )
                 let openAI = OpenAI(config)
@@ -96,6 +97,7 @@ class HeartWarmingChatModel: ObservableObject {
         Task {
             do {
                 let config = Configuration(
+                    organizationId: openAIOrganizationId,
                     apiKey: openAIAPIKey
                 )
                 let openAI = OpenAI(config)
