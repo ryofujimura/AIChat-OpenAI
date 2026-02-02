@@ -47,6 +47,7 @@ struct CreateChatCompletionExample: View {
                         Task {
                             do {
                                 let config = Configuration(
+                                    organizationId: openAIOrganizationId,
                                     apiKey: openAIAPIKey
                                 )
                                 let openAI = OpenAI(config)
@@ -114,6 +115,7 @@ struct CreateChatCompletionStreamingExample: View {
                         Task {
                             do {
                                 let config = Configuration(
+                                    organizationId: openAIOrganizationId,
                                     apiKey: openAIAPIKey
                                 )
                                 let openAI = OpenAI(config)
@@ -217,6 +219,7 @@ struct CreateChatFunctionCallExample: View {
                         Task {
                             do {
                                 let config = Configuration(
+                                    organizationId: openAIOrganizationId,
                                     apiKey: openAIAPIKey
                                 )
                                 let openAI = OpenAI(config)

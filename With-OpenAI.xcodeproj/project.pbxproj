@@ -36,6 +36,7 @@
 		AFE1E7482CFFEB7D0081B66E /* ExampleChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7472CFFEB7D0081B66E /* ExampleChatModel.swift */; };
 		AFE1E74A2CFFED320081B66E /* HeartWarmingChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */; };
 		AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */; };
+		AFC1E7512D4E5A000081B66E /* EmojiPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarmingChatView.swift; sourceTree = "<group>"; };
 		AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartWarmingChatModel.swift; sourceTree = "<group>"; };
 		AFE1E74D2D002C120081B66E /* With-OpenAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "With-OpenAI.entitlements"; sourceTree = "<group>"; };
+		AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPopupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				AFE1E73A2CFFDBE90081B66E /* ImageView.swift */,
 				AFE1E7432CFFE2AF0081B66E /* NotificationView.swift */,
 				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
+				AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */,
 				AF2374222D1A2A12008CB633 /* LocalLLMView.swift */,
 			);
 			name = View;
@@ -254,6 +257,7 @@
 				AF2615722D06DA51006EBAE5 /* With_OpenAIApp.swift in Sources */,
 				AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */,
 				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
+				AFC1E7512D4E5A000081B66E /* EmojiPopupView.swift in Sources */,
 				AF2374212D1A29EC008CB633 /* LocalLLMModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
