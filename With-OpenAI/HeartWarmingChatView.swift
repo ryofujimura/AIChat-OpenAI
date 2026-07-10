@@ -132,9 +132,7 @@ struct HeartWarmingChatView: View {
                     guard hasEasterEggInput else { return }
                     viewModel.generatePositiveFeedback(for: userInput)
                     userInput = ""
-                    viewModel.showEasterEggForm = false
-                    viewModel.isButtonDisabled = false
-                    viewModel.disabledTapCount = 0
+                    viewModel.startCooldown()
                 }
             }
         }
