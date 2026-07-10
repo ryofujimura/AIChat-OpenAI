@@ -77,7 +77,10 @@ class HeartWarmingChatModel: ObservableObject {
                         self.isCompleting = false
 
                         if !separated.text.isEmpty {
-                            CheerSharedStorage.saveLastMessage(separated.text)
+                            CheerSharedStorage.saveLastResponse(
+                                message: separated.text,
+                                emojis: separated.emojis
+                            )
                         }
                         
                         // Show emoji popup if we have emojis
@@ -121,7 +124,10 @@ class HeartWarmingChatModel: ObservableObject {
                         self.isCompleting = false
 
                         if !separated.text.isEmpty {
-                            CheerSharedStorage.saveLastMessage(separated.text)
+                            CheerSharedStorage.saveLastResponse(
+                                message: separated.text,
+                                emojis: separated.emojis
+                            )
                         }
                         
                         // Show emoji popup if we have emojis

@@ -9,19 +9,30 @@ import SwiftUI
 struct CheerEntry: TimelineEntry {
     let date: Date
     let message: String?
+    let emojis: [String]
 }
 
 struct CheerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> CheerEntry {
-        CheerEntry(date: .now, message: "You got this!")
+        CheerEntry(date: .now, message: "You got this!", emojis: ["✨", "💖"])
     }
 
     func getSnapshot(in context: Context, completion: @escaping (CheerEntry) -> Void) {
-        completion(CheerEntry(date: .now, message: CheerSharedStorage.lastMessage))
+        completion(
+            CheerEntry(
+                date: .now,
+                message: CheerSharedStorage.lastMessage,
+                emojis: CheerSharedStorage.lastEmojis
+            )
+        )
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<CheerEntry>) -> Void) {
-        let entry = CheerEntry(date: .now, message: CheerSharedStorage.lastMessage)
+        let entry = CheerEntry(
+            date: .now,
+            message: CheerSharedStorage.lastMessage,
+            emojis: CheerSharedStorage.lastEmojis
+        )
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }

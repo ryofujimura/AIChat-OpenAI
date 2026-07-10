@@ -11,6 +11,7 @@ import WidgetKit
 enum CheerSharedStorage {
     static let appGroupID = "group.ryofujimura.With-OpenAI"
     static let lastMessageKey = "lastCheeringMessage"
+    static let lastEmojisKey = "lastCheeringEmojis"
     static let widgetKind = "CheerWidget"
     static let generateURL = URL(string: "withopenai://generate")!
 
@@ -22,8 +23,21 @@ enum CheerSharedStorage {
         defaults?.string(forKey: lastMessageKey)
     }
 
-    static func saveLastMessage(_ message: String) {
+    static var lastEmojis: [String] {
+        guard let data = defaults?.data(forKey: lastEmojisKey),
+              let emojis = try? JSONDecoder().decode([String].self, from: data) else {
+            return []
+        }
+        return emojis
+    }
+
+    static func saveLastResponse(message: String, emojis: [String]) {
         defaults?.set(message, forKey: lastMessageKey)
+        if let data = try? JSONEncoder().encode(emojis) {
+            defaults?.set(data, forKey: lastEmojisKey)
+        } else {
+            defaults?.removeObject(forKey: lastEmojisKey)
+        }
         reloadWidget()
     }
 

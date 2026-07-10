@@ -12,6 +12,7 @@ struct CheerWidgetView: View {
     var body: some View {
         WidgetArcadeButtonFace(
             message: entry.message,
+            emojis: entry.emojis,
             cornerRadius: 28
         )
         .widgetURL(CheerSharedStorage.generateURL)
@@ -21,6 +22,6 @@ struct CheerWidgetView: View {
 #Preview(as: .systemLarge) {
     CheerWidget()
 } timeline: {
-    CheerEntry(date: .now, message: "Keep going!")
-    CheerEntry(date: .now, message: nil)
+    CheerEntry(date: .now, message: "Keep going!", emojis: ["🌟", "💪", "😊"])
+    CheerEntry(date: .now, message: nil, emojis: [])
 }

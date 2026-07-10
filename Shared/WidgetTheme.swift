@@ -20,7 +20,14 @@ enum WidgetTheme {
 
 struct WidgetArcadeButtonFace: View {
     let message: String?
+    let emojis: [String]
     let cornerRadius: CGFloat
+
+    init(message: String?, emojis: [String] = [], cornerRadius: CGFloat) {
+        self.message = message
+        self.emojis = emojis
+        self.cornerRadius = cornerRadius
+    }
 
     private var hasMessage: Bool {
         guard let message, !message.isEmpty else { return false }
@@ -49,6 +56,12 @@ struct WidgetArcadeButtonFace: View {
                             endPoint: .bottom
                         )
                     )
+                    .overlay {
+                        if hasMessage, !emojis.isEmpty {
+                            WidgetEmojiBackground(emojis: emojis)
+                                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                        }
+                    }
                     .overlay(alignment: .top) {
                         Ellipse()
                             .fill(Color.white.opacity(hasMessage ? 0.25 : 0.45))
@@ -85,6 +98,36 @@ struct WidgetArcadeButtonFace: View {
             return [WidgetTheme.surfaceHighlight, WidgetTheme.surface, WidgetTheme.surfaceShadow]
         }
         return [WidgetTheme.accentHighlight, WidgetTheme.accent, WidgetTheme.accentShadow]
+    }
+}
+
+private struct WidgetEmojiBackground: View {
+    let emojis: [String]
+
+    private var backgroundPositions: [CGPoint] {
+        [
+            CGPoint(x: 0.22, y: 0.32),
+            CGPoint(x: 0.78, y: 0.38),
+            CGPoint(x: 0.5, y: 0.72)
+        ]
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                ForEach(Array(emojis.enumerated()), id: \.offset) { index, emoji in
+                    let anchor = backgroundPositions[index % backgroundPositions.count]
+                    Text(emoji)
+                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.42))
+                        .opacity(0.14)
+                        .position(
+                            x: geometry.size.width * anchor.x,
+                            y: geometry.size.height * anchor.y
+                        )
+                }
+            }
+        }
+        .allowsHitTesting(false)
     }
 }
 
