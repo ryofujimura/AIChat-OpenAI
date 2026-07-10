@@ -187,6 +187,7 @@ struct ArcadeSurfaceButtonStyle: ButtonStyle {
 struct CheerMessageText: View {
     let message: String
     var fontSize: CGFloat = Fib.typeHero
+    var animate: Bool = true
 
     private var lines: [String] {
         MessageFormatting.normalizedLines(from: message)
@@ -194,16 +195,62 @@ struct CheerMessageText: View {
 
     var body: some View {
         VStack(spacing: Fib.s8) {
-            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
-                Text(line)
-                    .font(.system(size: fontSize, weight: .semibold))
-                    .foregroundStyle(WarmGlow.ink)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+            ForEach(Array(lines.enumerated()), id: \.offset) { lineIndex, line in
+                AnimatedCharacterLine(
+                    text: line,
+                    fontSize: fontSize,
+                    lineDelay: Double(lineIndex) * 0.1,
+                    animate: animate
+                )
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, Fib.s13)
+        .id(message)
+    }
+}
+
+private struct AnimatedCharacterLine: View {
+    let text: String
+    let fontSize: CGFloat
+    let lineDelay: Double
+    let animate: Bool
+
+    @State private var isRevealed = false
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(Array(text.enumerated()), id: \.offset) { index, character in
+                Text(String(character))
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundStyle(WarmGlow.ink)
+                    .opacity(isRevealed ? 1 : 0)
+                    .offset(y: isRevealed ? 0 : Fib.s13)
+                    .animation(characterAnimation(for: index), value: isRevealed)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .onAppear(perform: revealCharacters)
+        .onChange(of: text) { _ in
+            isRevealed = false
+            revealCharacters()
+        }
+    }
+
+    private func characterAnimation(for index: Int) -> Animation? {
+        guard animate else { return nil }
+        return .easeOut(duration: 0.28).delay(lineDelay + Double(index) * 0.035)
+    }
+
+    private func revealCharacters() {
+        isRevealed = false
+        guard animate else {
+            isRevealed = true
+            return
+        }
+        DispatchQueue.main.async {
+            isRevealed = true
+        }
     }
 }
 
@@ -288,7 +335,6 @@ struct WarmGlowInteractiveCard: View {
                 skeletonContent
             } else if showsMessage {
                 CheerMessageText(message: message ?? "")
-                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
                     .id(message ?? "")
             } else if isTapHere {
                 VStack(spacing: Fib.s8) {

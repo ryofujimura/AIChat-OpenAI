@@ -49,7 +49,6 @@ struct HeartWarmingChatView: View {
                             spawnTapEmojis(at: point)
                         }
                     )
-                    .animation(.easeInOut(duration: 0.4), value: displayedMessage)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.isCompleting)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.isButtonDisabled)
                 }
@@ -80,15 +79,11 @@ struct HeartWarmingChatView: View {
             attemptAutoGenerate()
         }
         .onChange(of: viewModel.responseText) { newValue in
-            withAnimation(.easeInOut(duration: 0.4)) {
-                displayedMessage = newValue
-            }
+            displayedMessage = newValue
         }
         .onChange(of: viewModel.countdown) { countdown in
             if countdown == 0 && viewModel.isButtonDisabled == false && displayedMessage != nil {
-                withAnimation(.easeInOut(duration: 0.4)) {
-                    displayedMessage = nil
-                }
+                displayedMessage = nil
             }
         }
     }
