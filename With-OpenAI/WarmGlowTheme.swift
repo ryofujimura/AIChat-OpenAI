@@ -15,7 +15,6 @@ enum WarmGlow {
 
     static let secondary = ink.opacity(0.4)
     static let border = ink.opacity(0.15)
-    static let overlay = Color.black.opacity(0.3)
 
     static let shadowLight = Color.white.opacity(0.8)
     static let shadowDark = Color.black.opacity(0.08)

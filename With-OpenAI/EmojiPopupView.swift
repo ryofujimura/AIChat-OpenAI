@@ -18,14 +18,6 @@ struct EmojiPopupView: View {
 
     var body: some View {
         ZStack {
-            if isShowing {
-                WarmGlow.overlay
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        dismissPopup()
-                    }
-            }
-
             ForEach(Array(emojis.enumerated()), id: \.offset) { index, emoji in
                 FloatingEmojiParticle(emoji: emoji, delay: Double(index) * 0.06)
                     .id(floatingWaveID)
