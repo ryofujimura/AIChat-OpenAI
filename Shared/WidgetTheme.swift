@@ -31,10 +31,13 @@ struct WidgetArcadeButtonFace: View {
     var body: some View {
         GeometryReader { geometry in
             let inset = min(geometry.size.width, geometry.size.height) * 0.028
+            let innerSize = CGSize(
+                width: geometry.size.width - inset * 2,
+                height: geometry.size.height - inset * 2
+            )
+            let innerShape = RoundedRectangle(cornerRadius: cornerRadius)
 
             ZStack {
-                WidgetEmojiBackground(emojis: emojis, size: geometry.size)
-
                 // Square outer housing — sharp corners on the outside
                 Rectangle()
                     .fill(
@@ -45,44 +48,41 @@ struct WidgetArcadeButtonFace: View {
                         )
                     )
 
-                // Inner plunger keeps rounded corners; slightly translucent when emojis show through
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(
-                        LinearGradient(
-                            colors: faceColors,
-                            startPoint: .top,
-                            endPoint: .bottom
+                ZStack {
+                    innerShape
+                        .fill(
+                            LinearGradient(
+                                colors: faceColors,
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
                         )
-                    )
-                    .opacity(innerFaceOpacity)
-                    .overlay(alignment: .top) {
-                        Ellipse()
-                            .fill(Color.white.opacity(hasMessage ? 0.25 : 0.45))
-                            .frame(height: cornerRadius * 0.7)
-                            .padding(.horizontal, inset * 1.2)
-                            .padding(.top, inset * 0.6)
-                    }
-                    .padding(inset)
 
-                Group {
-                    if hasMessage {
-                        WidgetCheerMessageText(
-                            message: message ?? "",
-                            fontSize: min(geometry.size.width * 0.12, 36)
-                        )
-                        .padding(.horizontal, inset * 0.8)
-                        .padding(.vertical, inset * 0.4)
-                    } else {
-                        VStack(spacing: inset * 0.3) {
-                            Text("👇")
-                                .font(.system(size: min(geometry.size.width * 0.2, 44)))
-                            Text("Tap Here")
-                                .font(.system(size: min(geometry.size.width * 0.1, 23), weight: .bold))
-                                .foregroundStyle(WidgetTheme.surface)
+                    if hasMessage, !emojis.isEmpty {
+                        WidgetEmojiBackground(emojis: emojis, size: innerSize)
+                            .clipShape(innerShape)
+                    }
+
+                    Group {
+                        if hasMessage {
+                            WidgetCheerMessageText(
+                                message: message ?? "",
+                                fontSize: min(geometry.size.width * 0.12, 36)
+                            )
+                            .padding(.horizontal, inset * 0.8)
+                            .padding(.vertical, inset * 0.4)
+                        } else {
+                            VStack(spacing: inset * 0.3) {
+                                Text("👇")
+                                    .font(.system(size: min(geometry.size.width * 0.2, 44)))
+                                Text("Tap Here")
+                                    .font(.system(size: min(geometry.size.width * 0.1, 23), weight: .bold))
+                                    .foregroundStyle(WidgetTheme.surface)
+                            }
                         }
                     }
                 }
-                .padding(inset * 0.5)
+                .padding(inset)
             }
         }
     }
@@ -94,9 +94,6 @@ struct WidgetArcadeButtonFace: View {
         return [WidgetTheme.accentHighlight, WidgetTheme.accent, WidgetTheme.accentShadow]
     }
 
-    private var innerFaceOpacity: Double {
-        hasMessage && !emojis.isEmpty ? 0.84 : 1.0
-    }
 }
 
 struct WidgetEmojiBackground: View {
@@ -106,40 +103,41 @@ struct WidgetEmojiBackground: View {
     private var tiledEmojis: [WidgetEmojiPlacement] {
         guard !emojis.isEmpty else { return [] }
 
-        var expanded: [String] = []
-        while expanded.count < 9 {
-            expanded.append(contentsOf: emojis)
+        let columns = 4
+        let rows = 5
+        var placements: [WidgetEmojiPlacement] = []
+        var index = 0
+
+        for row in 0..<rows {
+            for col in 0..<columns {
+                let stagger = row.isMultiple(of: 2) ? 0.0 : 0.14
+                let xFraction = (CGFloat(col) + 0.5 + stagger) / CGFloat(columns)
+                let yFraction = (CGFloat(row) + 0.5) / CGFloat(rows)
+                let scale = 0.92 + CGFloat(index % 4) * 0.08
+                let rotation = Double((index % 8) * 9 - 28)
+
+                placements.append(
+                    WidgetEmojiPlacement(
+                        emoji: emojis[index % emojis.count],
+                        x: xFraction * size.width,
+                        y: yFraction * size.height,
+                        scale: scale,
+                        rotation: rotation
+                    )
+                )
+                index += 1
+            }
         }
 
-        let anchors: [(CGFloat, CGFloat, CGFloat, Double)] = [
-            (0.12, 0.16, 0.72, -18),
-            (0.82, 0.14, 0.68, 14),
-            (0.48, 0.46, 0.88, -8),
-            (0.10, 0.58, 0.64, 22),
-            (0.88, 0.56, 0.70, -12),
-            (0.30, 0.86, 0.60, 10),
-            (0.72, 0.84, 0.66, -16),
-            (0.50, 0.12, 0.58, 6),
-            (0.22, 0.38, 0.54, 18),
-        ]
-
-        return anchors.enumerated().map { index, anchor in
-            WidgetEmojiPlacement(
-                emoji: expanded[index % expanded.count],
-                x: anchor.0 * size.width,
-                y: anchor.1 * size.height,
-                scale: anchor.2,
-                rotation: anchor.3
-            )
-        }
+        return placements
     }
 
     var body: some View {
         ZStack {
             ForEach(Array(tiledEmojis.enumerated()), id: \.offset) { _, placement in
                 Text(placement.emoji)
-                    .font(.system(size: size.width * 0.38 * placement.scale))
-                    .opacity(0.16)
+                    .font(.system(size: size.width * 0.44 * placement.scale))
+                    .opacity(0.15)
                     .rotationEffect(.degrees(placement.rotation))
                     .position(x: placement.x, y: placement.y)
             }
