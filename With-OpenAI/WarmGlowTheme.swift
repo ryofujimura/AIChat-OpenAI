@@ -187,7 +187,8 @@ struct ArcadeSurfaceButtonStyle: ButtonStyle {
 struct CheerMessageText: View {
     let message: String
     var fontSize: CGFloat = Fib.typeHero
-    var animate: Bool = true
+
+    @State private var animationID = UUID()
 
     private var lines: [String] {
         MessageFormatting.normalizedLines(from: message)
@@ -196,61 +197,53 @@ struct CheerMessageText: View {
     var body: some View {
         VStack(spacing: Fib.s8) {
             ForEach(Array(lines.enumerated()), id: \.offset) { lineIndex, line in
-                AnimatedCharacterLine(
-                    text: line,
-                    fontSize: fontSize,
-                    lineDelay: Double(lineIndex) * 0.1,
-                    animate: animate
-                )
+                HStack(spacing: 0) {
+                    ForEach(Array(line.enumerated()), id: \.offset) { charIndex, character in
+                        SlideUpCharacterView(
+                            character: character,
+                            fontSize: fontSize,
+                            delay: Double(globalCharacterIndex(lineIndex: lineIndex, charIndex: charIndex)) * 0.028
+                        )
+                        .id("\(animationID.uuidString)-\(lineIndex)-\(charIndex)")
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, Fib.s13)
-        .id(message)
+        .onAppear {
+            animationID = UUID()
+        }
+        .onChange(of: message) { _ in
+            animationID = UUID()
+        }
+    }
+
+    private func globalCharacterIndex(lineIndex: Int, charIndex: Int) -> Int {
+        lines.prefix(lineIndex).reduce(0) { $0 + $1.count } + charIndex
     }
 }
 
-private struct AnimatedCharacterLine: View {
-    let text: String
+private struct SlideUpCharacterView: View {
+    let character: Character
     let fontSize: CGFloat
-    let lineDelay: Double
-    let animate: Bool
+    let delay: Double
 
-    @State private var isRevealed = false
+    @State private var isVisible = false
 
     var body: some View {
-        HStack(spacing: 0) {
-            ForEach(Array(text.enumerated()), id: \.offset) { index, character in
-                Text(String(character))
-                    .font(.system(size: fontSize, weight: .semibold))
-                    .foregroundStyle(WarmGlow.ink)
-                    .opacity(isRevealed ? 1 : 0)
-                    .offset(y: isRevealed ? 0 : Fib.s13)
-                    .animation(characterAnimation(for: index), value: isRevealed)
+        Text(String(character))
+            .font(.system(size: fontSize, weight: .semibold))
+            .foregroundStyle(WarmGlow.ink)
+            .opacity(isVisible ? 1 : 0)
+            .offset(y: isVisible ? 0 : Fib.s8)
+            .onAppear {
+                isVisible = false
+                withAnimation(.easeOut(duration: 0.24).delay(delay)) {
+                    isVisible = true
+                }
             }
-        }
-        .frame(maxWidth: .infinity)
-        .onAppear(perform: revealCharacters)
-        .onChange(of: text) { _ in
-            isRevealed = false
-            revealCharacters()
-        }
-    }
-
-    private func characterAnimation(for index: Int) -> Animation? {
-        guard animate else { return nil }
-        return .easeOut(duration: 0.28).delay(lineDelay + Double(index) * 0.035)
-    }
-
-    private func revealCharacters() {
-        isRevealed = false
-        guard animate else {
-            isRevealed = true
-            return
-        }
-        DispatchQueue.main.async {
-            isRevealed = true
-        }
     }
 }
 
