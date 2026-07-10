@@ -88,20 +88,21 @@ struct HeartWarmingChatView: View {
         viewModel.generateCompletion()
     }
 
+    private var hasEasterEggInput: Bool {
+        !userInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
     private var easterEggForm: some View {
         ArcadePanel(cornerRadius: Fib.radiusCard) {
             VStack(spacing: Fib.s13) {
-                Text("Easter Egg Mode!")
+                Text("Easter Egg 🥚🥚")
                     .font(.system(size: Fib.typeButton, weight: .semibold))
                     .foregroundStyle(WarmGlow.ink)
 
-                Text("Tell us your needs:")
-                    .font(.system(size: Fib.typeCaption))
-                    .foregroundStyle(WarmGlow.secondary)
+                WarmGlowInsetField(text: $userInput, placeholder: "enter your thoughts...")
 
-                WarmGlowInsetField(text: $userInput, placeholder: "Enter your needs")
-
-                WarmGlowFlatButton(title: "Get Positive Feedback") {
+                WarmGlowFlatButton(title: "push", isEnabled: hasEasterEggInput) {
+                    guard hasEasterEggInput else { return }
                     viewModel.generatePositiveFeedback(for: userInput)
                     viewModel.showEasterEggForm = false
                     viewModel.isButtonDisabled = false

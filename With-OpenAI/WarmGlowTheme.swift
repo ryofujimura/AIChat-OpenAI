@@ -297,6 +297,7 @@ struct WarmGlowInteractiveCard: View {
 
 struct WarmGlowFlatButton: View {
     let title: String
+    var isEnabled: Bool = true
     let action: () -> Void
 
     var body: some View {
@@ -309,6 +310,8 @@ struct WarmGlowFlatButton: View {
                 .frame(height: Fib.s55)
         }
         .buttonStyle(ArcadeAccentButtonStyle())
+        .disabled(!isEnabled)
+        .opacity(isEnabled ? 1.0 : 0.45)
     }
 }
 
