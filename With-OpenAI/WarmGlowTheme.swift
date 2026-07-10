@@ -182,6 +182,31 @@ struct ArcadeSurfaceButtonStyle: ButtonStyle {
     }
 }
 
+// MARK: - Message Text
+
+struct CheerMessageText: View {
+    let message: String
+    var fontSize: CGFloat = Fib.typeHero
+
+    private var lines: [String] {
+        MessageFormatting.normalizedLines(from: message)
+    }
+
+    var body: some View {
+        VStack(spacing: Fib.s8) {
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                Text(line)
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundStyle(WarmGlow.ink)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, Fib.s13)
+    }
+}
+
 // MARK: - Interactive Card (Tap + Response)
 
 struct WarmGlowInteractiveCard: View {
@@ -262,11 +287,7 @@ struct WarmGlowInteractiveCard: View {
             if isLoading {
                 skeletonContent
             } else if showsMessage {
-                Text(message ?? "")
-                    .font(.system(size: Fib.typeHero, weight: .semibold))
-                    .foregroundStyle(WarmGlow.ink)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, Fib.s13)
+                CheerMessageText(message: message ?? "")
                     .transition(.opacity.combined(with: .scale(scale: 0.98)))
                     .id(message ?? "")
             } else if isTapHere {

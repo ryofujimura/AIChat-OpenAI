@@ -60,12 +60,11 @@ struct WidgetArcadeButtonFace: View {
 
                 Group {
                     if hasMessage {
-                        Text(message ?? "")
-                            .font(.system(size: min(geometry.size.width * 0.11, 34), weight: .semibold))
-                            .foregroundStyle(WidgetTheme.ink)
-                            .multilineTextAlignment(.center)
-                            .minimumScaleFactor(0.6)
-                            .padding(inset * 2.2)
+                        WidgetCheerMessageText(
+                            message: message ?? "",
+                            fontSize: min(geometry.size.width * 0.11, 34)
+                        )
+                        .padding(inset * 2.2)
                     } else {
                         VStack(spacing: inset * 0.4) {
                             Text("👇")
@@ -86,5 +85,28 @@ struct WidgetArcadeButtonFace: View {
             return [WidgetTheme.surfaceHighlight, WidgetTheme.surface, WidgetTheme.surfaceShadow]
         }
         return [WidgetTheme.accentHighlight, WidgetTheme.accent, WidgetTheme.accentShadow]
+    }
+}
+
+struct WidgetCheerMessageText: View {
+    let message: String
+    let fontSize: CGFloat
+
+    private var lines: [String] {
+        MessageFormatting.normalizedLines(from: message)
+    }
+
+    var body: some View {
+        VStack(spacing: 6) {
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                Text(line)
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundStyle(WidgetTheme.ink)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.6)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
 }

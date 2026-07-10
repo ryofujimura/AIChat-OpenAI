@@ -50,8 +50,8 @@ class HeartWarmingChatModel: ObservableObject {
             }
         }
         
-        // Clean up extra whitespace
-        cleanText = cleanText.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Clean up extra whitespace while preserving line breaks
+        cleanText = MessageFormatting.normalize(cleanText)
         
         return (cleanText, emojis)
     }
