@@ -59,6 +59,25 @@ struct ArcadeFace<Content: View>: View {
 
     var body: some View {
         ZStack {
+            // Ground shadow stays fixed while the button depresses into it
+            RoundedRectangle(cornerRadius: cornerRadius + Fib.s8)
+                .fill(Color.black.opacity(isPressed ? 0.18 : 0.28))
+                .padding(.horizontal, Fib.s13)
+                .frame(maxWidth: .infinity)
+                .frame(height: Fib.s8)
+                .offset(y: Fib.s21 + pressDepth)
+                .blur(radius: Fib.s5)
+                .animation(.spring(response: 0.22, dampingFraction: 0.62), value: isPressed)
+
+            // Housing + plunger + label move together as one physical button
+            buttonAssembly
+                .offset(y: pressDepth)
+                .animation(.spring(response: 0.22, dampingFraction: 0.62), value: isPressed)
+        }
+    }
+
+    private var buttonAssembly: some View {
+        ZStack {
             // Housing base
             RoundedRectangle(cornerRadius: cornerRadius + Fib.s8)
                 .fill(
@@ -68,7 +87,12 @@ struct ArcadeFace<Content: View>: View {
                         endPoint: .bottom
                     )
                 )
-                .shadow(color: Color.black.opacity(0.45), radius: Fib.s13, x: 0, y: Fib.s13)
+                .shadow(
+                    color: Color.black.opacity(isPressed ? 0.3 : 0.45),
+                    radius: isPressed ? Fib.s8 : Fib.s13,
+                    x: 0,
+                    y: isPressed ? Fib.s5 : Fib.s13
+                )
 
             // Inner well
             RoundedRectangle(cornerRadius: cornerRadius + Fib.s5)
@@ -91,7 +115,6 @@ struct ArcadeFace<Content: View>: View {
                         .blendMode(.overlay)
                 }
                 .overlay(alignment: .top) {
-                    // Gloss highlight
                     Ellipse()
                         .fill(
                             LinearGradient(
@@ -103,22 +126,12 @@ struct ArcadeFace<Content: View>: View {
                         .frame(height: cornerRadius)
                         .padding(.horizontal, Fib.s21)
                         .padding(.top, Fib.s8)
-                        .offset(y: pressDepth)
                 }
                 .padding(Fib.s8)
-                .offset(y: pressDepth)
-                .shadow(
-                    color: Color.black.opacity(isPressed ? 0.15 : 0.3),
-                    radius: isPressed ? Fib.s5 : Fib.s8,
-                    x: 0,
-                    y: isPressed ? 3 : Fib.s8
-                )
 
             content()
                 .padding(Fib.s21)
-                .offset(y: pressDepth)
         }
-        .animation(.spring(response: 0.22, dampingFraction: 0.62), value: isPressed)
     }
 }
 
