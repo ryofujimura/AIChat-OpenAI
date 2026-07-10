@@ -42,7 +42,7 @@ struct CheerWidget: Widget {
             provider: CheerWidgetProvider()
         ) { entry in
             CheerWidgetView(entry: entry)
-                .containerBackground(WidgetTheme.base, for: .widget)
+                .containerBackground(WidgetTheme.housing, for: .widget)
         }
         .configurationDisplayName("Cheer Me Up")
         .description("Shows your last heartwarming message. Tap to get a new one.")

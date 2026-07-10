@@ -30,7 +30,7 @@ struct WidgetArcadeButtonFace: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let inset = min(geometry.size.width, geometry.size.height) * 0.06
+            let inset = min(geometry.size.width, geometry.size.height) * 0.028
 
             ZStack {
                 WidgetEmojiBackground(emojis: emojis, size: geometry.size)
@@ -58,9 +58,9 @@ struct WidgetArcadeButtonFace: View {
                     .overlay(alignment: .top) {
                         Ellipse()
                             .fill(Color.white.opacity(hasMessage ? 0.25 : 0.45))
-                            .frame(height: cornerRadius * 0.9)
-                            .padding(.horizontal, inset * 2)
-                            .padding(.top, inset)
+                            .frame(height: cornerRadius * 0.7)
+                            .padding(.horizontal, inset * 1.2)
+                            .padding(.top, inset * 0.6)
                     }
                     .padding(inset)
 
@@ -68,20 +68,21 @@ struct WidgetArcadeButtonFace: View {
                     if hasMessage {
                         WidgetCheerMessageText(
                             message: message ?? "",
-                            fontSize: min(geometry.size.width * 0.11, 34)
+                            fontSize: min(geometry.size.width * 0.12, 36)
                         )
-                        .padding(inset * 2.2)
+                        .padding(.horizontal, inset * 0.8)
+                        .padding(.vertical, inset * 0.4)
                     } else {
-                        VStack(spacing: inset * 0.4) {
+                        VStack(spacing: inset * 0.3) {
                             Text("👇")
-                                .font(.system(size: min(geometry.size.width * 0.18, 40)))
+                                .font(.system(size: min(geometry.size.width * 0.2, 44)))
                             Text("Tap Here")
-                                .font(.system(size: min(geometry.size.width * 0.09, 21), weight: .bold))
+                                .font(.system(size: min(geometry.size.width * 0.1, 23), weight: .bold))
                                 .foregroundStyle(WidgetTheme.surface)
                         }
                     }
                 }
-                .padding(inset * 1.5)
+                .padding(inset * 0.5)
             }
         }
     }
