@@ -32,7 +32,7 @@ struct WidgetArcadeButtonFace: View {
             let inset = min(geometry.size.width, geometry.size.height) * 0.06
 
             ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius + inset * 0.8)
+                Rectangle()
                     .fill(
                         LinearGradient(
                             colors: [WidgetTheme.housingRim, WidgetTheme.housing],
