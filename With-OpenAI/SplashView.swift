@@ -44,13 +44,35 @@ struct AppLogoView: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(WarmGlow.surface)
+                .fill(
+                    LinearGradient(
+                        colors: [WarmGlow.housingRim, WarmGlow.housing],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: size + Fib.s13, height: size + Fib.s13)
+                .shadow(color: Color.black.opacity(0.4), radius: Fib.s8, x: 0, y: Fib.s8)
+
+            Circle()
+                .fill(
+                    LinearGradient(
+                        colors: [WarmGlow.accentHighlight, WarmGlow.accent, WarmGlow.accentShadow],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
                 .frame(width: size, height: size)
-                .shadow(color: WarmGlow.shadowLight, radius: Fib.s8, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowDark, radius: Fib.s8, x: 4, y: 4)
+                .overlay {
+                    Ellipse()
+                        .fill(Color.white.opacity(0.4))
+                        .frame(width: size * 0.55, height: size * 0.25)
+                        .offset(y: -size * 0.18)
+                }
 
             Text("✨")
                 .font(.system(size: size * 0.45))
+                .shadow(color: Color.black.opacity(0.2), radius: 0, x: 0, y: 2)
         }
     }
 }

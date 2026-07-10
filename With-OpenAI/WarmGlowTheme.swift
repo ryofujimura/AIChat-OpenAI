@@ -16,13 +16,19 @@ enum WarmGlow {
     static let secondary = ink.opacity(0.4)
     static let border = ink.opacity(0.15)
 
-    static let shadowLight = Color.white.opacity(0.8)
-    static let shadowDark = Color.black.opacity(0.08)
+    // Arcade 3D tones
+    static let housing = Color(red: 0.18, green: 0.17, blue: 0.16)
+    static let housingRim = Color(red: 0.28, green: 0.26, blue: 0.24)
+    static let accentHighlight = Color(red: 0.98, green: 0.74, blue: 0.58)
+    static let accentShadow = Color(red: 0.72, green: 0.40, blue: 0.26)
+    static let surfaceHighlight = Color(red: 1.0, green: 1.0, blue: 1.0)
+    static let surfaceShadow = Color(red: 0.88, green: 0.86, blue: 0.84)
 }
 
 // MARK: - Fibonacci Scale
 
 enum Fib {
+    static let s5: CGFloat = 5
     static let s8: CGFloat = 8
     static let s13: CGFloat = 13
     static let s21: CGFloat = 21
@@ -39,46 +45,127 @@ enum Fib {
     static let typeHero: CGFloat = s34
 }
 
-// MARK: - Neumorphism
+// MARK: - Arcade 3D Button
 
-extension View {
-    func warmGlowExtruded(
-        radius: CGFloat,
-        fill: Color = WarmGlow.surface,
-        blur: CGFloat = Fib.s8
-    ) -> some View {
-        background(
-            RoundedRectangle(cornerRadius: radius)
-                .fill(fill)
-                .shadow(color: WarmGlow.shadowLight, radius: blur, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowDark, radius: blur, x: 4, y: 4)
-        )
-    }
+struct ArcadeFace<Content: View>: View {
+    let faceColor: Color
+    let highlightColor: Color
+    let shadowColor: Color
+    let isPressed: Bool
+    let cornerRadius: CGFloat
+    @ViewBuilder let content: () -> Content
 
-    func warmGlowInset(radius: CGFloat, fill: Color = WarmGlow.base) -> some View {
-        background(
-            RoundedRectangle(cornerRadius: radius)
-                .fill(fill)
-                .overlay(
-                    RoundedRectangle(cornerRadius: radius)
-                        .stroke(WarmGlow.border, lineWidth: 1)
+    private var pressDepth: CGFloat { isPressed ? Fib.s8 : 0 }
+
+    var body: some View {
+        ZStack {
+            // Housing base
+            RoundedRectangle(cornerRadius: cornerRadius + Fib.s8)
+                .fill(
+                    LinearGradient(
+                        colors: [WarmGlow.housingRim, WarmGlow.housing],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
                 )
-                .shadow(color: WarmGlow.shadowDark, radius: Fib.s8, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowLight, radius: Fib.s8, x: 4, y: 4)
-        )
+                .shadow(color: Color.black.opacity(0.45), radius: Fib.s13, x: 0, y: Fib.s13)
+
+            // Inner well
+            RoundedRectangle(cornerRadius: cornerRadius + Fib.s5)
+                .fill(WarmGlow.housing)
+                .padding(Fib.s5)
+
+            // Plunger face
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(
+                    LinearGradient(
+                        colors: [highlightColor, faceColor, shadowColor],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                        .padding(1)
+                        .blendMode(.overlay)
+                }
+                .overlay(alignment: .top) {
+                    // Gloss highlight
+                    Ellipse()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.55), Color.white.opacity(0.0)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(height: cornerRadius)
+                        .padding(.horizontal, Fib.s21)
+                        .padding(.top, Fib.s8)
+                        .offset(y: pressDepth)
+                }
+                .padding(Fib.s8)
+                .offset(y: pressDepth)
+                .shadow(
+                    color: Color.black.opacity(isPressed ? 0.15 : 0.3),
+                    radius: isPressed ? Fib.s5 : Fib.s8,
+                    x: 0,
+                    y: isPressed ? 3 : Fib.s8
+                )
+
+            content()
+                .padding(Fib.s21)
+                .offset(y: pressDepth)
+        }
+        .animation(.spring(response: 0.22, dampingFraction: 0.62), value: isPressed)
     }
 }
 
-// MARK: - Button Styles
-
-struct WarmGlowShrinkButtonStyle: ButtonStyle {
+struct ArcadeButtonStyle: ButtonStyle {
+    let faceColor: Color
+    let highlightColor: Color
+    let shadowColor: Color
+    var cornerRadius: CGFloat = Fib.radiusCard
     var emphasis: Double = 1.0
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            .opacity(emphasis)
-            .animation(.spring(response: 0.25, dampingFraction: 0.65), value: configuration.isPressed)
+        ArcadeFace(
+            faceColor: faceColor,
+            highlightColor: highlightColor,
+            shadowColor: shadowColor,
+            isPressed: configuration.isPressed,
+            cornerRadius: cornerRadius
+        ) {
+            configuration.label
+                .opacity(emphasis)
+        }
+    }
+}
+
+struct ArcadeAccentButtonStyle: ButtonStyle {
+    var cornerRadius: CGFloat = Fib.radiusCard
+
+    func makeBody(configuration: Configuration) -> some View {
+        ArcadeButtonStyle(
+            faceColor: WarmGlow.accent,
+            highlightColor: WarmGlow.accentHighlight,
+            shadowColor: WarmGlow.accentShadow,
+            cornerRadius: cornerRadius
+        ).makeBody(configuration: configuration)
+    }
+}
+
+struct ArcadeSurfaceButtonStyle: ButtonStyle {
+    var cornerRadius: CGFloat = Fib.radiusHero
+
+    func makeBody(configuration: Configuration) -> some View {
+        ArcadeButtonStyle(
+            faceColor: WarmGlow.surface,
+            highlightColor: WarmGlow.surfaceHighlight,
+            shadowColor: WarmGlow.surfaceShadow,
+            cornerRadius: cornerRadius
+        ).makeBody(configuration: configuration)
     }
 }
 
@@ -109,6 +196,13 @@ struct WarmGlowInteractiveCard: View {
         !isLoading && !showsMessage && !isCooldown
     }
 
+    private var faceStyle: (Color, Color, Color) {
+        if isTapHere {
+            return (WarmGlow.accent, WarmGlow.accentHighlight, WarmGlow.accentShadow)
+        }
+        return (WarmGlow.surface, WarmGlow.surfaceHighlight, WarmGlow.surfaceShadow)
+    }
+
     var body: some View {
         Button {
             if isCooldown {
@@ -119,7 +213,15 @@ struct WarmGlowInteractiveCard: View {
         } label: {
             cardContent
         }
-        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: isTapHere || isCooldown ? 1.0 : 0.95))
+        .buttonStyle(
+            ArcadeButtonStyle(
+                faceColor: faceStyle.0,
+                highlightColor: faceStyle.1,
+                shadowColor: faceStyle.2,
+                cornerRadius: Fib.radiusHero,
+                emphasis: isTapHere || isCooldown ? 1.0 : 0.95
+            )
+        )
         .disabled(isLoading)
         .onChange(of: isLoading) { loading in
             if loading {
@@ -132,48 +234,44 @@ struct WarmGlowInteractiveCard: View {
 
     @ViewBuilder
     private var cardContent: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: Fib.radiusHero)
-                .fill(isTapHere ? WarmGlow.accent : WarmGlow.surface)
-                .shadow(color: WarmGlow.shadowLight, radius: Fib.s13, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowDark, radius: Fib.s13, x: 4, y: 4)
-
-            VStack(spacing: Fib.s13) {
-                if isLoading {
-                    skeletonContent
-                } else if showsMessage {
-                    Text(message ?? "")
-                        .font(.system(size: Fib.typeHero, weight: .regular))
-                        .foregroundStyle(WarmGlow.ink)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, Fib.s13)
-                        .transition(.opacity.combined(with: .scale(scale: 0.98)))
-                        .id(message ?? "")
-                } else if isTapHere {
-                    VStack(spacing: Fib.s8) {
-                        Text("👇")
-                            .font(.system(size: Fib.s34))
-                        Text("Tap Here")
-                            .font(.system(size: Fib.typeButton, weight: .semibold))
-                            .foregroundStyle(WarmGlow.surface)
-                    }
+        VStack(spacing: Fib.s13) {
+            if isLoading {
+                skeletonContent
+            } else if showsMessage {
+                Text(message ?? "")
+                    .font(.system(size: Fib.typeHero, weight: .semibold))
+                    .foregroundStyle(WarmGlow.ink)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, Fib.s13)
                     .transition(.opacity.combined(with: .scale(scale: 0.98)))
-                } else {
-                    skeletonContent
-                }
+                    .id(message ?? "")
+            } else if isTapHere {
+                VStack(spacing: Fib.s8) {
+                    Text("👇")
+                        .font(.system(size: Fib.s34))
+                        .shadow(color: Color.black.opacity(0.2), radius: 0, x: 0, y: 2)
 
-                if isCooldown {
-                    cooldownProgress
+                    Text("Tap Here")
+                        .font(.system(size: Fib.typeButton, weight: .bold))
+                        .foregroundStyle(WarmGlow.surface)
+                        .shadow(color: Color.black.opacity(0.25), radius: 0, x: 0, y: 2)
                 }
+                .transition(.opacity.combined(with: .scale(scale: 0.98)))
+            } else {
+                skeletonContent
             }
-            .padding(Fib.s21)
+
+            if isCooldown {
+                cooldownProgress
+            }
         }
         .frame(maxWidth: .infinity)
         .frame(minHeight: Fib.s89)
         .overlay {
             if isLoading {
                 RoundedRectangle(cornerRadius: Fib.radiusHero)
-                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 2)
+                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 3)
+                    .padding(Fib.s8)
             }
         }
     }
@@ -196,21 +294,31 @@ struct WarmGlowInteractiveCard: View {
     private var cooldownProgress: some View {
         VStack(spacing: Fib.s8) {
             Text("Wait \(countdown)s")
-                .font(.system(size: Fib.typeCaption, weight: .semibold))
+                .font(.system(size: Fib.typeCaption, weight: .bold))
                 .foregroundStyle(WarmGlow.secondary)
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(WarmGlow.border)
+                        .fill(WarmGlow.housing)
+                        .overlay {
+                            Capsule()
+                                .stroke(WarmGlow.housingRim, lineWidth: 1)
+                        }
 
                     Capsule()
-                        .fill(WarmGlow.accent)
+                        .fill(
+                            LinearGradient(
+                                colors: [WarmGlow.accentHighlight, WarmGlow.accent],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
                         .frame(width: geometry.size.width * progress)
                         .animation(.linear(duration: 1), value: progress)
                 }
             }
-            .frame(height: Fib.s8)
+            .frame(height: Fib.s13)
         }
     }
 
@@ -230,16 +338,13 @@ struct WarmGlowFlatButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: Fib.typeButton, weight: .semibold))
+                .font(.system(size: Fib.typeButton, weight: .bold))
                 .foregroundStyle(WarmGlow.surface)
+                .shadow(color: Color.black.opacity(0.25), radius: 0, x: 0, y: 2)
                 .frame(maxWidth: .infinity)
                 .frame(height: Fib.s55)
-                .background(
-                    RoundedRectangle(cornerRadius: Fib.radiusCard)
-                        .fill(WarmGlow.accent)
-                )
         }
-        .buttonStyle(WarmGlowShrinkButtonStyle())
+        .buttonStyle(ArcadeAccentButtonStyle())
     }
 }
 
@@ -252,6 +357,41 @@ struct WarmGlowInsetField: View {
             .font(.system(size: Fib.typeCaption))
             .foregroundStyle(WarmGlow.ink)
             .padding(Fib.s13)
-            .warmGlowInset(radius: Fib.radiusField)
+            .background(
+                RoundedRectangle(cornerRadius: Fib.radiusField)
+                    .fill(WarmGlow.housing.opacity(0.08))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: Fib.radiusField)
+                            .stroke(WarmGlow.housingRim.opacity(0.5), lineWidth: 2)
+                    }
+            )
+    }
+}
+
+struct ArcadePanel<Content: View>: View {
+    let cornerRadius: CGFloat
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        content()
+            .padding(Fib.s21)
+            .frame(maxWidth: .infinity)
+            .background {
+                ZStack {
+                    RoundedRectangle(cornerRadius: cornerRadius + Fib.s8)
+                        .fill(
+                            LinearGradient(
+                                colors: [WarmGlow.housingRim, WarmGlow.housing],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .shadow(color: Color.black.opacity(0.35), radius: Fib.s13, x: 0, y: Fib.s8)
+
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(WarmGlow.surface)
+                        .padding(Fib.s8)
+                }
+            }
     }
 }

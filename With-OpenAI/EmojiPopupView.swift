@@ -41,23 +41,28 @@ struct EmojiPopupView: View {
                     }
                 }
 
-                Button("Close") {
-                    dismissPopup()
-                }
-                .font(.system(size: Fib.typeCaption, weight: .semibold))
-                .foregroundStyle(WarmGlow.surface)
-                .padding(.horizontal, Fib.s34)
-                .padding(.vertical, Fib.s13)
-                .background(
-                    Capsule()
-                        .fill(WarmGlow.accent)
-                )
+            WarmGlowFlatButton(title: "Close") {
+                dismissPopup()
+            }
             }
             .padding(Fib.s34)
-            .background(
-                RoundedRectangle(cornerRadius: Fib.radiusHero)
-                    .fill(WarmGlow.surface)
-            )
+            .background {
+                ZStack {
+                    RoundedRectangle(cornerRadius: Fib.radiusHero + Fib.s8)
+                        .fill(
+                            LinearGradient(
+                                colors: [WarmGlow.housingRim, WarmGlow.housing],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .shadow(color: Color.black.opacity(0.35), radius: Fib.s13, x: 0, y: Fib.s8)
+
+                    RoundedRectangle(cornerRadius: Fib.radiusHero)
+                        .fill(WarmGlow.surface)
+                        .padding(Fib.s8)
+                }
+            }
             .offset(y: cardOffset)
             .scaleEffect(cardScale)
             .opacity(cardOpacity)

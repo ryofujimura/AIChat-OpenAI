@@ -71,30 +71,26 @@ struct HeartWarmingChatView: View {
     }
 
     private var easterEggForm: some View {
-        VStack(spacing: Fib.s13) {
-            Text("Easter Egg Mode!")
-                .font(.system(size: Fib.typeButton, weight: .semibold))
-                .foregroundStyle(WarmGlow.ink)
+        ArcadePanel(cornerRadius: Fib.radiusCard) {
+            VStack(spacing: Fib.s13) {
+                Text("Easter Egg Mode!")
+                    .font(.system(size: Fib.typeButton, weight: .semibold))
+                    .foregroundStyle(WarmGlow.ink)
 
-            Text("Tell us your needs:")
-                .font(.system(size: Fib.typeCaption))
-                .foregroundStyle(WarmGlow.secondary)
+                Text("Tell us your needs:")
+                    .font(.system(size: Fib.typeCaption))
+                    .foregroundStyle(WarmGlow.secondary)
 
-            WarmGlowInsetField(text: $userInput, placeholder: "Enter your needs")
+                WarmGlowInsetField(text: $userInput, placeholder: "Enter your needs")
 
-            WarmGlowFlatButton(title: "Get Positive Feedback") {
-                viewModel.generatePositiveFeedback(for: userInput)
-                viewModel.showEasterEggForm = false
-                viewModel.isButtonDisabled = false
-                viewModel.disabledTapCount = 0
+                WarmGlowFlatButton(title: "Get Positive Feedback") {
+                    viewModel.generatePositiveFeedback(for: userInput)
+                    viewModel.showEasterEggForm = false
+                    viewModel.isButtonDisabled = false
+                    viewModel.disabledTapCount = 0
+                }
             }
         }
-        .padding(Fib.s21)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: Fib.radiusCard)
-                .fill(WarmGlow.surface)
-        )
     }
 }
 
