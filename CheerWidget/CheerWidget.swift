@@ -14,27 +14,24 @@ struct CheerEntry: TimelineEntry {
 
 struct CheerWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> CheerEntry {
-        CheerEntry(date: .now, message: "You got this!", emojis: ["✨", "💖"])
+        CheerEntry(date: .now, message: "You got this!", emojis: ["✨", "💖", "🌟"])
     }
 
     func getSnapshot(in context: Context, completion: @escaping (CheerEntry) -> Void) {
-        completion(
-            CheerEntry(
-                date: .now,
-                message: CheerSharedStorage.lastMessage,
-                emojis: CheerSharedStorage.lastEmojis
-            )
-        )
+        completion(currentEntry())
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<CheerEntry>) -> Void) {
-        let entry = CheerEntry(
+        let timeline = Timeline(entries: [currentEntry()], policy: .never)
+        completion(timeline)
+    }
+
+    private func currentEntry() -> CheerEntry {
+        CheerEntry(
             date: .now,
             message: CheerSharedStorage.lastMessage,
             emojis: CheerSharedStorage.lastEmojis
         )
-        let timeline = Timeline(entries: [entry], policy: .never)
-        completion(timeline)
     }
 }
 

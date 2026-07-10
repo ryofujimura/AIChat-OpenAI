@@ -23,12 +23,6 @@ struct WidgetArcadeButtonFace: View {
     let emojis: [String]
     let cornerRadius: CGFloat
 
-    init(message: String?, emojis: [String] = [], cornerRadius: CGFloat) {
-        self.message = message
-        self.emojis = emojis
-        self.cornerRadius = cornerRadius
-    }
-
     private var hasMessage: Bool {
         guard let message, !message.isEmpty else { return false }
         return true
@@ -39,6 +33,9 @@ struct WidgetArcadeButtonFace: View {
             let inset = min(geometry.size.width, geometry.size.height) * 0.06
 
             ZStack {
+                WidgetEmojiBackground(emojis: emojis, size: geometry.size)
+
+                // Square outer housing — sharp corners on the outside
                 Rectangle()
                     .fill(
                         LinearGradient(
@@ -48,6 +45,7 @@ struct WidgetArcadeButtonFace: View {
                         )
                     )
 
+                // Inner plunger keeps rounded corners; slightly translucent when emojis show through
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(
                         LinearGradient(
@@ -56,12 +54,7 @@ struct WidgetArcadeButtonFace: View {
                             endPoint: .bottom
                         )
                     )
-                    .overlay {
-                        if hasMessage, !emojis.isEmpty {
-                            WidgetEmojiBackground(emojis: emojis)
-                                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                        }
-                    }
+                    .opacity(innerFaceOpacity)
                     .overlay(alignment: .top) {
                         Ellipse()
                             .fill(Color.white.opacity(hasMessage ? 0.25 : 0.45))
@@ -99,36 +92,69 @@ struct WidgetArcadeButtonFace: View {
         }
         return [WidgetTheme.accentHighlight, WidgetTheme.accent, WidgetTheme.accentShadow]
     }
+
+    private var innerFaceOpacity: Double {
+        hasMessage && !emojis.isEmpty ? 0.84 : 1.0
+    }
 }
 
-private struct WidgetEmojiBackground: View {
+struct WidgetEmojiBackground: View {
     let emojis: [String]
+    let size: CGSize
 
-    private var backgroundPositions: [CGPoint] {
-        [
-            CGPoint(x: 0.22, y: 0.32),
-            CGPoint(x: 0.78, y: 0.38),
-            CGPoint(x: 0.5, y: 0.72)
+    private var tiledEmojis: [WidgetEmojiPlacement] {
+        guard !emojis.isEmpty else { return [] }
+
+        var expanded: [String] = []
+        while expanded.count < 9 {
+            expanded.append(contentsOf: emojis)
+        }
+
+        let anchors: [(CGFloat, CGFloat, CGFloat, Double)] = [
+            (0.12, 0.16, 0.72, -18),
+            (0.82, 0.14, 0.68, 14),
+            (0.48, 0.46, 0.88, -8),
+            (0.10, 0.58, 0.64, 22),
+            (0.88, 0.56, 0.70, -12),
+            (0.30, 0.86, 0.60, 10),
+            (0.72, 0.84, 0.66, -16),
+            (0.50, 0.12, 0.58, 6),
+            (0.22, 0.38, 0.54, 18),
         ]
+
+        return anchors.enumerated().map { index, anchor in
+            WidgetEmojiPlacement(
+                emoji: expanded[index % expanded.count],
+                x: anchor.0 * size.width,
+                y: anchor.1 * size.height,
+                scale: anchor.2,
+                rotation: anchor.3
+            )
+        }
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                ForEach(Array(emojis.enumerated()), id: \.offset) { index, emoji in
-                    let anchor = backgroundPositions[index % backgroundPositions.count]
-                    Text(emoji)
-                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.42))
-                        .opacity(0.14)
-                        .position(
-                            x: geometry.size.width * anchor.x,
-                            y: geometry.size.height * anchor.y
-                        )
-                }
+        ZStack {
+            ForEach(Array(tiledEmojis.enumerated()), id: \.offset) { _, placement in
+                Text(placement.emoji)
+                    .font(.system(size: size.width * 0.38 * placement.scale))
+                    .opacity(0.16)
+                    .rotationEffect(.degrees(placement.rotation))
+                    .position(x: placement.x, y: placement.y)
             }
         }
+        .frame(width: size.width, height: size.height)
+        .clipped()
         .allowsHitTesting(false)
     }
+}
+
+private struct WidgetEmojiPlacement {
+    let emoji: String
+    let x: CGFloat
+    let y: CGFloat
+    let scale: CGFloat
+    let rotation: Double
 }
 
 struct WidgetCheerMessageText: View {

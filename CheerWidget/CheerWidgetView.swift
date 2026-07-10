@@ -22,6 +22,6 @@ struct CheerWidgetView: View {
 #Preview(as: .systemLarge) {
     CheerWidget()
 } timeline: {
-    CheerEntry(date: .now, message: "Keep going!", emojis: ["🌟", "💪", "😊"])
+    CheerEntry(date: .now, message: "Keep going!", emojis: ["😊", "🌟", "💖"])
     CheerEntry(date: .now, message: nil, emojis: [])
 }

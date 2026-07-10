@@ -24,21 +24,17 @@ enum CheerSharedStorage {
     }
 
     static var lastEmojis: [String] {
-        guard let data = defaults?.data(forKey: lastEmojisKey),
-              let emojis = try? JSONDecoder().decode([String].self, from: data) else {
-            return []
-        }
-        return emojis
+        defaults?.stringArray(forKey: lastEmojisKey) ?? []
     }
 
     static func saveLastResponse(message: String, emojis: [String]) {
         defaults?.set(message, forKey: lastMessageKey)
-        if let data = try? JSONEncoder().encode(emojis) {
-            defaults?.set(data, forKey: lastEmojisKey)
-        } else {
-            defaults?.removeObject(forKey: lastEmojisKey)
-        }
+        defaults?.set(emojis, forKey: lastEmojisKey)
         reloadWidget()
+    }
+
+    static func saveLastMessage(_ message: String) {
+        saveLastResponse(message: message, emojis: lastEmojis)
     }
 
     static func reloadWidget() {
