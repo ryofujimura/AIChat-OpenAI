@@ -13,6 +13,7 @@ struct HeartWarmingChatView: View {
     @State private var userInput = ""
     @State private var displayedMessage: String?
     @State private var tapEmojiBursts: [TapEmojiBurst] = []
+    @State private var showHistory = false
 
     private var isShowingResponse: Bool {
         guard let displayedMessage, !displayedMessage.isEmpty else { return false }
@@ -69,6 +70,20 @@ struct HeartWarmingChatView: View {
                     isShowing: $viewModel.showEmojiPopup
                 )
             }
+
+            Button {
+                showHistory = true
+            } label: {
+                Text("🧾")
+                    .font(.system(size: Fib.typeButton))
+                    .frame(width: Fib.s55, height: Fib.s55)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            .padding(.horizontal, Fib.s21)
+            .padding(.top, Fib.s8)
+        }
+        .sheet(isPresented: $showHistory) {
+            ResponseHistoryView()
         }
         .onAppear {
             if displayedMessage == nil, let last = CheerSharedStorage.lastMessage {

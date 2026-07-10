@@ -48,6 +48,9 @@
 		76A4F56E073444BE95EC5175 /* CheerSharedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */; };
 		AFC3W0272D5010000081B66E /* MessageFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3W0262D5010000081B66E /* MessageFormatting.swift */; };
 		AFC3W0282D5010000081B66E /* MessageFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3W0262D5010000081B66E /* MessageFormatting.swift */; };
+		AFC3W0292D5020000081B66E /* CheerResponseHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3W02A2D5020000081B66E /* CheerResponseHistory.swift */; };
+		AFC3W02D2D5020000081B66E /* CheerResponseHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3W02A2D5020000081B66E /* CheerResponseHistory.swift */; };
+		AFC3W02B2D5020000081B66E /* ResponseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3W02C2D5020000081B66E /* ResponseHistoryView.swift */; };
 		CF59B6C63EDE47B794521963 /* CheerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9878FDE5F964800B34EEE84 /* CheerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -81,6 +84,8 @@
 		46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSharedStorage.swift; sourceTree = "<group>"; };
 		098EF01178334E3B93B3F648 /* WidgetTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTheme.swift; sourceTree = "<group>"; };
 		AFC3W0262D5010000081B66E /* MessageFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFormatting.swift; sourceTree = "<group>"; };
+		AFC3W02A2D5020000081B66E /* CheerResponseHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerResponseHistory.swift; sourceTree = "<group>"; };
+		AFC3W02C2D5020000081B66E /* ResponseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHistoryView.swift; sourceTree = "<group>"; };
 		FA17439F603246879B8F6F7B /* CheerWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheerWidget.entitlements; sourceTree = "<group>"; };
 		4CF59298032643B981CDC4D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +176,7 @@
 				AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */,
 				AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */,
 				AFC2E7532D4E5C200081B66E /* SplashView.swift */,
+				AFC3W02C2D5020000081B66E /* ResponseHistoryView.swift */,
 				AF2374222D1A2A12008CB633 /* LocalLLMView.swift */,
 			);
 			name = View;
@@ -195,6 +201,7 @@
 			children = (
 				46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */,
 				AFC3W0262D5010000081B66E /* MessageFormatting.swift */,
+				AFC3W02A2D5020000081B66E /* CheerResponseHistory.swift */,
 				098EF01178334E3B93B3F648 /* WidgetTheme.swift */,
 			);
 			path = Shared;
@@ -367,6 +374,8 @@
 				AF2374212D1A29EC008CB633 /* LocalLLMModel.swift in Sources */,
 				76A4F56E073444BE95EC5175 /* CheerSharedStorage.swift in Sources */,
 				AFC3W0272D5010000081B66E /* MessageFormatting.swift in Sources */,
+				AFC3W0292D5020000081B66E /* CheerResponseHistory.swift in Sources */,
+				AFC3W02B2D5020000081B66E /* ResponseHistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +390,7 @@
 				C8EDE6923D464BAAAE054F32 /* CheerSharedStorage.swift in Sources */,
 				BDB0D12E9C9C4A4984581809 /* WidgetTheme.swift in Sources */,
 				AFC3W0282D5010000081B66E /* MessageFormatting.swift in Sources */,
+				AFC3W02D2D5020000081B66E /* CheerResponseHistory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

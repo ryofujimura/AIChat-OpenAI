@@ -30,6 +30,7 @@ enum CheerSharedStorage {
     static func saveLastResponse(message: String, emojis: [String]) {
         defaults?.set(message, forKey: lastMessageKey)
         defaults?.set(emojis, forKey: lastEmojisKey)
+        CheerResponseHistory.append(message: message, emojis: emojis)
         reloadWidget()
     }
 
