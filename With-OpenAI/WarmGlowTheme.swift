@@ -188,8 +188,6 @@ struct CheerMessageText: View {
     let message: String
     var fontSize: CGFloat = Fib.typeHero
 
-    @State private var animationID = UUID()
-
     private var lines: [String] {
         MessageFormatting.normalizedLines(from: message)
     }
@@ -197,53 +195,77 @@ struct CheerMessageText: View {
     var body: some View {
         VStack(spacing: Fib.s8) {
             ForEach(Array(lines.enumerated()), id: \.offset) { lineIndex, line in
-                HStack(spacing: 0) {
-                    ForEach(Array(line.enumerated()), id: \.offset) { charIndex, character in
-                        SlideUpCharacterView(
-                            character: character,
-                            fontSize: fontSize,
-                            delay: Double(globalCharacterIndex(lineIndex: lineIndex, charIndex: charIndex)) * 0.028
-                        )
-                        .id("\(animationID.uuidString)-\(lineIndex)-\(charIndex)")
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
+                AnimatedCharacterLine(
+                    text: line,
+                    fontSize: fontSize,
+                    lineDelay: Double(lineIndex) * 0.1
+                )
             }
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, Fib.s13)
-        .onAppear {
-            animationID = UUID()
-        }
-        .onChange(of: message) { _ in
-            animationID = UUID()
-        }
-    }
-
-    private func globalCharacterIndex(lineIndex: Int, charIndex: Int) -> Int {
-        lines.prefix(lineIndex).reduce(0) { $0 + $1.count } + charIndex
     }
 }
 
-private struct SlideUpCharacterView: View {
-    let character: Character
+private struct AnimatedCharacterLine: View {
+    let text: String
     let fontSize: CGFloat
-    let delay: Double
+    let lineDelay: Double
 
-    @State private var isVisible = false
+    @State private var revealedCharacterCount = 0
+    @State private var animationTask: Task<Void, Never>?
+
+    private var characters: [Character] {
+        Array(text)
+    }
 
     var body: some View {
-        Text(String(character))
-            .font(.system(size: fontSize, weight: .semibold))
-            .foregroundStyle(WarmGlow.ink)
-            .opacity(isVisible ? 1 : 0)
-            .offset(y: isVisible ? 0 : Fib.s8)
-            .onAppear {
-                isVisible = false
-                withAnimation(.easeOut(duration: 0.24).delay(delay)) {
-                    isVisible = true
-                }
+        HStack(spacing: 0) {
+            ForEach(Array(characters.enumerated()), id: \.offset) { index, character in
+                Text(String(character))
+                    .font(.system(size: fontSize, weight: .semibold))
+                    .foregroundStyle(WarmGlow.ink)
+                    .opacity(isRevealed(index) ? 1 : 0)
+                    .offset(y: isRevealed(index) ? 0 : Fib.s8)
+                    .animation(.easeOut(duration: 0.22), value: revealedCharacterCount)
             }
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .onAppear {
+            startAnimation()
+        }
+        .onChange(of: text) { _ in
+            startAnimation()
+        }
+        .onDisappear {
+            animationTask?.cancel()
+        }
+    }
+
+    private func isRevealed(_ index: Int) -> Bool {
+        index < revealedCharacterCount
+    }
+
+    private func startAnimation() {
+        animationTask?.cancel()
+        revealedCharacterCount = 0
+
+        guard !characters.isEmpty else { return }
+
+        animationTask = Task { @MainActor in
+            if lineDelay > 0 {
+                try? await Task.sleep(nanoseconds: UInt64(lineDelay * 1_000_000_000))
+            }
+            guard !Task.isCancelled else { return }
+
+            for index in characters.indices {
+                guard !Task.isCancelled else { return }
+                withAnimation(.easeOut(duration: 0.22)) {
+                    revealedCharacterCount = index + 1
+                }
+                try? await Task.sleep(nanoseconds: 28_000_000)
+            }
+        }
     }
 }
 
