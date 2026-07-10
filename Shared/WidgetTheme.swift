@@ -103,40 +103,31 @@ struct WidgetEmojiBackground: View {
     private var tiledEmojis: [WidgetEmojiPlacement] {
         guard !emojis.isEmpty else { return [] }
 
-        let columns = 4
-        let rows = 5
-        var placements: [WidgetEmojiPlacement] = []
-        var index = 0
+        let anchors: [(CGFloat, CGFloat, CGFloat, Double)] = [
+            (0.30, 0.28, 1.05, -14),
+            (0.72, 0.24, 1.00, 12),
+            (0.48, 0.52, 1.10, -8),
+            (0.20, 0.68, 0.98, 20),
+            (0.80, 0.66, 1.02, -16),
+            (0.52, 0.84, 0.96, 6),
+        ]
 
-        for row in 0..<rows {
-            for col in 0..<columns {
-                let stagger = row.isMultiple(of: 2) ? 0.0 : 0.14
-                let xFraction = (CGFloat(col) + 0.5 + stagger) / CGFloat(columns)
-                let yFraction = (CGFloat(row) + 0.5) / CGFloat(rows)
-                let scale = 0.92 + CGFloat(index % 4) * 0.08
-                let rotation = Double((index % 8) * 9 - 28)
-
-                placements.append(
-                    WidgetEmojiPlacement(
-                        emoji: emojis[index % emojis.count],
-                        x: xFraction * size.width,
-                        y: yFraction * size.height,
-                        scale: scale,
-                        rotation: rotation
-                    )
-                )
-                index += 1
-            }
+        return anchors.enumerated().map { index, anchor in
+            WidgetEmojiPlacement(
+                emoji: emojis[index % emojis.count],
+                x: anchor.0 * size.width,
+                y: anchor.1 * size.height,
+                scale: anchor.2,
+                rotation: anchor.3
+            )
         }
-
-        return placements
     }
 
     var body: some View {
         ZStack {
             ForEach(Array(tiledEmojis.enumerated()), id: \.offset) { _, placement in
                 Text(placement.emoji)
-                    .font(.system(size: size.width * 0.44 * placement.scale))
+                    .font(.system(size: size.width * 0.62 * placement.scale))
                     .opacity(0.15)
                     .rotationEffect(.degrees(placement.rotation))
                     .position(x: placement.x, y: placement.y)
