@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct HeartWarmingChatView: View {
+    @Binding var pendingAutoGenerate: Bool
     @StateObject private var viewModel = HeartWarmingChatModel()
     @State private var userInput = ""
     @State private var displayedMessage: String?
+
+    init(pendingAutoGenerate: Binding<Bool> = .constant(false)) {
+        _pendingAutoGenerate = pendingAutoGenerate
+    }
 
     var body: some View {
         ZStack {
@@ -52,6 +57,15 @@ struct HeartWarmingChatView: View {
                 )
             }
         }
+        .onAppear {
+            if displayedMessage == nil, let last = CheerSharedStorage.lastMessage {
+                displayedMessage = last
+            }
+            attemptAutoGenerate()
+        }
+        .onChange(of: pendingAutoGenerate) { _ in
+            attemptAutoGenerate()
+        }
         .onChange(of: viewModel.responseText) { newValue in
             withAnimation(.easeInOut(duration: 0.4)) {
                 displayedMessage = newValue
@@ -64,6 +78,14 @@ struct HeartWarmingChatView: View {
                 }
             }
         }
+    }
+
+    private func attemptAutoGenerate() {
+        guard pendingAutoGenerate else { return }
+        pendingAutoGenerate = false
+        guard !viewModel.isButtonDisabled, !viewModel.isCompleting else { return }
+        viewModel.startCooldown()
+        viewModel.generateCompletion()
     }
 
     private var easterEggForm: some View {

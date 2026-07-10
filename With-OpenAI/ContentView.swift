@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Binding var pendingAutoGenerate: Bool
     @State private var showSplash = true
+
+    init(pendingAutoGenerate: Binding<Bool> = .constant(false)) {
+        _pendingAutoGenerate = pendingAutoGenerate
+    }
 
     var body: some View {
         ZStack {
@@ -16,13 +21,22 @@ struct ContentView: View {
                 SplashView()
                     .transition(.opacity)
             } else {
-                HeartWarmingChatView()
+                HeartWarmingChatView(pendingAutoGenerate: $pendingAutoGenerate)
                     .transition(.opacity)
             }
         }
         .animation(.easeInOut(duration: 0.6), value: showSplash)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+            if pendingAutoGenerate {
+                showSplash = false
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                    showSplash = false
+                }
+            }
+        }
+        .onChange(of: pendingAutoGenerate) { pending in
+            if pending {
                 showSplash = false
             }
         }

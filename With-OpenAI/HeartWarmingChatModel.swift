@@ -75,6 +75,10 @@ class HeartWarmingChatModel: ObservableObject {
                         self.responseText = separated.text
                         self.responseEmojis = separated.emojis
                         self.isCompleting = false
+
+                        if !separated.text.isEmpty {
+                            CheerSharedStorage.saveLastMessage(separated.text)
+                        }
                         
                         // Show emoji popup if we have emojis
                         if !separated.emojis.isEmpty {
@@ -115,6 +119,10 @@ class HeartWarmingChatModel: ObservableObject {
                         self.responseText = separated.text
                         self.responseEmojis = separated.emojis
                         self.isCompleting = false
+
+                        if !separated.text.isEmpty {
+                            CheerSharedStorage.saveLastMessage(separated.text)
+                        }
                         
                         // Show emoji popup if we have emojis
                         if !separated.emojis.isEmpty {

@@ -39,6 +39,14 @@
 		AFC1E7512D4E5A000081B66E /* EmojiPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */; };
 		AFC2E7522D4E5B100081B66E /* WarmGlowTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */; };
 		AFC2E7542D4E5C200081B66E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC2E7532D4E5C200081B66E /* SplashView.swift */; };
+
+		790E826F9E9146ADAFF3FB94 /* CheerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DB5BE43C714CA6B66DC67B /* CheerWidgetBundle.swift */; };
+		4B45FE5B94864A97B3FFC720 /* CheerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B7DF688EE6441A9283C30B /* CheerWidget.swift */; };
+		B36D67DF1EC5422A8000D7A5 /* CheerWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416048BBAC74D7799CC183D /* CheerWidgetView.swift */; };
+		C8EDE6923D464BAAAE054F32 /* CheerSharedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */; };
+		BDB0D12E9C9C4A4984581809 /* WidgetTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098EF01178334E3B93B3F648 /* WidgetTheme.swift */; };
+		76A4F56E073444BE95EC5175 /* CheerSharedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */; };
+		CF59B6C63EDE47B794521963 /* CheerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9878FDE5F964800B34EEE84 /* CheerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +71,15 @@
 		AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPopupView.swift; sourceTree = "<group>"; };
 		AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmGlowTheme.swift; sourceTree = "<group>"; };
 		AFC2E7532D4E5C200081B66E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+
+		E9878FDE5F964800B34EEE84 /* CheerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CheerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7DB5BE43C714CA6B66DC67B /* CheerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerWidgetBundle.swift; sourceTree = "<group>"; };
+		F2B7DF688EE6441A9283C30B /* CheerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerWidget.swift; sourceTree = "<group>"; };
+		8416048BBAC74D7799CC183D /* CheerWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerWidgetView.swift; sourceTree = "<group>"; };
+		46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerSharedStorage.swift; sourceTree = "<group>"; };
+		098EF01178334E3B93B3F648 /* WidgetTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTheme.swift; sourceTree = "<group>"; };
+		FA17439F603246879B8F6F7B /* CheerWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheerWidget.entitlements; sourceTree = "<group>"; };
+		4CF59298032643B981CDC4D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +105,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+
+		D2849392A9FF42B0AED414FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,6 +126,8 @@
 		AF8057FE2CFFDADC00FF6FFE = {
 			isa = PBXGroup;
 			children = (
+				3CD6EA0EC9B846C99FE57A23 /* CheerWidget */,
+				A5B2CDEC61E346E196A52D43 /* Shared */,
 				AF8058092CFFDADC00FF6FFE /* With-OpenAI */,
 				AF8058082CFFDADC00FF6FFE /* Products */,
 				AF2374172D19CE9A008CB633 /* Frameworks */,
@@ -111,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */,
+				E9878FDE5F964800B34EEE84 /* CheerWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +186,28 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+
+		A5B2CDEC61E346E196A52D43 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				46A004AD2CC04FA789BBD24F /* CheerSharedStorage.swift */,
+				098EF01178334E3B93B3F648 /* WidgetTheme.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		3CD6EA0EC9B846C99FE57A23 /* CheerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				FA17439F603246879B8F6F7B /* CheerWidget.entitlements */,
+				4CF59298032643B981CDC4D5 /* Info.plist */,
+				D7DB5BE43C714CA6B66DC67B /* CheerWidgetBundle.swift */,
+				F2B7DF688EE6441A9283C30B /* CheerWidget.swift */,
+				8416048BBAC74D7799CC183D /* CheerWidgetView.swift */,
+			);
+			path = CheerWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,10 +218,12 @@
 				AF8058032CFFDADC00FF6FFE /* Sources */,
 				AF8058042CFFDADC00FF6FFE /* Frameworks */,
 				AF8058052CFFDADC00FF6FFE /* Resources */,
+				A72886DF37A24F35970F0DCD /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E908B9D715974B6DBBF34AE2 /* PBXTargetDependency */,
 			);
 			name = "With-OpenAI";
 			packageProductDependencies = (
@@ -195,6 +247,24 @@
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
 			productType = "com.apple.product-type.application";
 		};
+
+		84A40A21D8504E8ABE82C2E8 /* CheerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2CD36E1B6984481AD2A7D03 /* Build configuration list for PBXNativeTarget "CheerWidgetExtension" */;
+			buildPhases = (
+				3551226BBF924947A301B765 /* Sources */,
+				D2849392A9FF42B0AED414FE /* Frameworks */,
+				B1D747A1DCD94E65A1F6F922 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheerWidgetExtension;
+			productName = CheerWidgetExtension;
+			productReference = E9878FDE5F964800B34EEE84 /* CheerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,6 +276,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					AF8058062CFFDADC00FF6FFE = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					84A40A21D8504E8ABE82C2E8 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -231,6 +304,7 @@
 			projectRoot = "";
 			targets = (
 				AF8058062CFFDADC00FF6FFE /* With-OpenAI */,
+				84A40A21D8504E8ABE82C2E8 /* CheerWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +317,26 @@
 				AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */,
 				AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		B1D747A1DCD94E65A1F6F922 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		A72886DF37A24F35970F0DCD /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CF59B6C63EDE47B794521963 /* CheerWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -267,11 +361,43 @@
 				AFC2E7522D4E5B100081B66E /* WarmGlowTheme.swift in Sources */,
 				AFC2E7542D4E5C200081B66E /* SplashView.swift in Sources */,
 				AF2374212D1A29EC008CB633 /* LocalLLMModel.swift in Sources */,
+				76A4F56E073444BE95EC5175 /* CheerSharedStorage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		3551226BBF924947A301B765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				790E826F9E9146ADAFF3FB94 /* CheerWidgetBundle.swift in Sources */,
+				4B45FE5B94864A97B3FFC720 /* CheerWidget.swift in Sources */,
+				B36D67DF1EC5422A8000D7A5 /* CheerWidgetView.swift in Sources */,
+				C8EDE6923D464BAAAE054F32 /* CheerSharedStorage.swift in Sources */,
+				BDB0D12E9C9C4A4984581809 /* WidgetTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+
+/* Begin PBXContainerItemProxy section */
+		74B4E03F04474BC699C5CC5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF8057FF2CFFDADC00FF6FFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84A40A21D8504E8ABE82C2E8;
+			remoteInfo = CheerWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		E908B9D715974B6DBBF34AE2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84A40A21D8504E8ABE82C2E8 /* CheerWidgetExtension */;
+			targetProxy = 74B4E03F04474BC699C5CC5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 /* Begin XCBuildConfiguration section */
 		AF8058132CFFDADD00FF6FFE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -434,6 +560,61 @@
 			};
 			name = Debug;
 		};
+
+		F2067A5F157B4D618397320D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CheerWidget/CheerWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LD578K3BS7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CheerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI.CheerWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F7EFEC9794034CD8BF71D85F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CheerWidget/CheerWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LD578K3BS7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CheerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI.CheerWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		AF8058172CFFDADD00FF6FFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -493,6 +674,16 @@
 			buildConfigurations = (
 				AF8058162CFFDADD00FF6FFE /* Debug */,
 				AF8058172CFFDADD00FF6FFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+		F2CD36E1B6984481AD2A7D03 /* Build configuration list for PBXNativeTarget "CheerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2067A5F157B4D618397320D /* Debug */,
+				F7EFEC9794034CD8BF71D85F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
