@@ -267,13 +267,6 @@ struct WarmGlowInteractiveCard: View {
         }
         .frame(maxWidth: .infinity)
         .frame(minHeight: Fib.s89)
-        .overlay {
-            if isLoading {
-                RoundedRectangle(cornerRadius: Fib.radiusHero)
-                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 3)
-                    .padding(Fib.s8)
-            }
-        }
     }
 
     private var skeletonContent: some View {
