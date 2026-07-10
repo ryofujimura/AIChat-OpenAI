@@ -129,6 +129,54 @@ private struct FloatingEmojiParticle: View {
     }
 }
 
+struct TapEmojiBurst: Identifiable {
+    let id: UUID
+    let point: CGPoint
+    let emojis: [String]
+}
+
+struct TapLocationEmojiBurstView: View {
+    let burst: TapEmojiBurst
+
+    var body: some View {
+        ZStack {
+            ForEach(Array(burst.emojis.enumerated()), id: \.offset) { index, emoji in
+                TapBurstEmojiParticle(emoji: emoji, delay: Double(index) * 0.05)
+            }
+        }
+        .position(burst.point)
+        .allowsHitTesting(false)
+    }
+}
+
+private struct TapBurstEmojiParticle: View {
+    let emoji: String
+    let delay: Double
+
+    @State private var yOffset: CGFloat = 0
+    @State private var opacity: Double = 1
+    @State private var xOffset: CGFloat = 0
+    @State private var scale: CGFloat = 0.5
+
+    var body: some View {
+        Text(emoji)
+            .font(.system(size: Fib.typeHero))
+            .scaleEffect(scale)
+            .offset(x: xOffset, y: yOffset)
+            .opacity(opacity)
+            .onAppear {
+                xOffset = CGFloat.random(in: -34...34)
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.62).delay(delay)) {
+                    scale = 1.0
+                }
+                withAnimation(.easeOut(duration: 1.2).delay(delay)) {
+                    yOffset = -120
+                    opacity = 0
+                }
+            }
+    }
+}
+
 #Preview {
     ZStack {
         WarmGlow.base.ignoresSafeArea()

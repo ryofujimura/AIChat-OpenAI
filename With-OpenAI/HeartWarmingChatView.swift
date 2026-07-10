@@ -12,6 +12,12 @@ struct HeartWarmingChatView: View {
     @StateObject private var viewModel = HeartWarmingChatModel()
     @State private var userInput = ""
     @State private var displayedMessage: String?
+    @State private var tapEmojiBursts: [TapEmojiBurst] = []
+
+    private var isShowingResponse: Bool {
+        guard let displayedMessage, !displayedMessage.isEmpty else { return false }
+        return !viewModel.isCompleting
+    }
 
     init(pendingAutoGenerate: Binding<Bool> = .constant(false)) {
         _pendingAutoGenerate = pendingAutoGenerate
@@ -38,6 +44,9 @@ struct HeartWarmingChatView: View {
                         },
                         onCooldownTap: {
                             viewModel.incrementDisabledTapCount()
+                        },
+                        onMessageTapAt: { point in
+                            spawnTapEmojis(at: point)
                         }
                     )
                     .animation(.easeInOut(duration: 0.4), value: displayedMessage)
@@ -49,6 +58,10 @@ struct HeartWarmingChatView: View {
             }
             .padding(.horizontal, Fib.s21)
             .padding(.vertical, Fib.s34)
+
+            ForEach(tapEmojiBursts) { burst in
+                TapLocationEmojiBurstView(burst: burst)
+            }
 
             if viewModel.showEmojiPopup {
                 EmojiPopupView(
@@ -86,6 +99,20 @@ struct HeartWarmingChatView: View {
         guard !viewModel.isButtonDisabled, !viewModel.isCompleting else { return }
         viewModel.startCooldown()
         viewModel.generateCompletion()
+    }
+
+    private func spawnTapEmojis(at point: CGPoint) {
+        guard isShowingResponse else { return }
+
+        let emojis = viewModel.responseEmojis.isEmpty
+            ? ["✨", "💖", "🌟"]
+            : viewModel.responseEmojis
+        let burst = TapEmojiBurst(id: UUID(), point: point, emojis: emojis)
+        tapEmojiBursts.append(burst)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+            tapEmojiBursts.removeAll { $0.id == burst.id }
+        }
     }
 
     private var hasEasterEggInput: Bool {

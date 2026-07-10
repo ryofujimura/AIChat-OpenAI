@@ -190,8 +190,25 @@ struct WarmGlowInteractiveCard: View {
     let message: String?
     let onGenerate: () -> Void
     let onCooldownTap: () -> Void
+    let onMessageTapAt: (CGPoint) -> Void
 
     @State private var glowOpacity: Double = 0.35
+
+    init(
+        isLoading: Bool,
+        isCooldown: Bool,
+        message: String?,
+        onGenerate: @escaping () -> Void,
+        onCooldownTap: @escaping () -> Void,
+        onMessageTapAt: @escaping (CGPoint) -> Void = { _ in }
+    ) {
+        self.isLoading = isLoading
+        self.isCooldown = isCooldown
+        self.message = message
+        self.onGenerate = onGenerate
+        self.onCooldownTap = onCooldownTap
+        self.onMessageTapAt = onMessageTapAt
+    }
 
     private var showsMessage: Bool {
         guard let message, !message.isEmpty else { return false }
@@ -229,6 +246,7 @@ struct WarmGlowInteractiveCard: View {
             )
         )
         .disabled(isLoading)
+        .simultaneousGesture(messageTapGesture)
         .onChange(of: isLoading) { loading in
             if loading {
                 startGlowPulse()
@@ -284,6 +302,14 @@ struct WarmGlowInteractiveCard: View {
                 .frame(width: Fib.s89, height: Fib.s13)
         }
         .opacity(glowOpacity + 0.45)
+    }
+
+    private var messageTapGesture: some Gesture {
+        DragGesture(minimumDistance: 0, coordinateSpace: .global)
+            .onEnded { value in
+                guard showsMessage else { return }
+                onMessageTapAt(value.location)
+            }
     }
 
     private func startGlowPulse() {
