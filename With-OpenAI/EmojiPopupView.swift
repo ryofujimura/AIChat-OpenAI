@@ -11,9 +11,10 @@ struct EmojiPopupView: View {
     let emojis: [String]
     @Binding var isShowing: Bool
 
-    @State private var animationOffset: CGFloat = 100
-    @State private var animationScale: CGFloat = 0.5
-    @State private var animationOpacity: Double = 0
+    @State private var cardOffset: CGFloat = 120
+    @State private var cardScale: CGFloat = 0.5
+    @State private var cardOpacity: Double = 0
+    @State private var floatingWaveID = UUID()
 
     var body: some View {
         ZStack {
@@ -25,6 +26,11 @@ struct EmojiPopupView: View {
                     }
             }
 
+            ForEach(Array(emojis.enumerated()), id: \.offset) { index, emoji in
+                FloatingEmojiParticle(emoji: emoji, delay: Double(index) * 0.06)
+                    .id(floatingWaveID)
+            }
+
             VStack(spacing: Fib.s21) {
                 Text("✨ Emojis ✨")
                     .font(.system(size: Fib.typeButton, weight: .semibold))
@@ -34,12 +40,11 @@ struct EmojiPopupView: View {
                     ForEach(emojis.indices, id: \.self) { index in
                         Text(emojis[index])
                             .font(.system(size: Fib.typeHero))
-                            .scaleEffect(animationScale)
-                            .opacity(animationOpacity)
+                            .scaleEffect(cardScale)
                             .animation(
-                                .spring(response: 0.6, dampingFraction: 0.8)
-                                    .delay(Double(index) * 0.1),
-                                value: animationScale
+                                .spring(response: 0.55, dampingFraction: 0.62)
+                                    .delay(Double(index) * 0.08),
+                                value: cardScale
                             )
                     }
                 }
@@ -61,12 +66,9 @@ struct EmojiPopupView: View {
                 RoundedRectangle(cornerRadius: Fib.radiusHero)
                     .fill(WarmGlow.surface)
             )
-            .offset(y: animationOffset)
-            .scaleEffect(animationScale)
-            .opacity(animationOpacity)
-            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animationOffset)
-            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animationScale)
-            .animation(.easeInOut(duration: 0.3), value: animationOpacity)
+            .offset(y: cardOffset)
+            .scaleEffect(cardScale)
+            .opacity(cardOpacity)
         }
         .onChange(of: isShowing) { newValue in
             if newValue {
@@ -76,19 +78,57 @@ struct EmojiPopupView: View {
     }
 
     private func showPopup() {
-        animationOffset = 0
-        animationScale = 1.0
-        animationOpacity = 1.0
+        floatingWaveID = UUID()
+        cardOffset = 120
+        cardScale = 0.5
+        cardOpacity = 0
+
+        withAnimation(.spring(response: 0.55, dampingFraction: 0.62)) {
+            cardOffset = 0
+            cardScale = 1.05
+            cardOpacity = 1
+        }
+
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.75).delay(0.15)) {
+            cardScale = 1.0
+        }
     }
 
     private func dismissPopup() {
-        animationOffset = 100
-        animationScale = 0.5
-        animationOpacity = 0
+        floatingWaveID = UUID()
+
+        withAnimation(.easeIn(duration: 0.25)) {
+            cardOffset = 80
+            cardScale = 0.85
+            cardOpacity = 0
+        }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             isShowing = false
         }
+    }
+}
+
+private struct FloatingEmojiParticle: View {
+    let emoji: String
+    let delay: Double
+
+    @State private var yOffset: CGFloat = 0
+    @State private var opacity: Double = 1
+    @State private var xOffset: CGFloat = 0
+
+    var body: some View {
+        Text(emoji)
+            .font(.system(size: Fib.typeHero))
+            .offset(x: xOffset, y: yOffset)
+            .opacity(opacity)
+            .onAppear {
+                xOffset = CGFloat.random(in: -50...50)
+                withAnimation(.easeOut(duration: 1.4).delay(delay)) {
+                    yOffset = -200
+                    opacity = 0
+                }
+            }
     }
 }
 

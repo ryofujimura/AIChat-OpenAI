@@ -10,6 +10,7 @@ import SwiftUI
 struct HeartWarmingChatView: View {
     @StateObject private var viewModel = HeartWarmingChatModel()
     @State private var userInput = ""
+    @State private var displayedMessage = "..."
 
     private let cooldownDuration = 10
 
@@ -21,13 +22,12 @@ struct HeartWarmingChatView: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                WarmGlowMessageCard(isLoading: viewModel.isCompleting) {
-                    if let responseText = viewModel.responseText {
-                        Text(responseText)
-                    } else {
-                        Text("...")
-                    }
-                }
+                WarmGlowMessageCard(
+                    isLoading: viewModel.isCompleting,
+                    message: displayedMessage
+                )
+                .animation(.easeInOut(duration: 0.4), value: displayedMessage)
+                .animation(.easeInOut(duration: 0.3), value: viewModel.isCompleting)
 
                 Spacer()
                     .frame(height: Fib.s55)
@@ -46,14 +46,29 @@ struct HeartWarmingChatView: View {
                 )
             }
         }
+        .onChange(of: viewModel.responseText) { newValue in
+            withAnimation(.easeInOut(duration: 0.4)) {
+                displayedMessage = newValue ?? "..."
+            }
+        }
     }
 
     @ViewBuilder
     private var actionArea: some View {
         if viewModel.showEasterEggForm {
             easterEggForm
+        } else if viewModel.isButtonDisabled {
+            WarmGlowCooldownButton(
+                countdown: viewModel.countdown,
+                totalDuration: cooldownDuration
+            ) {
+                viewModel.incrementDisabledTapCount()
+            }
         } else {
-            generateOrCooldownButton
+            WarmGlowTapButton(isDeemphasized: viewModel.isCompleting) {
+                viewModel.startCooldown()
+                viewModel.generateCompletion()
+            }
         }
     }
 
@@ -82,23 +97,6 @@ struct HeartWarmingChatView: View {
             RoundedRectangle(cornerRadius: Fib.radiusCard)
                 .fill(WarmGlow.surface)
         )
-    }
-
-    @ViewBuilder
-    private var generateOrCooldownButton: some View {
-        if viewModel.isButtonDisabled {
-            WarmGlowCooldownButton(
-                countdown: viewModel.countdown,
-                totalDuration: cooldownDuration
-            ) {
-                viewModel.incrementDisabledTapCount()
-            }
-        } else {
-            WarmGlowPrimaryButton(title: "Generate Completion") {
-                viewModel.startCooldown()
-                viewModel.generateCompletion()
-            }
-        }
     }
 }
 

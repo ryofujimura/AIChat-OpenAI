@@ -70,59 +70,117 @@ extension View {
     }
 }
 
-// MARK: - Reusable Components
+// MARK: - Button Styles
 
-struct WarmGlowMessageCard<Content: View>: View {
-    let isLoading: Bool
-    @ViewBuilder let content: () -> Content
+struct WarmGlowShrinkButtonStyle: ButtonStyle {
+    var emphasis: Double = 1.0
 
-    @State private var pulseOpacity: Double = 1.0
-
-    var body: some View {
-        content()
-            .font(.system(size: Fib.typeHero, weight: .regular))
-            .foregroundStyle(WarmGlow.ink)
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity)
-            .padding(Fib.s21)
-            .warmGlowExtruded(radius: Fib.radiusHero, fill: WarmGlow.surface, blur: Fib.s13)
-            .opacity(isLoading ? pulseOpacity : 1.0)
-            .onChange(of: isLoading) { loading in
-                if loading {
-                    withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
-                        pulseOpacity = 0.55
-                    }
-                } else {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        pulseOpacity = 1.0
-                    }
-                }
-            }
-            .onAppear {
-                if isLoading {
-                    withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
-                        pulseOpacity = 0.55
-                    }
-                }
-            }
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+            .opacity(emphasis)
+            .animation(.spring(response: 0.25, dampingFraction: 0.65), value: configuration.isPressed)
     }
 }
 
-struct WarmGlowPrimaryButton: View {
-    let title: String
+// MARK: - Message Card
+
+struct WarmGlowMessageCard: View {
+    let isLoading: Bool
+    let message: String
+
+    @State private var glowOpacity: Double = 0.35
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: Fib.radiusHero)
+                .fill(WarmGlow.surface)
+                .shadow(color: WarmGlow.shadowLight, radius: Fib.s13, x: -4, y: -4)
+                .shadow(color: WarmGlow.shadowDark, radius: Fib.s13, x: 4, y: 4)
+
+            if isLoading {
+                skeletonContent
+            } else {
+                Text(message)
+                    .font(.system(size: Fib.typeHero, weight: .regular))
+                    .foregroundStyle(WarmGlow.ink)
+                    .multilineTextAlignment(.center)
+                    .padding(Fib.s21)
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
+                    .id(message)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: Fib.s89)
+        .overlay {
+            if isLoading {
+                RoundedRectangle(cornerRadius: Fib.radiusHero)
+                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 2)
+            }
+        }
+        .onChange(of: isLoading) { loading in
+            if loading {
+                startGlowPulse()
+            } else {
+                glowOpacity = 0.35
+            }
+        }
+        .onAppear {
+            if isLoading {
+                startGlowPulse()
+            }
+        }
+    }
+
+    private var skeletonContent: some View {
+        VStack(spacing: Fib.s13) {
+            RoundedRectangle(cornerRadius: Fib.s8)
+                .fill(WarmGlow.border)
+                .frame(height: Fib.s13)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, Fib.s34)
+
+            RoundedRectangle(cornerRadius: Fib.s8)
+                .fill(WarmGlow.border)
+                .frame(width: Fib.s89, height: Fib.s13)
+        }
+        .padding(Fib.s21)
+        .opacity(glowOpacity + 0.45)
+    }
+
+    private func startGlowPulse() {
+        withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
+            glowOpacity = 0.75
+        }
+    }
+}
+
+// MARK: - Tap Button
+
+struct WarmGlowTapButton: View {
+    let isDeemphasized: Bool
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            Text(title)
-                .font(.system(size: Fib.typeButton, weight: .semibold))
-                .foregroundStyle(WarmGlow.surface)
-                .frame(maxWidth: .infinity)
-                .frame(height: Fib.s55)
+            VStack(spacing: Fib.s8) {
+                Text("👇")
+                    .font(.system(size: Fib.s34))
+
+                Text("Tap Here")
+                    .font(.system(size: Fib.typeButton, weight: .semibold))
+                    .foregroundStyle(WarmGlow.surface)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: Fib.s89)
         }
+        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: isDeemphasized ? 0.45 : 1.0))
         .warmGlowExtruded(radius: Fib.radiusCard, fill: WarmGlow.accent, blur: Fib.s8)
+        .disabled(isDeemphasized)
     }
 }
+
+// MARK: - Cooldown Button
 
 struct WarmGlowCooldownButton: View {
     let countdown: Int
@@ -137,6 +195,10 @@ struct WarmGlowCooldownButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: Fib.s8) {
+                Text("👇")
+                    .font(.system(size: Fib.typeButton))
+                    .opacity(0.35)
+
                 Text("Wait \(countdown)s")
                     .font(.system(size: Fib.typeButton, weight: .semibold))
                     .foregroundStyle(WarmGlow.ink)
@@ -153,6 +215,7 @@ struct WarmGlowCooldownButton: View {
                         Capsule()
                             .fill(WarmGlow.accent)
                             .frame(width: geometry.size.width * progress)
+                            .animation(.linear(duration: 1), value: progress)
                     }
                 }
                 .frame(height: Fib.s8)
@@ -160,11 +223,14 @@ struct WarmGlowCooldownButton: View {
             .padding(.horizontal, Fib.s21)
             .padding(.vertical, Fib.s13)
             .frame(maxWidth: .infinity)
-            .frame(height: Fib.s55)
+            .frame(height: Fib.s89)
         }
+        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: 0.85))
         .warmGlowInset(radius: Fib.radiusCard)
     }
 }
+
+// MARK: - Easter Egg
 
 struct WarmGlowFlatButton: View {
     let title: String
@@ -182,6 +248,7 @@ struct WarmGlowFlatButton: View {
                         .fill(WarmGlow.accent)
                 )
         }
+        .buttonStyle(WarmGlowShrinkButtonStyle())
     }
 }
 
