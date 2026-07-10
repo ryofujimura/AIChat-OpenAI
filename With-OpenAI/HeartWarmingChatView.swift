@@ -12,8 +12,6 @@ struct HeartWarmingChatView: View {
     @State private var userInput = ""
     @State private var displayedMessage: String?
 
-    private let cooldownDuration = 10
-
     var body: some View {
         ZStack {
             WarmGlow.base
@@ -28,8 +26,6 @@ struct HeartWarmingChatView: View {
                     WarmGlowInteractiveCard(
                         isLoading: viewModel.isCompleting,
                         isCooldown: viewModel.isButtonDisabled,
-                        countdown: viewModel.countdown,
-                        totalDuration: cooldownDuration,
                         message: displayedMessage,
                         onGenerate: {
                             viewModel.startCooldown()

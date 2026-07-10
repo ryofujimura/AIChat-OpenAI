@@ -187,18 +187,11 @@ struct ArcadeSurfaceButtonStyle: ButtonStyle {
 struct WarmGlowInteractiveCard: View {
     let isLoading: Bool
     let isCooldown: Bool
-    let countdown: Int
-    let totalDuration: Int
     let message: String?
     let onGenerate: () -> Void
     let onCooldownTap: () -> Void
 
     @State private var glowOpacity: Double = 0.35
-
-    private var progress: CGFloat {
-        guard totalDuration > 0, isCooldown else { return 0 }
-        return CGFloat(totalDuration - countdown) / CGFloat(totalDuration)
-    }
 
     private var showsMessage: Bool {
         guard let message, !message.isEmpty else { return false }
@@ -273,10 +266,6 @@ struct WarmGlowInteractiveCard: View {
             } else {
                 skeletonContent
             }
-
-            if isCooldown {
-                cooldownProgress
-            }
         }
         .frame(maxWidth: .infinity)
         .frame(minHeight: Fib.s89)
@@ -295,37 +284,6 @@ struct WarmGlowInteractiveCard: View {
                 .frame(width: Fib.s89, height: Fib.s13)
         }
         .opacity(glowOpacity + 0.45)
-    }
-
-    private var cooldownProgress: some View {
-        VStack(spacing: Fib.s8) {
-            Text("Wait \(countdown)s")
-                .font(.system(size: Fib.typeCaption, weight: .bold))
-                .foregroundStyle(WarmGlow.secondary)
-
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    Capsule()
-                        .fill(WarmGlow.housing)
-                        .overlay {
-                            Capsule()
-                                .stroke(WarmGlow.housingRim, lineWidth: 1)
-                        }
-
-                    Capsule()
-                        .fill(
-                            LinearGradient(
-                                colors: [WarmGlow.accentHighlight, WarmGlow.accent],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(width: geometry.size.width * progress)
-                        .animation(.linear(duration: 1), value: progress)
-                }
-            }
-            .frame(height: Fib.s13)
-        }
     }
 
     private func startGlowPulse() {
