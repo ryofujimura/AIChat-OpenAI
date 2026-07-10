@@ -10,7 +10,7 @@ import SwiftUI
 struct HeartWarmingChatView: View {
     @StateObject private var viewModel = HeartWarmingChatModel()
     @State private var userInput = ""
-    @State private var displayedMessage = "..."
+    @State private var displayedMessage: String?
 
     private let cooldownDuration = 10
 
@@ -19,20 +19,30 @@ struct HeartWarmingChatView: View {
             WarmGlow.base
                 .ignoresSafeArea()
 
-            VStack(spacing: 0) {
+            VStack(spacing: Fib.s21) {
                 Spacer()
 
-                WarmGlowMessageCard(
-                    isLoading: viewModel.isCompleting,
-                    message: displayedMessage
-                )
-                .animation(.easeInOut(duration: 0.4), value: displayedMessage)
-                .animation(.easeInOut(duration: 0.3), value: viewModel.isCompleting)
-
-                Spacer()
-                    .frame(height: Fib.s55)
-
-                actionArea
+                if viewModel.showEasterEggForm {
+                    easterEggForm
+                } else {
+                    WarmGlowInteractiveCard(
+                        isLoading: viewModel.isCompleting,
+                        isCooldown: viewModel.isButtonDisabled,
+                        countdown: viewModel.countdown,
+                        totalDuration: cooldownDuration,
+                        message: displayedMessage,
+                        onGenerate: {
+                            viewModel.startCooldown()
+                            viewModel.generateCompletion()
+                        },
+                        onCooldownTap: {
+                            viewModel.incrementDisabledTapCount()
+                        }
+                    )
+                    .animation(.easeInOut(duration: 0.4), value: displayedMessage)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.isCompleting)
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.isButtonDisabled)
+                }
 
                 Spacer()
             }
@@ -48,26 +58,14 @@ struct HeartWarmingChatView: View {
         }
         .onChange(of: viewModel.responseText) { newValue in
             withAnimation(.easeInOut(duration: 0.4)) {
-                displayedMessage = newValue ?? "..."
+                displayedMessage = newValue
             }
         }
-    }
-
-    @ViewBuilder
-    private var actionArea: some View {
-        if viewModel.showEasterEggForm {
-            easterEggForm
-        } else if viewModel.isButtonDisabled {
-            WarmGlowCooldownButton(
-                countdown: viewModel.countdown,
-                totalDuration: cooldownDuration
-            ) {
-                viewModel.incrementDisabledTapCount()
-            }
-        } else {
-            WarmGlowTapButton(isDeemphasized: viewModel.isCompleting) {
-                viewModel.startCooldown()
-                viewModel.generateCompletion()
+        .onChange(of: viewModel.countdown) { countdown in
+            if countdown == 0 && viewModel.isButtonDisabled == false && displayedMessage != nil {
+                withAnimation(.easeInOut(duration: 0.4)) {
+                    displayedMessage = nil
+                }
             }
         }
     }

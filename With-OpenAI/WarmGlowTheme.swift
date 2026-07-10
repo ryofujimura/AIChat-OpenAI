@@ -82,41 +82,45 @@ struct WarmGlowShrinkButtonStyle: ButtonStyle {
     }
 }
 
-// MARK: - Message Card
+// MARK: - Interactive Card (Tap + Response)
 
-struct WarmGlowMessageCard: View {
+struct WarmGlowInteractiveCard: View {
     let isLoading: Bool
-    let message: String
+    let isCooldown: Bool
+    let countdown: Int
+    let totalDuration: Int
+    let message: String?
+    let onGenerate: () -> Void
+    let onCooldownTap: () -> Void
 
     @State private var glowOpacity: Double = 0.35
 
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: Fib.radiusHero)
-                .fill(WarmGlow.surface)
-                .shadow(color: WarmGlow.shadowLight, radius: Fib.s13, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowDark, radius: Fib.s13, x: 4, y: 4)
+    private var progress: CGFloat {
+        guard totalDuration > 0, isCooldown else { return 0 }
+        return CGFloat(totalDuration - countdown) / CGFloat(totalDuration)
+    }
 
-            if isLoading {
-                skeletonContent
-            } else {
-                Text(message)
-                    .font(.system(size: Fib.typeHero, weight: .regular))
-                    .foregroundStyle(WarmGlow.ink)
-                    .multilineTextAlignment(.center)
-                    .padding(Fib.s21)
-                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
-                    .id(message)
+    private var showsMessage: Bool {
+        guard let message, !message.isEmpty else { return false }
+        return !isLoading
+    }
+
+    private var isTapHere: Bool {
+        !isLoading && !showsMessage && !isCooldown
+    }
+
+    var body: some View {
+        Button {
+            if isCooldown {
+                onCooldownTap()
+            } else if !isLoading {
+                onGenerate()
             }
+        } label: {
+            cardContent
         }
-        .frame(maxWidth: .infinity)
-        .frame(minHeight: Fib.s89)
-        .overlay {
-            if isLoading {
-                RoundedRectangle(cornerRadius: Fib.radiusHero)
-                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 2)
-            }
-        }
+        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: isTapHere || isCooldown ? 1.0 : 0.95))
+        .disabled(isLoading)
         .onChange(of: isLoading) { loading in
             if loading {
                 startGlowPulse()
@@ -124,9 +128,52 @@ struct WarmGlowMessageCard: View {
                 glowOpacity = 0.35
             }
         }
-        .onAppear {
+    }
+
+    @ViewBuilder
+    private var cardContent: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: Fib.radiusHero)
+                .fill(isTapHere ? WarmGlow.accent : WarmGlow.surface)
+                .shadow(color: WarmGlow.shadowLight, radius: Fib.s13, x: -4, y: -4)
+                .shadow(color: WarmGlow.shadowDark, radius: Fib.s13, x: 4, y: 4)
+
+            VStack(spacing: Fib.s13) {
+                if isLoading {
+                    skeletonContent
+                } else if showsMessage {
+                    Text(message ?? "")
+                        .font(.system(size: Fib.typeHero, weight: .regular))
+                        .foregroundStyle(WarmGlow.ink)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, Fib.s13)
+                        .transition(.opacity.combined(with: .scale(scale: 0.98)))
+                        .id(message ?? "")
+                } else if isTapHere {
+                    VStack(spacing: Fib.s8) {
+                        Text("👇")
+                            .font(.system(size: Fib.s34))
+                        Text("Tap Here")
+                            .font(.system(size: Fib.typeButton, weight: .semibold))
+                            .foregroundStyle(WarmGlow.surface)
+                    }
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
+                } else {
+                    skeletonContent
+                }
+
+                if isCooldown {
+                    cooldownProgress
+                }
+            }
+            .padding(Fib.s21)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: Fib.s89)
+        .overlay {
             if isLoading {
-                startGlowPulse()
+                RoundedRectangle(cornerRadius: Fib.radiusHero)
+                    .stroke(WarmGlow.accent.opacity(glowOpacity), lineWidth: 2)
             }
         }
     }
@@ -137,95 +184,40 @@ struct WarmGlowMessageCard: View {
                 .fill(WarmGlow.border)
                 .frame(height: Fib.s13)
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, Fib.s34)
+                .padding(.horizontal, Fib.s13)
 
             RoundedRectangle(cornerRadius: Fib.s8)
                 .fill(WarmGlow.border)
                 .frame(width: Fib.s89, height: Fib.s13)
         }
-        .padding(Fib.s21)
         .opacity(glowOpacity + 0.45)
+    }
+
+    private var cooldownProgress: some View {
+        VStack(spacing: Fib.s8) {
+            Text("Wait \(countdown)s")
+                .font(.system(size: Fib.typeCaption, weight: .semibold))
+                .foregroundStyle(WarmGlow.secondary)
+
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(WarmGlow.border)
+
+                    Capsule()
+                        .fill(WarmGlow.accent)
+                        .frame(width: geometry.size.width * progress)
+                        .animation(.linear(duration: 1), value: progress)
+                }
+            }
+            .frame(height: Fib.s8)
+        }
     }
 
     private func startGlowPulse() {
         withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
             glowOpacity = 0.75
         }
-    }
-}
-
-// MARK: - Tap Button
-
-struct WarmGlowTapButton: View {
-    let isDeemphasized: Bool
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: Fib.s8) {
-                Text("👇")
-                    .font(.system(size: Fib.s34))
-
-                Text("Tap Here")
-                    .font(.system(size: Fib.typeButton, weight: .semibold))
-                    .foregroundStyle(WarmGlow.surface)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: Fib.s89)
-        }
-        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: isDeemphasized ? 0.45 : 1.0))
-        .warmGlowExtruded(radius: Fib.radiusCard, fill: WarmGlow.accent, blur: Fib.s8)
-        .disabled(isDeemphasized)
-    }
-}
-
-// MARK: - Cooldown Button
-
-struct WarmGlowCooldownButton: View {
-    let countdown: Int
-    let totalDuration: Int
-    let action: () -> Void
-
-    private var progress: CGFloat {
-        guard totalDuration > 0 else { return 0 }
-        return CGFloat(totalDuration - countdown) / CGFloat(totalDuration)
-    }
-
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: Fib.s8) {
-                Text("👇")
-                    .font(.system(size: Fib.typeButton))
-                    .opacity(0.35)
-
-                Text("Wait \(countdown)s")
-                    .font(.system(size: Fib.typeButton, weight: .semibold))
-                    .foregroundStyle(WarmGlow.ink)
-
-                Text("Tap to unlock surprise")
-                    .font(.system(size: Fib.typeCaption))
-                    .foregroundStyle(WarmGlow.secondary)
-
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        Capsule()
-                            .fill(WarmGlow.border)
-
-                        Capsule()
-                            .fill(WarmGlow.accent)
-                            .frame(width: geometry.size.width * progress)
-                            .animation(.linear(duration: 1), value: progress)
-                    }
-                }
-                .frame(height: Fib.s8)
-            }
-            .padding(.horizontal, Fib.s21)
-            .padding(.vertical, Fib.s13)
-            .frame(maxWidth: .infinity)
-            .frame(height: Fib.s89)
-        }
-        .buttonStyle(WarmGlowShrinkButtonStyle(emphasis: 0.85))
-        .warmGlowInset(radius: Fib.radiusCard)
     }
 }
 
