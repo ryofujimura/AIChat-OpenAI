@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct With_OpenAIApp: App {
+    @StateObject private var themeStore = ThemeStore()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(themeStore)
+                .environment(\.themePalette, themeStore.currentPalette)
         }
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EmojiPopupView: View {
+    @Environment(\.themePalette) private var palette
+
     let emojis: [String]
     @Binding var isShowing: Bool
 
@@ -18,7 +20,7 @@ struct EmojiPopupView: View {
     var body: some View {
         ZStack {
             if isShowing {
-                WarmGlow.overlay
+                palette.overlay
                     .ignoresSafeArea()
                     .onTapGesture {
                         dismissPopup()
@@ -28,7 +30,7 @@ struct EmojiPopupView: View {
             VStack(spacing: Fib.s21) {
                 Text("✨ Emojis ✨")
                     .font(.system(size: Fib.typeButton, weight: .semibold))
-                    .foregroundStyle(WarmGlow.accent)
+                    .foregroundStyle(palette.accent)
 
                 HStack(spacing: Fib.s13) {
                     ForEach(emojis.indices, id: \.self) { index in
@@ -48,18 +50,18 @@ struct EmojiPopupView: View {
                     dismissPopup()
                 }
                 .font(.system(size: Fib.typeCaption, weight: .semibold))
-                .foregroundStyle(WarmGlow.surface)
+                .foregroundStyle(palette.surface)
                 .padding(.horizontal, Fib.s34)
                 .padding(.vertical, Fib.s13)
                 .background(
                     Capsule()
-                        .fill(WarmGlow.accent)
+                        .fill(palette.accent)
                 )
             }
             .padding(Fib.s34)
             .background(
                 RoundedRectangle(cornerRadius: Fib.radiusHero)
-                    .fill(WarmGlow.surface)
+                    .fill(palette.surface)
             )
             .offset(y: animationOffset)
             .scaleEffect(animationScale)
@@ -68,7 +70,7 @@ struct EmojiPopupView: View {
             .animation(.spring(response: 0.6, dampingFraction: 0.8), value: animationScale)
             .animation(.easeInOut(duration: 0.3), value: animationOpacity)
         }
-        .onChange(of: isShowing) { newValue in
+        .onChange(of: isShowing) { _, newValue in
             if newValue {
                 showPopup()
             }
@@ -94,7 +96,8 @@ struct EmojiPopupView: View {
 
 #Preview {
     ZStack {
-        WarmGlow.base.ignoresSafeArea()
+        ThemeCatalog.presets[0].palette.base.ignoresSafeArea()
         EmojiPopupView(emojis: ["😊", "🌟", "💖"], isShowing: .constant(true))
+            .environment(\.themePalette, ThemeCatalog.presets[0].palette)
     }
 }

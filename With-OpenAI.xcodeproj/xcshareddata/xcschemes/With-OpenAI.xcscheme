@@ -21,6 +21,20 @@
                ReferencedContainer = "container:With-OpenAI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AFC3E8082D4E60080081B66E"
+               BuildableName = "ReceiptWidget.appex"
+               BlueprintName = "ReceiptWidget"
+               ReferencedContainer = "container:With-OpenAI.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

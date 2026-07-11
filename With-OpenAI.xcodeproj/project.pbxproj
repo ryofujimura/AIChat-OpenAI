@@ -38,6 +38,14 @@
 		AFE1E74C2D001E5F0081B66E /* HeartWarmingChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE1E74B2D001E5F0081B66E /* HeartWarmingChatModel.swift */; };
 		AFC1E7512D4E5A000081B66E /* EmojiPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */; };
 		AFC2E7522D4E5B100081B66E /* WarmGlowTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */; };
+		AFC3E8032D4E60030081B66E /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E8002D4E60000081B66E /* AppTheme.swift */; };
+		AFC3E8042D4E60040081B66E /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E8012D4E60010081B66E /* ThemeStore.swift */; };
+		AFC3E8052D4E60050081B66E /* ThemeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E8022D4E60020081B66E /* ThemeSettingsView.swift */; };
+		AFC3E80D2D4E600D0081B66E /* ReceiptWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E80A2D4E600A0081B66E /* ReceiptWidget.swift */; };
+		AFC3E80E2D4E600E0081B66E /* ReceiptWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E80B2D4E600B0081B66E /* ReceiptWidgetBundle.swift */; };
+		AFC3E8162D4E60160081B66E /* ReceiptWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AFC3E8072D4E60070081B66E /* ReceiptWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AFC3E8192D4E60190081B66E /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3E8002D4E60000081B66E /* AppTheme.swift */; };
+		AFC3E81A2D4E601A0081B66E /* WarmGlowTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +69,13 @@
 		AFE1E74D2D002C120081B66E /* With-OpenAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "With-OpenAI.entitlements"; sourceTree = "<group>"; };
 		AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPopupView.swift; sourceTree = "<group>"; };
 		AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmGlowTheme.swift; sourceTree = "<group>"; };
+		AFC3E8002D4E60000081B66E /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		AFC3E8012D4E60010081B66E /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
+		AFC3E8022D4E60020081B66E /* ThemeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingsView.swift; sourceTree = "<group>"; };
+		AFC3E8072D4E60070081B66E /* ReceiptWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReceiptWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFC3E80A2D4E600A0081B66E /* ReceiptWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptWidget.swift; sourceTree = "<group>"; };
+		AFC3E80B2D4E600B0081B66E /* ReceiptWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptWidgetBundle.swift; sourceTree = "<group>"; };
+		AFC3E80C2D4E600C0081B66E /* ReceiptWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReceiptWidget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +101,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AFC3E8102D4E60100081B66E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AFC3E8152D4E60150081B66E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AFC3E8162D4E60160081B66E /* ReceiptWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXContainerItemProxy section */
+		AFC3E8182D4E60180081B66E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF8057FF2CFFDADC00FF6FFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFC3E8082D4E60080081B66E;
+			remoteInfo = ReceiptWidget;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXGroup section */
 		AF2374172D19CE9A008CB633 /* Frameworks */ = {
@@ -100,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				AF8058092CFFDADC00FF6FFE /* With-OpenAI */,
+				AFC3E8092D4E60090081B66E /* ReceiptWidget */,
 				AF8058082CFFDADC00FF6FFE /* Products */,
 				AF2374172D19CE9A008CB633 /* Frameworks */,
 			);
@@ -109,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */,
+				AFC3E8072D4E60070081B66E /* ReceiptWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,10 +169,30 @@
 				AF80580E2CFFDADD00FF6FFE /* Assets.xcassets */,
 				AF8058112CFFDADD00FF6FFE /* Preview Assets.xcassets */,
 				AFE1E74D2D002C120081B66E /* With-OpenAI.entitlements */,
+				AFC3E8062D4E60060081B66E /* Shared */,
 				AFE1E7382CFFDBC90081B66E /* View */,
 				AFE1E7392CFFDBCE0081B66E /* Model */,
 			);
 			path = "With-OpenAI";
+			sourceTree = "<group>";
+		};
+		AFC3E8062D4E60060081B66E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AFC3E8002D4E60000081B66E /* AppTheme.swift */,
+				AFC3E8012D4E60010081B66E /* ThemeStore.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		AFC3E8092D4E60090081B66E /* ReceiptWidget */ = {
+			isa = PBXGroup;
+			children = (
+				AFC3E80A2D4E600A0081B66E /* ReceiptWidget.swift */,
+				AFC3E80B2D4E600B0081B66E /* ReceiptWidgetBundle.swift */,
+				AFC3E80C2D4E600C0081B66E /* ReceiptWidget.entitlements */,
+			);
+			path = ReceiptWidget;
 			sourceTree = "<group>";
 		};
 		AFE1E7382CFFDBC90081B66E /* View */ = {
@@ -137,6 +205,7 @@
 				AFE1E7492CFFED320081B66E /* HeartWarmingChatView.swift */,
 				AFC1E7502D4E5A000081B66E /* EmojiPopupView.swift */,
 				AFC2E7512D4E5B100081B66E /* WarmGlowTheme.swift */,
+				AFC3E8022D4E60020081B66E /* ThemeSettingsView.swift */,
 				AF2374222D1A2A12008CB633 /* LocalLLMView.swift */,
 			);
 			name = View;
@@ -165,10 +234,12 @@
 				AF8058032CFFDADC00FF6FFE /* Sources */,
 				AF8058042CFFDADC00FF6FFE /* Frameworks */,
 				AF8058052CFFDADC00FF6FFE /* Resources */,
+				AFC3E8152D4E60150081B66E /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AFC3E8172D4E60170081B66E /* PBXTargetDependency */,
 			);
 			name = "With-OpenAI";
 			packageProductDependencies = (
@@ -192,7 +263,32 @@
 			productReference = AF8058072CFFDADC00FF6FFE /* With-OpenAI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AFC3E8082D4E60080081B66E /* ReceiptWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFC3E8122D4E60120081B66E /* Build configuration list for PBXNativeTarget "ReceiptWidget" */;
+			buildPhases = (
+				AFC3E80F2D4E600F0081B66E /* Sources */,
+				AFC3E8102D4E60100081B66E /* Frameworks */,
+				AFC3E8112D4E60110081B66E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReceiptWidget;
+			productName = ReceiptWidget;
+			productReference = AFC3E8072D4E60070081B66E /* ReceiptWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXTargetDependency section */
+		AFC3E8172D4E60170081B66E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFC3E8082D4E60080081B66E /* ReceiptWidget */;
+			targetProxy = AFC3E8182D4E60180081B66E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		AF8057FF2CFFDADC00FF6FFE /* Project object */ = {
@@ -203,6 +299,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					AF8058062CFFDADC00FF6FFE = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					AFC3E8082D4E60080081B66E = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -228,6 +327,7 @@
 			projectRoot = "";
 			targets = (
 				AF8058062CFFDADC00FF6FFE /* With-OpenAI */,
+				AFC3E8082D4E60080081B66E /* ReceiptWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -239,6 +339,13 @@
 			files = (
 				AF8058122CFFDADD00FF6FFE /* Preview Assets.xcassets in Resources */,
 				AF80580F2CFFDADD00FF6FFE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFC3E8112D4E60110081B66E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +369,21 @@
 				AFE1E7442CFFE2AF0081B66E /* NotificationView.swift in Sources */,
 				AFC1E7512D4E5A000081B66E /* EmojiPopupView.swift in Sources */,
 				AFC2E7522D4E5B100081B66E /* WarmGlowTheme.swift in Sources */,
+				AFC3E8032D4E60030081B66E /* AppTheme.swift in Sources */,
+				AFC3E8042D4E60040081B66E /* ThemeStore.swift in Sources */,
+				AFC3E8052D4E60050081B66E /* ThemeSettingsView.swift in Sources */,
 				AF2374212D1A29EC008CB633 /* LocalLLMModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFC3E80F2D4E600F0081B66E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFC3E80D2D4E600D0081B66E /* ReceiptWidget.swift in Sources */,
+				AFC3E80E2D4E600E0081B66E /* ReceiptWidgetBundle.swift in Sources */,
+				AFC3E8192D4E60190081B66E /* AppTheme.swift in Sources */,
+				AFC3E81A2D4E601A0081B66E /* WarmGlowTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +593,62 @@
 			};
 			name = Release;
 		};
+		AFC3E8132D4E60130081B66E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ReceiptWidget/ReceiptWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LD578K3BS7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Receipt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI.ReceiptWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AFC3E8142D4E60140081B66E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ReceiptWidget/ReceiptWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LD578K3BS7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Receipt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ryofujimura.With-OpenAI.ReceiptWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -489,6 +666,15 @@
 			buildConfigurations = (
 				AF8058162CFFDADD00FF6FFE /* Debug */,
 				AF8058172CFFDADD00FF6FFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFC3E8122D4E60120081B66E /* Build configuration list for PBXNativeTarget "ReceiptWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFC3E8132D4E60130081B66E /* Debug */,
+				AFC3E8142D4E60140081B66E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
