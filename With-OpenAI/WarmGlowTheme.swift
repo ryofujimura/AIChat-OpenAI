@@ -5,20 +5,18 @@
 
 import SwiftUI
 
-// MARK: - Color System
+// MARK: - Legacy Accessors (default palette)
 
 enum WarmGlow {
-    static let base = Color(red: 0.961, green: 0.941, blue: 0.922)       // #F5F0EB
-    static let accent = Color(red: 0.910, green: 0.584, blue: 0.435)     // #E8956F
-    static let ink = Color(red: 0.102, green: 0.102, blue: 0.102)         // #1A1A1A
-    static let surface = Color.white                                         // #FFFFFF
-
-    static let secondary = ink.opacity(0.4)
-    static let border = ink.opacity(0.15)
-    static let overlay = Color.black.opacity(0.3)
-
-    static let shadowLight = Color.white.opacity(0.8)
-    static let shadowDark = Color.black.opacity(0.08)
+    static var base: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.base }
+    static var accent: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.accent }
+    static var ink: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.ink }
+    static var surface: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.surface }
+    static var secondary: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.secondary }
+    static var border: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.border }
+    static var overlay: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.overlay }
+    static var shadowLight: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.shadowLight }
+    static var shadowDark: Color { ThemeCatalog.theme(for: ThemeCatalog.defaultID).palette.shadowDark }
 }
 
 // MARK: - Fibonacci Scale
@@ -44,28 +42,31 @@ enum Fib {
 
 extension View {
     func warmGlowExtruded(
+        palette: ThemePalette,
         radius: CGFloat,
-        fill: Color = WarmGlow.surface,
+        fill: Color? = nil,
         blur: CGFloat = Fib.s8
     ) -> some View {
-        background(
+        let fillColor = fill ?? palette.surface
+        return background(
             RoundedRectangle(cornerRadius: radius)
-                .fill(fill)
-                .shadow(color: WarmGlow.shadowLight, radius: blur, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowDark, radius: blur, x: 4, y: 4)
+                .fill(fillColor)
+                .shadow(color: palette.shadowLight, radius: blur, x: -4, y: -4)
+                .shadow(color: palette.shadowDark, radius: blur, x: 4, y: 4)
         )
     }
 
-    func warmGlowInset(radius: CGFloat, fill: Color = WarmGlow.base) -> some View {
-        background(
+    func warmGlowInset(palette: ThemePalette, radius: CGFloat, fill: Color? = nil) -> some View {
+        let fillColor = fill ?? palette.base
+        return background(
             RoundedRectangle(cornerRadius: radius)
-                .fill(fill)
+                .fill(fillColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: radius)
-                        .stroke(WarmGlow.border, lineWidth: 1)
+                        .stroke(palette.border, lineWidth: 1)
                 )
-                .shadow(color: WarmGlow.shadowDark, radius: Fib.s8, x: -4, y: -4)
-                .shadow(color: WarmGlow.shadowLight, radius: Fib.s8, x: 4, y: 4)
+                .shadow(color: palette.shadowDark, radius: Fib.s8, x: -4, y: -4)
+                .shadow(color: palette.shadowLight, radius: Fib.s8, x: 4, y: 4)
         )
     }
 }
@@ -73,6 +74,8 @@ extension View {
 // MARK: - Reusable Components
 
 struct WarmGlowMessageCard<Content: View>: View {
+    @Environment(\.themePalette) private var palette
+
     let isLoading: Bool
     @ViewBuilder let content: () -> Content
 
@@ -81,13 +84,13 @@ struct WarmGlowMessageCard<Content: View>: View {
     var body: some View {
         content()
             .font(.system(size: Fib.typeHero, weight: .regular))
-            .foregroundStyle(WarmGlow.ink)
+            .foregroundStyle(palette.ink)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .padding(Fib.s21)
-            .warmGlowExtruded(radius: Fib.radiusHero, fill: WarmGlow.surface, blur: Fib.s13)
+            .warmGlowExtruded(palette: palette, radius: Fib.radiusHero, fill: palette.surface, blur: Fib.s13)
             .opacity(isLoading ? pulseOpacity : 1.0)
-            .onChange(of: isLoading) { loading in
+            .onChange(of: isLoading) { _, loading in
                 if loading {
                     withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
                         pulseOpacity = 0.55
@@ -109,6 +112,8 @@ struct WarmGlowMessageCard<Content: View>: View {
 }
 
 struct WarmGlowPrimaryButton: View {
+    @Environment(\.themePalette) private var palette
+
     let title: String
     let action: () -> Void
 
@@ -116,15 +121,17 @@ struct WarmGlowPrimaryButton: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: Fib.typeButton, weight: .semibold))
-                .foregroundStyle(WarmGlow.surface)
+                .foregroundStyle(palette.surface)
                 .frame(maxWidth: .infinity)
                 .frame(height: Fib.s55)
         }
-        .warmGlowExtruded(radius: Fib.radiusCard, fill: WarmGlow.accent, blur: Fib.s8)
+        .warmGlowExtruded(palette: palette, radius: Fib.radiusCard, fill: palette.accent, blur: Fib.s8)
     }
 }
 
 struct WarmGlowCooldownButton: View {
+    @Environment(\.themePalette) private var palette
+
     let countdown: Int
     let totalDuration: Int
     let action: () -> Void
@@ -139,19 +146,19 @@ struct WarmGlowCooldownButton: View {
             VStack(spacing: Fib.s8) {
                 Text("Wait \(countdown)s")
                     .font(.system(size: Fib.typeButton, weight: .semibold))
-                    .foregroundStyle(WarmGlow.ink)
+                    .foregroundStyle(palette.ink)
 
                 Text("Tap to unlock surprise")
                     .font(.system(size: Fib.typeCaption))
-                    .foregroundStyle(WarmGlow.secondary)
+                    .foregroundStyle(palette.secondary)
 
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         Capsule()
-                            .fill(WarmGlow.border)
+                            .fill(palette.border)
 
                         Capsule()
-                            .fill(WarmGlow.accent)
+                            .fill(palette.accent)
                             .frame(width: geometry.size.width * progress)
                     }
                 }
@@ -162,11 +169,13 @@ struct WarmGlowCooldownButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: Fib.s55)
         }
-        .warmGlowInset(radius: Fib.radiusCard)
+        .warmGlowInset(palette: palette, radius: Fib.radiusCard)
     }
 }
 
 struct WarmGlowFlatButton: View {
+    @Environment(\.themePalette) private var palette
+
     let title: String
     let action: () -> Void
 
@@ -174,26 +183,28 @@ struct WarmGlowFlatButton: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: Fib.typeButton, weight: .semibold))
-                .foregroundStyle(WarmGlow.surface)
+                .foregroundStyle(palette.surface)
                 .frame(maxWidth: .infinity)
                 .frame(height: Fib.s55)
                 .background(
                     RoundedRectangle(cornerRadius: Fib.radiusCard)
-                        .fill(WarmGlow.accent)
+                        .fill(palette.accent)
                 )
         }
     }
 }
 
 struct WarmGlowInsetField: View {
+    @Environment(\.themePalette) private var palette
+
     @Binding var text: String
     let placeholder: String
 
     var body: some View {
         TextField(placeholder, text: $text)
             .font(.system(size: Fib.typeCaption))
-            .foregroundStyle(WarmGlow.ink)
+            .foregroundStyle(palette.ink)
             .padding(Fib.s13)
-            .warmGlowInset(radius: Fib.radiusField)
+            .warmGlowInset(palette: palette, radius: Fib.radiusField)
     }
 }

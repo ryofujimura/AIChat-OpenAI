@@ -8,42 +8,68 @@
 import SwiftUI
 
 struct HeartWarmingChatView: View {
+    @EnvironmentObject private var themeStore: ThemeStore
     @StateObject private var viewModel = HeartWarmingChatModel()
     @State private var userInput = ""
+    @State private var showThemeSettings = false
 
     private let cooldownDuration = 10
 
+    private var palette: ThemePalette { themeStore.currentPalette }
+
     var body: some View {
-        ZStack {
-            WarmGlow.base
-                .ignoresSafeArea()
+        NavigationStack {
+            ZStack {
+                palette.base
+                    .ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                Spacer()
+                VStack(spacing: 0) {
+                    Spacer()
 
-                WarmGlowMessageCard(isLoading: viewModel.isCompleting) {
-                    if let responseText = viewModel.responseText {
-                        Text(responseText)
-                    } else {
-                        Text("...")
+                    WarmGlowMessageCard(isLoading: viewModel.isCompleting) {
+                        if let responseText = viewModel.responseText {
+                            Text(responseText)
+                        } else {
+                            Text("...")
+                        }
                     }
+
+                    Spacer()
+                        .frame(height: Fib.s55)
+
+                    actionArea
+
+                    Spacer()
                 }
+                .padding(.horizontal, Fib.s21)
+                .padding(.vertical, Fib.s34)
 
-                Spacer()
-                    .frame(height: Fib.s55)
-
-                actionArea
-
-                Spacer()
+                if viewModel.showEmojiPopup {
+                    EmojiPopupView(
+                        emojis: viewModel.responseEmojis,
+                        isShowing: $viewModel.showEmojiPopup
+                    )
+                }
             }
-            .padding(.horizontal, Fib.s21)
-            .padding(.vertical, Fib.s34)
-
-            if viewModel.showEmojiPopup {
-                EmojiPopupView(
-                    emojis: viewModel.responseEmojis,
-                    isShowing: $viewModel.showEmojiPopup
-                )
+            .environment(\.themePalette, palette)
+            .navigationTitle("Receipt")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showThemeSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: Fib.typeButton))
+                            .foregroundStyle(palette.ink)
+                    }
+                    .accessibilityLabel("Color theme settings")
+                }
+            }
+            .sheet(isPresented: $showThemeSettings) {
+                ThemeSettingsView()
+                    .environmentObject(themeStore)
+                    .environment(\.themePalette, palette)
             }
         }
     }
@@ -61,11 +87,11 @@ struct HeartWarmingChatView: View {
         VStack(spacing: Fib.s13) {
             Text("Easter Egg Mode!")
                 .font(.system(size: Fib.typeButton, weight: .semibold))
-                .foregroundStyle(WarmGlow.ink)
+                .foregroundStyle(palette.ink)
 
             Text("Tell us your needs:")
                 .font(.system(size: Fib.typeCaption))
-                .foregroundStyle(WarmGlow.secondary)
+                .foregroundStyle(palette.secondary)
 
             WarmGlowInsetField(text: $userInput, placeholder: "Enter your needs")
 
@@ -80,7 +106,7 @@ struct HeartWarmingChatView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: Fib.radiusCard)
-                .fill(WarmGlow.surface)
+                .fill(palette.surface)
         )
     }
 
@@ -104,4 +130,5 @@ struct HeartWarmingChatView: View {
 
 #Preview {
     HeartWarmingChatView()
+        .environmentObject(ThemeStore())
 }

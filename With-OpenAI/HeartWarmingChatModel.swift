@@ -75,7 +75,8 @@ class HeartWarmingChatModel: ObservableObject {
                         self.responseText = separated.text
                         self.responseEmojis = separated.emojis
                         self.isCompleting = false
-                        
+                        ThemeStorage.saveReceiptMessage(separated.text)
+
                         // Show emoji popup if we have emojis
                         if !separated.emojis.isEmpty {
                             self.showEmojiPopup = true
@@ -115,7 +116,8 @@ class HeartWarmingChatModel: ObservableObject {
                         self.responseText = separated.text
                         self.responseEmojis = separated.emojis
                         self.isCompleting = false
-                        
+                        ThemeStorage.saveReceiptMessage(separated.text)
+
                         // Show emoji popup if we have emojis
                         if !separated.emojis.isEmpty {
                             self.showEmojiPopup = true
