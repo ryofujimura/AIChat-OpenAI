@@ -8,57 +8,194 @@
 import Foundation
 import OpenAIKit
 
-class HeartWarmingChatModel: ObservableObject {
-    @Published var responseText: String?
-    @Published var responseEmojis: [String] = []
-    @Published var isCompleting: Bool = false
-    
-    @Published var isButtonDisabled = false
-    @Published var countdown = 0
-    
-    @Published var disabledTapCount = 0
-    @Published var showEasterEggForm = false
-    
-    @Published var showEmojiPopup = false
-    
-    private var cooldownTimer: Timer?
-    
-    let chat: [ChatMessage] = [
-        ChatMessage(role: .system, content: "Answer under 40 letters and 3 fitting emojis. be unique."),
-        ChatMessage(role: .user, content: "motivate me with heart warming words"),
-    ]
-    
-    private func separateEmojisFromText(_ text: String) -> (text: String, emojis: [String]) {
-        var cleanText = text
+private struct HeartWarmingResponse: Decodable {
+    let sentences: [String]
+    let expressiveEmojis: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case sentences
+        case text
+        case expressiveEmojis
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        sentences = Self.decodeSentences(from: container)
+        expressiveEmojis = Self.decodeExpressiveEmojis(from: container)
+    }
+
+    private static func decodeSentences(from container: KeyedDecodingContainer<CodingKeys>) -> [String] {
+        if let sentences = try? container.decode([String].self, forKey: .sentences) {
+            return sentences
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+        }
+
+        if let sentenceString = try? container.decode(String.self, forKey: .sentences) {
+            return parseSentenceString(sentenceString)
+        }
+
+        if let text = try? container.decode(String.self, forKey: .text) {
+            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmed.isEmpty ? [] : [trimmed]
+        }
+
+        return []
+    }
+
+    private static func decodeExpressiveEmojis(from container: KeyedDecodingContainer<CodingKeys>) -> [String] {
+        if let emojis = try? container.decode([String].self, forKey: .expressiveEmojis) {
+            return emojis
+        }
+
+        if let emojiString = try? container.decode(String.self, forKey: .expressiveEmojis) {
+            return extractEmojis(from: emojiString)
+        }
+
+        return []
+    }
+
+    private static func parseSentenceString(_ value: String) -> [String] {
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return [] }
+
+        if trimmed.hasPrefix("["),
+           let data = trimmed.data(using: .utf8),
+           let sentences = try? JSONDecoder().decode([String].self, from: data) {
+            return sentences
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+        }
+
+        return trimmed
+            .components(separatedBy: "\n")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    static func extractEmojis(from text: String) -> [String] {
         var emojis: [String] = []
-        
-        // Extract emojis using Unicode scalar properties
-        let emojiPattern = "\\p{Emoji}"
-        let regex = try? NSRegularExpression(pattern: emojiPattern, options: [])
-        
-        if let regex = regex {
-            let range = NSRange(location: 0, length: text.utf16.count)
-            let matches = regex.matches(in: text, options: [], range: range)
-            
-            // Extract emojis in reverse order to maintain indices
-            for match in matches.reversed() {
-                if let range = Range(match.range, in: text) {
-                    let emoji = String(text[range])
-                    emojis.insert(emoji, at: 0) // Insert at beginning to maintain order
-                    cleanText.removeSubrange(range)
-                }
+        var current = ""
+
+        for character in text {
+            let isEmoji = character.unicodeScalars.contains {
+                $0.properties.isEmoji || $0.properties.isEmojiPresentation
+            }
+
+            if isEmoji {
+                current.append(character)
+            } else if !current.isEmpty {
+                emojis.append(current)
+                current = ""
             }
         }
-        
-        // Clean up extra whitespace
-        cleanText = cleanText.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        return (cleanText, emojis)
+
+        if !current.isEmpty {
+            emojis.append(current)
+        }
+
+        return emojis
     }
-    
+}
+
+class HeartWarmingChatModel: ObservableObject {
+    @Published var responseSentences: [String] = []
+    @Published var responseEmojis: [String] = []
+    @Published var isCompleting: Bool = false
+
+    @Published var isButtonDisabled = false
+    @Published var countdown = 0
+
+    @Published var disabledTapCount = 0
+    @Published var showEasterEggForm = false
+
+    @Published var showEmojiPopup = false
+
+    private var cooldownTimer: Timer?
+
+    private static let responseFunction = Function(
+        name: "deliverHeartWarmingMessage",
+        description: "Return a warm message with one sentence per array item and separate mood emojis.",
+        parameters: Parameters(
+            type: "object",
+            properties: [
+                "sentences": ParameterDetail(
+                    type: "string",
+                    description: "JSON array where each item is exactly one complete sentence. Example: [\"Enjoy your coffee\"] or [\"You are enough.\", \"Keep going today.\", \"You matter.\"]"
+                ),
+                "expressiveEmojis": ParameterDetail(
+                    type: "string",
+                    description: "Exactly 3 mood or feeling emojis only — not nouns from the sentence. Example: 😊✨💖"
+                ),
+            ],
+            required: ["sentences", "expressiveEmojis"]
+        )
+    )
+
+    private static let systemPrompt = """
+    You are a warm, encouraging assistant. Always call deliverHeartWarmingMessage.
+    - sentences: a JSON array with exactly 1 sentence. Each array item must be one complete sentence. Use words only — no emojis. Total length under 40 characters. If you mention coffee, flowers, or anything else, write the word.
+    - expressiveEmojis: exactly 3 emojis that express mood or feeling only, not objects from the sentence.
+    Be unique.
+    """
+
+    private static let easterEggSystemPrompt = """
+    You are a kind and supportive friend. Always call deliverHeartWarmingMessage.
+    - sentences: a JSON array with one or more sentences. Each array item must be one complete sentence. Use words only — no emojis. Total length under 60 characters.
+    - expressiveEmojis: exactly 3 emojis that express mood or feeling only, not objects from the sentence.
+    """
+
+    let chat: [ChatMessage] = [
+        ChatMessage(role: .system, content: systemPrompt),
+        ChatMessage(role: .user, content: "motivate me with heart warming words"),
+    ]
+
+    private func parseStructuredResponse(from message: ChatMessage) -> (sentences: [String], emojis: [String])? {
+        if let functionCall = message.functionCall,
+           functionCall.name == Self.responseFunction.name,
+           let data = functionCall.arguments.data(using: .utf8),
+           let response = try? JSONDecoder().decode(HeartWarmingResponse.self, from: data),
+           !response.sentences.isEmpty {
+            return (response.sentences, response.expressiveEmojis)
+        }
+
+        guard let content = message.content?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !content.isEmpty,
+              let data = content.data(using: .utf8),
+              let response = try? JSONDecoder().decode(HeartWarmingResponse.self, from: data),
+              !response.sentences.isEmpty else {
+            return nil
+        }
+
+        return (response.sentences, response.expressiveEmojis)
+    }
+
+    private func applyResponse(from message: ChatMessage) {
+        if let parsed = parseStructuredResponse(from: message) {
+            responseSentences = parsed.sentences
+            responseEmojis = parsed.emojis
+            if !parsed.emojis.isEmpty {
+                showEmojiPopup = true
+            }
+        } else if let content = message.content?.trimmingCharacters(in: .whitespacesAndNewlines), !content.isEmpty {
+            responseSentences = [content]
+            responseEmojis = []
+        }
+        isCompleting = false
+    }
+
+    private func chatParameters(messages: [ChatMessage]) -> ChatParameters {
+        ChatParameters(
+            model: .chatGPTTurbo,
+            messages: messages,
+            functionCall: "{\"name\": \"\(Self.responseFunction.name)\"}",
+            functions: [Self.responseFunction]
+        )
+    }
+
     func generateCompletion() {
         isCompleting = true
-        
+
         Task {
             do {
                 let config = Configuration(
@@ -66,20 +203,17 @@ class HeartWarmingChatModel: ObservableObject {
                     apiKey: openAIAPIKey
                 )
                 let openAI = OpenAI(config)
-                let chatParameters = ChatParameters(model: .chatGPTTurbo, messages: chat)
-                let chatCompletion = try await openAI.generateChatCompletion(parameters: chatParameters)
-                
+                let chatCompletion = try await openAI.generateChatCompletion(
+                    parameters: chatParameters(messages: chat)
+                )
+
                 if let message = chatCompletion.choices.first?.message {
                     DispatchQueue.main.async {
-                        let separated = self.separateEmojisFromText(message.content ?? "")
-                        self.responseText = separated.text
-                        self.responseEmojis = separated.emojis
+                        self.applyResponse(from: message)
+                    }
+                } else {
+                    DispatchQueue.main.async {
                         self.isCompleting = false
-                        
-                        // Show emoji popup if we have emojis
-                        if !separated.emojis.isEmpty {
-                            self.showEmojiPopup = true
-                        }
                     }
                 }
             } catch {
@@ -90,10 +224,10 @@ class HeartWarmingChatModel: ObservableObject {
             }
         }
     }
-    
+
     func generatePositiveFeedback(for userInput: String) {
         isCompleting = true
-        
+
         Task {
             do {
                 let config = Configuration(
@@ -102,24 +236,21 @@ class HeartWarmingChatModel: ObservableObject {
                 )
                 let openAI = OpenAI(config)
                 let easterEggMessages: [ChatMessage] = [
-                    ChatMessage(role: .system, content: "You are a kind and supportive friend. Respond to the user's needs with gentle, warm positivity and under 60 letters and 3 emojis."),
-                    ChatMessage(role: .user, content: "User's needs is \(userInput)\nPlease offer kind, encouraging words!")
+                    ChatMessage(role: .system, content: Self.easterEggSystemPrompt),
+                    ChatMessage(role: .user, content: "User's needs is \(userInput)\nPlease offer kind, encouraging words!"),
                 ]
-                
-                let chatParameters = ChatParameters(model: .chatGPTTurbo, messages: easterEggMessages)
-                let chatCompletion = try await openAI.generateChatCompletion(parameters: chatParameters)
-                
+
+                let chatCompletion = try await openAI.generateChatCompletion(
+                    parameters: chatParameters(messages: easterEggMessages)
+                )
+
                 if let message = chatCompletion.choices.first?.message {
                     DispatchQueue.main.async {
-                        let separated = self.separateEmojisFromText(message.content ?? "")
-                        self.responseText = separated.text
-                        self.responseEmojis = separated.emojis
+                        self.applyResponse(from: message)
+                    }
+                } else {
+                    DispatchQueue.main.async {
                         self.isCompleting = false
-                        
-                        // Show emoji popup if we have emojis
-                        if !separated.emojis.isEmpty {
-                            self.showEmojiPopup = true
-                        }
                     }
                 }
             } catch {
@@ -130,7 +261,7 @@ class HeartWarmingChatModel: ObservableObject {
             }
         }
     }
-    
+
     func startCooldown() {
         isButtonDisabled = true
         countdown = 10
@@ -138,7 +269,7 @@ class HeartWarmingChatModel: ObservableObject {
         showEasterEggForm = false
         showEmojiPopup = false
         cooldownTimer?.invalidate()
-        
+
         cooldownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.countdown > 1 {
@@ -151,10 +282,10 @@ class HeartWarmingChatModel: ObservableObject {
             }
         }
     }
-    
+
     func incrementDisabledTapCount() {
         guard isButtonDisabled && !showEasterEggForm else { return }
-        
+
         disabledTapCount += 1
         if disabledTapCount > 20 {
             showEasterEggForm = true
