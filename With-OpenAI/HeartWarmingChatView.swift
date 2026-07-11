@@ -86,9 +86,6 @@ struct HeartWarmingChatView: View {
             ResponseHistoryView()
         }
         .onAppear {
-            if displayedMessage == nil, let last = CheerSharedStorage.lastMessage {
-                displayedMessage = last
-            }
             attemptAutoGenerate()
         }
         .onChange(of: pendingAutoGenerate) { _ in
