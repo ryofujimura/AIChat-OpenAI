@@ -121,7 +121,7 @@ class HeartWarmingChatModel: ObservableObject {
             properties: [
                 "sentences": ParameterDetail(
                     type: "string",
-                    description: "JSON array where each item is exactly one complete sentence. Use one item for a single sentence. Example: [\"Enjoy your coffee\"] or [\"You are enough.\", \"Keep going today.\"]"
+                    description: "JSON array where each item is exactly one complete sentence. Example: [\"Enjoy your coffee\"] or [\"You are enough.\", \"Keep going today.\", \"You matter.\"]"
                 ),
                 "expressiveEmojis": ParameterDetail(
                     type: "string",
@@ -141,7 +141,7 @@ class HeartWarmingChatModel: ObservableObject {
 
     private static let easterEggSystemPrompt = """
     You are a kind and supportive friend. Always call deliverHeartWarmingMessage.
-    - sentences: a JSON array with 1 or 2 sentences. Each array item must be one complete sentence. Use words only — no emojis. Total length under 60 characters.
+    - sentences: a JSON array with one or more sentences. Each array item must be one complete sentence. Use words only — no emojis. Total length under 60 characters.
     - expressiveEmojis: exactly 3 emojis that express mood or feeling only, not objects from the sentence.
     """
 
