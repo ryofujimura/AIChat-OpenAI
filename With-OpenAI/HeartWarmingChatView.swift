@@ -22,10 +22,16 @@ struct HeartWarmingChatView: View {
                 Spacer()
 
                 WarmGlowMessageCard(isLoading: viewModel.isCompleting) {
-                    if let responseText = viewModel.responseText {
-                        Text(responseText)
-                    } else {
+                    if viewModel.responseSentences.isEmpty {
                         Text("...")
+                    } else if viewModel.responseSentences.count == 1 {
+                        Text(viewModel.responseSentences[0])
+                    } else {
+                        VStack(spacing: Fib.s13) {
+                            ForEach(Array(viewModel.responseSentences.enumerated()), id: \.offset) { _, sentence in
+                                Text(sentence)
+                            }
+                        }
                     }
                 }
 
